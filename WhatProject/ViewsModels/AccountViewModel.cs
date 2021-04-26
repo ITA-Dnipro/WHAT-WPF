@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Windows.Data;
 using System.Windows.Input;
+using WhatProject.Views;
 
 namespace WhatProject
 {
@@ -33,11 +34,12 @@ namespace WhatProject
             GridItems.Add(new AccountConfiguration("trump@gmail.com", "Donald", "Trump", "1111", 4));
             GridItems.Add(new AccountConfiguration("rivia@gmail.com", "Geralt", "of Rivia", "1111", 4));
 
-            showAllAccountsCommand = new Command(showAllAccounts);
-            showStudentsCommand = new Command(showStudents);
-            showAdminsCommand = new Command(showAdmins);
-            showSecretariesCommand = new Command(showSecretaries);
-            showMentorsCommand = new Command(showMentors);
+            showAllAccountsCommand = new Command(ShowAllAccounts);
+            showStudentsCommand = new Command(ShowStudents);
+            showAdminsCommand = new Command(ShowAdmins);
+            showSecretariesCommand = new Command(ShowSecretaries);
+            showMentorsCommand = new Command(ShowMentors);
+            openAddUserWindowCommand = new Command(OpenAddUserWindow);
         }
 
         #region ---===  Commands  ===---
@@ -45,7 +47,7 @@ namespace WhatProject
         private ICommand showAllAccountsCommand;
         public ICommand ShowAllAccountsCommand { get => showAllAccountsCommand; }
 
-        private void showAllAccounts()
+        private void ShowAllAccounts()
         {
             buttonsMenu.ShowAllAccounts(ItemsView);
         }
@@ -53,30 +55,39 @@ namespace WhatProject
         private ICommand showStudentsCommand;
         public ICommand ShowStudentsCommand { get => showStudentsCommand; }
 
-        private void showStudents()
+        private void ShowStudents()
         {
             buttonsMenu.ShowStudens(ItemsView, filter);
         }
 
         private ICommand showAdminsCommand;
         public ICommand ShowAdminsCommand { get => showAdminsCommand; }
-        private void showAdmins()
+        private void ShowAdmins()
         {
             buttonsMenu.ShowAdmins(ItemsView, filter);
         }
 
         private ICommand showSecretariesCommand;
         public ICommand ShowSecretariesCommand { get => showSecretariesCommand; }
-        private void showSecretaries()
+        private void ShowSecretaries()
         {
             buttonsMenu.ShowSecretaries(ItemsView, filter);
         }
 
         private ICommand showMentorsCommand;
         public ICommand ShowMentorsCommand { get => showMentorsCommand; }
-        private void showMentors()
+        private void ShowMentors()
         {
             buttonsMenu.ShowMentors(ItemsView, filter);
+        }
+
+        private ICommand openAddUserWindowCommand;
+        public ICommand OpenAddUserWindowCommand { get => openAddUserWindowCommand; }
+
+        void OpenAddUserWindow()
+        {
+            AddUserWindow addUserWindow = new AddUserWindow();
+            addUserWindow.Show();
         }
         #endregion
 

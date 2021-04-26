@@ -180,11 +180,11 @@
                                 Width="100" Height="25" 
                                 HorizontalAlignment="Right" VerticalAlignment="Center" 
                                 Margin="0,10,19,-10"
-                                Command="{Binding AddAcc}"/>
+                                Command="{Binding OpenAddUserWindowCommand}"/>
                     </Grid>
                 </StackPanel>
             </Border>
-            <DataGrid x:Name="Users" ItemsSource="{Binding ItemsView}" FontSize="18" CanUserAddRows="False" Margin="0,0,10,10" AutoGenerateColumns="False" Grid.Row="2">
+            <DataGrid x:Name="Users" ItemsSource="{Binding GridItems}" FontSize="18" CanUserAddRows="False" Margin="0,0,10,10" AutoGenerateColumns="False" Grid.Row="2">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="First name" Binding="{Binding Path=FirstName}" Width="150" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Last name" Binding="{Binding Path=LastName}" Width="150" IsReadOnly="True"/>
