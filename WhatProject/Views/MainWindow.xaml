@@ -48,7 +48,7 @@
     <Grid>
         <Frame x:Name="MainFrame"
                Width="860"
-               Margin="210,80,10,13"
+               Margin="210,80,10,10"
                Content="{Binding CurrentPage}"
                NavigationUIVisibility="Hidden"/>
         <Grid x:Name="WindowHeaderGrid" Height="70" VerticalAlignment="Top" Background="#FF2D3341" MouseDown="WindowHeaderGrid_MouseDown">

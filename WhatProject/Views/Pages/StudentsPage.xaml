@@ -8,34 +8,30 @@
       d:DesignHeight="600" d:DesignWidth="860"
       Title="StudentsPage">
 
-    <Grid x:Name="GridUsers" Height="545" Width="870" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+    <Grid x:Name="GridUsers" Height="600" Width="860" VerticalAlignment="Bottom" HorizontalAlignment="Right">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="53"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Border x:Name="ButtonsUsers" Background="White" Margin="0,-48,10,44" CornerRadius="3">
-            <StackPanel>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Button x:Name="ButtonAddUser" 
+        <Border x:Name="ButtonsUsers" 
+                Background="White"  
+                CornerRadius="3" Grid.ColumnSpan="2"
+                Margin="5 5 5 0"
+                Grid.Row="0">
+            <Button x:Name="ButtonAddUser" 
                                 Content="Add User" 
                                 Grid.Column="1" 
                                 Width="100" Height="25" 
                                 HorizontalAlignment="Right" VerticalAlignment="Center" 
-                                Margin="0,10,19,-10"
+                                Margin="0,10,20,10"
                                 Command="{Binding OpenAddUserWindowCommand}"/>
-                </Grid>
-            </StackPanel>
         </Border>
-        <DataGrid x:Name="Users" 
-                  ItemsSource="{Binding ItemsView}" 
+        <DataGrid x:Name="Users"
+                  ItemsSource="{Binding ItemsView}"
                   FontSize="18" 
                   CanUserAddRows="False" 
-                  Margin="10,6,10,10" 
-                  AutoGenerateColumns="False" Grid.RowSpan="2">
+                  Margin="5,-4,5,5" 
+                  AutoGenerateColumns="False" Grid.ColumnSpan="3" Grid.Row="1">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="First name" Binding="{Binding Path=FirstName}" Width="150" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Last name" Binding="{Binding Path=LastName}" Width="150" IsReadOnly="True"/>
@@ -53,5 +49,6 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <Separator Grid.Column="0" Grid.Row="0" VerticalAlignment="Bottom" Width="825"/>
     </Grid>
 </Page>

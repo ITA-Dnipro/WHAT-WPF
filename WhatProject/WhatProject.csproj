@@ -67,19 +67,19 @@
     <Compile Include="Interfaces\IUserFilter.cs" />
     <Compile Include="Models\Command.cs" />
     <Compile Include="Models\UserFilter.cs" />
-    <Compile Include="Pages\CoursesPage.xaml.cs">
+    <Compile Include="Views\Pages\CoursesPage.xaml.cs">
       <DependentUpon>CoursesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\GroupsPage.xaml.cs">
+    <Compile Include="Views\Pages\GroupsPage.xaml.cs">
       <DependentUpon>GroupsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\LessonsPage.xaml.cs">
+    <Compile Include="Views\Pages\LessonsPage.xaml.cs">
       <DependentUpon>LessonsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\SchedulePage.xaml.cs">
+    <Compile Include="Views\Pages\SchedulePage.xaml.cs">
       <DependentUpon>SchedulePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\SettingsPage.xaml.cs">
+    <Compile Include="Views\Pages\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewsModels\PagesViewModels\AdminsViewModel.cs" />
@@ -89,61 +89,61 @@
     <Compile Include="ViewsModels\PagesViewModels\MentorsViewModel.cs" />
     <Compile Include="ViewsModels\PagesViewModels\ScheduleViewModel.cs" />
     <Compile Include="ViewsModels\PagesViewModels\SecretariesViewModel.cs" />
-    <Compile Include="Pages\AdminsPage.xaml.cs">
+    <Compile Include="Views\Pages\AdminsPage.xaml.cs">
       <DependentUpon>AdminsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\AllAccountsPage.xaml.cs">
+    <Compile Include="Views\Pages\AllAccountsPage.xaml.cs">
       <DependentUpon>AllAccountsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\MentorsPage.xaml.cs">
+    <Compile Include="Views\Pages\MentorsPage.xaml.cs">
       <DependentUpon>MentorsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\SecretariesPage.xaml.cs">
+    <Compile Include="Views\Pages\SecretariesPage.xaml.cs">
       <DependentUpon>SecretariesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\StudentsPage.xaml.cs">
+    <Compile Include="Views\Pages\StudentsPage.xaml.cs">
       <DependentUpon>StudentsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewsModels\PagesViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewsModels\PagesViewModels\StudentsViewModel.cs" />
     <Compile Include="ViewsModels\AccountViewModel.cs" />
-    <Page Include="Pages\AdminsPage.xaml">
+    <Page Include="Views\Pages\AdminsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\AllAccountsPage.xaml">
+    <Page Include="Views\Pages\AllAccountsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\CoursesPage.xaml">
+    <Page Include="Views\Pages\CoursesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\GroupsPage.xaml">
+    <Page Include="Views\Pages\GroupsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\LessonsPage.xaml">
+    <Page Include="Views\Pages\LessonsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\MentorsPage.xaml">
+    <Page Include="Views\Pages\MentorsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\SchedulePage.xaml">
+    <Page Include="Views\Pages\SchedulePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\SecretariesPage.xaml">
+    <Page Include="Views\Pages\SecretariesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\SettingsPage.xaml">
+    <Page Include="Views\Pages\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\StudentsPage.xaml">
+    <Page Include="Views\Pages\StudentsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
