@@ -10,8 +10,8 @@
       Title="GroupsPage">
 
     <Grid>
-        <DataGrid AutoGenerateColumns="True"
-                  ItemsSource="{Binding GroupsItem}"
+        <DataGrid AutoGenerateColumns="False"
+                  ItemsSource="{Binding GroupsView}"
                   CanUserDeleteRows="False"
                   CanUserAddRows="False">
             <DataGrid.Columns>

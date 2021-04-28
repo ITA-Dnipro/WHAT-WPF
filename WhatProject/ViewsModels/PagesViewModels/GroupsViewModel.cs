@@ -4,7 +4,7 @@
     {
         public GroupsViewModel()
         {
-
+            GroupsView.Filter = null;
         }
     }
 }
