@@ -1,11 +1,19 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows.Controls;
 using System.Windows.Data;
 
 namespace WhatProject
 {
     class InitializeViewModel : ViewModel
     {
+        private Page currentPage;
+        public Page CurrentPage
+        {
+            get => currentPage;
+            set { currentPage = value; OnPropertyChanged(nameof(CurrentPage)); }
+        }
+
         protected IUserFilter filter = new UserFilter();
 
         private ObservableCollection<AccountConfiguration> gridItems;
@@ -15,11 +23,11 @@ namespace WhatProject
             set
             {
                 gridItems = value;
-                OnPropertyChanged(nameof(GridItems));
+                OnPropertyChanged(nameof(ItemsView));
             }
         }
 
-        public ICollectionView ItemsView { get => CollectionViewSource.GetDefaultView(GridItems);}
+        public ICollectionView ItemsView {get => CollectionViewSource.GetDefaultView(GridItems);}
 
         public InitializeViewModel()
         {

@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WhatProject"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" d:DataContext="{d:DesignInstance Type=local:MainViewModel}"
         mc:Ignorable="d"
         Title="MainWindow" Height="685" Width="1080"
         WindowStyle="None"
@@ -92,7 +92,7 @@
                     </Button>
                 </Grid>
                 <Button x:Name="ButtonStudents" 
-                        Height="60" Width="200" 
+                        Height="60" 
                         Background="#FF2D3341" BorderBrush="{x:Null}"
                         Command="{Binding ShowStudentsCommand}">
                     <StackPanel Orientation="Horizontal" Width="180">

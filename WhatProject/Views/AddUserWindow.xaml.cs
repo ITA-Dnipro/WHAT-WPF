@@ -15,7 +15,7 @@ namespace WhatProject.Views
             viewModel.ClosingRequest += (sender, e) => Close();
         }
 
-        private void AddUserBorder_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void AddUserBorder_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {

@@ -1,11 +1,9 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Windows;
+﻿using System.Windows.Data;
 using System.Windows.Input;
 
 namespace WhatProject
 {
-    public class AddUserViewModel : ViewModel, INotifyPropertyChanged
+    class AddUserViewModel : InitializeViewModel
     {
         private string firstName;
         public string FirstName { get => firstName; set { firstName = value; } }
@@ -38,9 +36,8 @@ namespace WhatProject
 
         private void AddNewAccount()
         {
+            GridItems.Add(new AccountConfiguration(Email, FirstName, LastName, Password, 4));
+            OnClosingRequest();
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

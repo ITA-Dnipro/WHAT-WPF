@@ -5,23 +5,17 @@ namespace WhatProject
 {
     class MainViewModel : InitializeViewModel
     {
-        private Page allAccountsPage = new Pages.AllAccountsPage();
-        private Page studentsPage = new Pages.StudentsPage();
-        private Page secretariesPage = new Pages.SecretariesPage();
-        private Page mentorsPage = new Pages.MentorsPage();
-        private Page adminsPage = new Pages.AdminsPage();
-        private Page groupsPage = new Pages.GroupsPage();
-        private Page coursesPage = new Pages.CoursesPage();
-        private Page schedulePage = new Pages.SchedulePage();
-        private Page lessonsPage = new Pages.LessonsPage();
-        private Page settingsPage = new Pages.SettingsPage();
 
-        private Page currentPage;
-        public Page CurrentPage
-        {
-            get => currentPage;
-            set { currentPage = value; OnPropertyChanged(nameof(CurrentPage)); }
-        }
+        protected Page allAccountsPage = new Pages.AllAccountsPage();
+        protected Page studentsPage = new Pages.StudentsPage();
+        protected Page secretariesPage = new Pages.SecretariesPage();
+        protected Page mentorsPage = new Pages.MentorsPage();
+        protected Page adminsPage = new Pages.AdminsPage();
+        protected Page groupsPage = new Pages.GroupsPage();
+        protected Page coursesPage = new Pages.CoursesPage();
+        protected Page schedulePage = new Pages.SchedulePage();
+        protected Page lessonsPage = new Pages.LessonsPage();
+        protected Page settingsPage = new Pages.SettingsPage();
 
         public MainViewModel()
         {

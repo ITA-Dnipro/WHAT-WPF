@@ -7,7 +7,6 @@ namespace WhatProject.Pages
         public AllAccountsPage()
         {
             InitializeComponent();
-
             DataContext = new AllAccountsViewModel();
         }
     }
