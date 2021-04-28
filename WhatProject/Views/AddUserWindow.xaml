@@ -5,41 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WhatProject.Views"
         mc:Ignorable="d"
-                Title="AddUserWindow" Height="450" Width="800"
+        Title="AddUserWindow" Height="450" Width="550"
         WindowStyle="None"
-        ResizeMode="NoResize"
-        Foreground="Black"
-        Background="Transparent">
-    <Window.Resources>
-        <ControlTemplate x:Key="TextBoxControlTemplate" TargetType="{x:Type TextBoxBase}">
-            <Border CornerRadius="5" BorderBrush="Black" BorderThickness="1"
-                    Width="430"
-                    Height="50"/>
-        </ControlTemplate>
-        <ControlTemplate x:Key="PasswordBoxControlTemplate" TargetType="{x:Type PasswordBox}">
-            <Border CornerRadius="5" BorderBrush="Black" BorderThickness="1"
-                    Width="430"
-                    Height="50"/>
-        </ControlTemplate>
-        <ControlTemplate x:Key="ButtonCancelControlTemplate" TargetType="{x:Type Button}">
-            <Border CornerRadius="5" Background="Gray" BorderBrush="{x:Null}">
-                <TextBlock Text="Cancel"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           FontSize="25"/>
-            </Border>
-        </ControlTemplate>
-        <ControlTemplate x:Key="ButtonAcceptControlTemplate" TargetType="{x:Type Button}">
-            <Border CornerRadius="5" Background="ForestGreen" BorderBrush="{x:Null}">
-                <TextBlock Text="Accept"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           FontSize="25"/>
-            </Border>
-        </ControlTemplate>
-    </Window.Resources>
+        ResizeMode="NoResize">
 
-    <Border Background="LightGray" CornerRadius="15">
+    <Border x:Name="AddUserBorder" Background="LightGray" MouseDown="AddUserBorder_MouseDown">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="70"/>
@@ -87,25 +57,27 @@
             <TextBox x:Name="TextBoxFirstName"
                      Grid.Column="1"
                      Grid.Row="1"
-                     Margin="77,11,78,10"
-                     Template="{StaticResource TextBoxControlTemplate}"
-                     />
+                     Margin="44,11,44,10"
+                     FontSize="20"
+                     Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged }"/>
             <TextBox x:Name="TextBoxLastName"
                      Grid.Column="1"
                      Grid.Row="2"
-                     Margin="77,11,78,10"
-                     Template="{StaticResource TextBoxControlTemplate}"/>
+                     Margin="44,11,44,10"
+                     FontSize="20"
+                     Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged }"/>
             <TextBox x:Name="TextBoxEmail"
                      Grid.Column="1"
                      Grid.Row="3"
-                     Margin="77,11,78,10"
-                     Template="{StaticResource TextBoxControlTemplate}"/>
-            <PasswordBox x:Name="TextBoxPassword"
+                     Margin="44,11,44,10"
+                     FontSize="20"
+                     Text="{Binding Email, UpdateSourceTrigger=PropertyChanged }"/>
+            <TextBox x:Name="TextBoxPassword"
                      Grid.Column="1"
                      Grid.Row="4"
-                     Margin="77,11,78,10"
-                     Template="{StaticResource PasswordBoxControlTemplate}"
-                     PasswordChar="*"/>
+                     Margin="44,11,44,10"
+                     FontSize="20"
+                     Text="{Binding Password, UpdateSourceTrigger=PropertyChanged }"/>
             <Button x:Name="ButtonCancel"
                     Grid.Column="0"
                     Grid.Row="5"
@@ -113,8 +85,12 @@
                     Height="50"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
-                    Template="{StaticResource ButtonCancelControlTemplate}"
-                    IsCancel="True" Cursor="Arrow"/>
+                    IsCancel="True" Cursor="Arrow"
+                    Background="Gray"
+                    Foreground="Black"
+                    FontSize="20"
+                    Content="Cancel"
+                    Command="{Binding CancelButtonCommand}"/>
             <Button x:Name="ButtonAccept"
                     Grid.Column="1"
                     Grid.Row="5"
@@ -122,7 +98,12 @@
                     Height="50"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
-                    Template="{StaticResource ButtonAcceptControlTemplate}"/>
+                    Background="ForestGreen"
+                    FontSize="20"
+                    Content="Accept"
+                    BorderBrush="Black"
+                    Command="{Binding AddNewAccountCommand}"/>
         </Grid>
     </Border>
 </Window>
+

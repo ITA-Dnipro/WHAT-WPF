@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WhatProject"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" d:DataContext="{d:DesignInstance Type=local:AccountViewModel}"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="MainWindow" Height="685" Width="1080"
         WindowStyle="None"
@@ -13,18 +13,14 @@
         Background="LightGray">
 
     <Window.Resources>
-        <Storyboard x:Key="MenuClose">
+        <!--<Storyboard x:Key="MenuClose">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
                 <EasingDoubleKeyFrame KeyTime="0" Value="200"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0:0.1" Value="55"/>
             </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridUsers">
-                <EasingDoubleKeyFrame KeyTime="0" Value="870"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0:0.1" Value="1015"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="ButtonsUsers">
-                <EasingDoubleKeyFrame KeyTime="0" Value="870"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0:0.1" Value="1015"/>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="MainFrame">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1080"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0:0.1" Value="870"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="MenuOpen">
@@ -32,28 +28,29 @@
                 <EasingDoubleKeyFrame KeyTime="0" Value="70"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:0:0.1" Value="200"/>
             </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridUsers">
-                <EasingDoubleKeyFrame KeyTime="0" Value="1015"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0:0.1" Value="870"/>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="MainFrame">
+                <EasingDoubleKeyFrame KeyTime="0" Value="870"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0:0.1" Value="1015"/>
             </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="ButtonsUsers">
-                <EasingDoubleKeyFrame KeyTime="0" Value="1015"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0:0.1" Value="870"/>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
+        </Storyboard>-->
         <CollectionViewSource x:Key="itemsView" Source="{Binding GridItems}"/>
     </Window.Resources>
 
     <Window.Triggers>
-        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonOpenMenu">
+        <!--<EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonOpenMenu">
             <BeginStoryboard Storyboard="{StaticResource MenuOpen}"/>
         </EventTrigger>
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonCloseMenu">
             <BeginStoryboard Storyboard="{StaticResource MenuClose}"/>
-        </EventTrigger>
+        </EventTrigger>-->
     </Window.Triggers>
 
     <Grid>
+        <Frame x:Name="MainFrame"
+               Width="860"
+               Margin="210,80,10,13"
+               Content="{Binding CurrentPage}"
+               NavigationUIVisibility="Hidden"/>
         <Grid x:Name="WindowHeaderGrid" Height="70" VerticalAlignment="Top" Background="#FF2D3341" MouseDown="WindowHeaderGrid_MouseDown">
             <TextBlock Text="WHAT" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25"/>
             <Button x:Name="ButtonClose" VerticalAlignment="Top" HorizontalAlignment="Right" Height="25" Background="Transparent" BorderBrush="{x:Null}" Width="46" Click="ButtonClose_Click">
@@ -77,12 +74,12 @@
         <Grid x:Name="GridMenu" Width="200" HorizontalAlignment="Left" Background="#FF2D3341">
             <StackPanel>
                 <Grid x:Name="test" Height="150" Background="White">
-                    <Button x:Name="ButtonCloseMenu" Width="60" Height="60" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Right" Click="ButtonCloseMenu_Click">
+                    <!--<Button x:Name="ButtonCloseMenu" Width="60" Height="60" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Right" Click="ButtonCloseMenu_Click">
                         <materialDesign:PackIcon Foreground="#FF2D3341" Kind="ArrowLeft" Width="25" Height="25"/>
                     </Button>
                     <Button x:Name="ButtonOpenMenu" Width="60" Height="60" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Right" Click="ButtonOpenMenu_Click">
                         <materialDesign:PackIcon Foreground="#FF2D3341" Kind="Menu" Width="25" Height="25"/>
-                    </Button>
+                    </Button>-->
                     <Button x:Name="ButtonAllAccounts"
                             VerticalAlignment="Top" 
                             Background="White" BorderBrush="{x:Null}"
@@ -130,31 +127,46 @@
                         <TextBlock Text="Admins" VerticalAlignment="Center" Margin="20 10"/>
                     </StackPanel>
                 </Button>
-                <Button x:Name="ButtonGroups" Height="60" Width="200" Background="#FF2D3341" BorderBrush="{x:Null}">
+                <Button x:Name="ButtonGroups"
+                        Height="60" Width="200"
+                        Background="#FF2D3341" BorderBrush="{x:Null}"
+                        Command="{Binding ShowGroupsCommand}">
                     <StackPanel Orientation="Horizontal" Width="180">
                         <materialDesign:PackIcon Kind="AccountGroup" Width="25" Height="25" VerticalAlignment="Center"/>
                         <TextBlock Text="Groups" VerticalAlignment="Center" Margin="20 10"/>
                     </StackPanel>
                 </Button>
-                <Button x:Name="ButtonHomeWork" Height="60" Width="200" Background="#FF2D3341" BorderBrush="{x:Null}">
+                <Button x:Name="ButtonHomeWork" 
+                        Height="60" Width="200" 
+                        Background="#FF2D3341" BorderBrush="{x:Null}"
+                        Command="{Binding ShowCoursesCommand}">
                     <StackPanel Orientation="Horizontal" Width="180">
                         <materialDesign:PackIcon Kind="FileDocument" Width="25" Height="25" VerticalAlignment="Center"/>
                         <TextBlock Text="Courses" VerticalAlignment="Center" Margin="20 10"/>
                     </StackPanel>
                 </Button>
-                <Button x:Name="ButtonSchedule" Height="60" Width="200" Background="#FF2D3341" BorderBrush="{x:Null}">
+                <Button x:Name="ButtonSchedule" 
+                        Height="60" Width="200" 
+                        Background="#FF2D3341" BorderBrush="{x:Null}"
+                        Command="{Binding ShowScheduleCommand}">
                     <StackPanel Orientation="Horizontal" Width="180">
                         <materialDesign:PackIcon Kind="CalendarMonth" Width="25" Height="25" VerticalAlignment="Center"/>
                         <TextBlock Text="Schedule" VerticalAlignment="Center" Margin="20 10"/>
                     </StackPanel>
                 </Button>
-                <Button x:Name="ButtonLessons" Height="60" Width="200" Background="#FF2D3341" BorderBrush="{x:Null}">
+                <Button x:Name="ButtonLessons"
+                        Height="60" Width="200" 
+                        Background="#FF2D3341" BorderBrush="{x:Null}"
+                        Command="{Binding ShowLessonsCommand}">
                     <StackPanel Orientation="Horizontal" Width="180">
                         <materialDesign:PackIcon Kind="Pen" Width="25" Height="25" VerticalAlignment="Center"/>
                         <TextBlock Text="Lessons" VerticalAlignment="Center" Margin="20 10"/>
                     </StackPanel>
                 </Button>
-                <Button x:Name="ButtonSettings" Height="60" Width="200" Background="#FF2D3341" BorderBrush="{x:Null}">
+                <Button x:Name="ButtonSettings"
+                        Height="60" Width="200" 
+                        Background="#FF2D3341" BorderBrush="{x:Null}"
+                        Command="{Binding ShowSettingsCommand}">
                     <StackPanel Orientation="Horizontal" Width="180">
                         <materialDesign:PackIcon Kind="Cogs" Width="25" Height="25" VerticalAlignment="Center"/>
                         <TextBlock Text="Settings" VerticalAlignment="Center" Margin="20 10"/>
@@ -162,7 +174,7 @@
                 </Button>
             </StackPanel>
         </Grid>
-        <Grid x:Name="GridUsers" Height="545" Width="870" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+        <!--<Grid x:Name="GridUsers" Height="545" Width="870" VerticalAlignment="Bottom" HorizontalAlignment="Right">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition/>
@@ -202,6 +214,6 @@
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
-        </Grid>
+        </Grid>-->
     </Grid>
 </Window>
