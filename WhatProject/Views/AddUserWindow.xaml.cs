@@ -8,11 +8,6 @@ namespace WhatProject.Views
         public AddUserWindow()
         {
             InitializeComponent();
-
-            AddUserViewModel viewModel = new AddUserViewModel();
-            DataContext = viewModel;
-
-            viewModel.ClosingRequest += (sender, e) => Close();
         }
 
         private void AddUserBorder_MouseDown(object sender, MouseButtonEventArgs e)
@@ -21,6 +16,16 @@ namespace WhatProject.Views
             {
                 DragMove();
             }
+        }
+
+        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void ButtonAccept_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

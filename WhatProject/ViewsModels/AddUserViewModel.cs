@@ -1,7 +1,8 @@
-﻿using System.Windows.Data;
+﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace WhatProject
+namespace WhatProject.ViewsModels
 {
     class AddUserViewModel : InitializeViewModel
     {
@@ -17,18 +18,16 @@ namespace WhatProject
         private string password;
         public string Password { get => password; set { password = value; } }
 
+        private string role;
+        public string Role 
+        {
+            get => role; 
+            set { role = value; }
+        }
 
         public AddUserViewModel()
         {
-            cancelButtonCommand = new Command(CancelButton);
             addNewAccountCommand = new Command(AddNewAccount);
-        }
-
-        private ICommand cancelButtonCommand;
-        public ICommand CancelButtonCommand { get => cancelButtonCommand; }
-        private void CancelButton()
-        {
-            OnClosingRequest();
         }
 
         private ICommand addNewAccountCommand;
@@ -36,8 +35,7 @@ namespace WhatProject
 
         private void AddNewAccount()
         {
-            GridItems.Add(new AccountConfiguration(Email, FirstName, LastName, Password, 4));
-            OnClosingRequest();
+            GridItems.Add(new AccountConfiguration(Email, FirstName, LastName, Password, int.Parse(Role) + 1));
         }
     }
 }

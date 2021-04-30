@@ -1,19 +1,12 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows.Controls;
 using System.Windows.Data;
+using WhatProject.Interfaces;
 
 namespace WhatProject
 {
     class InitializeViewModel : ViewModel
     {
-        private Page currentPage;
-        public Page CurrentPage
-        {
-            get => currentPage;
-            set { currentPage = value; OnPropertyChanged(nameof(CurrentPage)); }
-        }
-
         protected IUserFilter filter = new UserFilter();
 
         private ObservableCollection<AccountConfiguration> gridItems;

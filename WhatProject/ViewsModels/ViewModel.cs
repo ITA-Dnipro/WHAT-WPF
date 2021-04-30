@@ -1,21 +1,23 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace WhatProject
 {
     public class ViewModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
         public event EventHandler ClosingRequest;
 
         protected void OnClosingRequest()
         {
-            if (ClosingRequest != null)
+            if (this.ClosingRequest != null)
             {
-                ClosingRequest(this, EventArgs.Empty);
+                this.ClosingRequest(this, EventArgs.Empty);
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

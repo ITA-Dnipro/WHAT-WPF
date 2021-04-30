@@ -1,14 +1,27 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
-namespace WhatProject.Pages
+namespace WhatProject.Views.Pages
 {
-    public partial class GroupsPage : Page
+    /// <summary>
+    /// Interaction logic for GroupsPage.xaml
+    /// </summary>
+    public partial class GroupsPage : Window
     {
         public GroupsPage()
         {
             InitializeComponent();
-
-            DataContext = new GroupsViewModel();
         }
     }
 }

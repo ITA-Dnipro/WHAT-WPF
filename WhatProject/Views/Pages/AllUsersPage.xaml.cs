@@ -3,9 +3,9 @@ using System.Windows.Controls;
 
 namespace WhatProject.Views.Pages
 {
-    public partial class AdminsPage : Page
+    public partial class AllUsersPage : Page
     {
-        public AdminsPage()
+        public AllUsersPage()
         {
             InitializeComponent();
         }

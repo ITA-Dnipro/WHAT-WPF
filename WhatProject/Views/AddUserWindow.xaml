@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WhatProject.Views"
+        xmlns:local="clr-namespace:WhatProject.Views" xmlns:whatproject="clr-namespace:WhatProject"
         mc:Ignorable="d"
         Title="AddUserWindow" Height="450" Width="550"
         WindowStyle="None"
@@ -29,6 +29,14 @@
                        VerticalAlignment="Center" 
                        Margin="25,19"
                        FontSize="25" Height="33"/>
+            <ComboBox Grid.Column="1"
+                      Margin="44,11,44,10" Height="35"
+                      SelectedIndex="{Binding Role, UpdateSourceTrigger=PropertyChanged}">
+                <TextBlock FontSize="20">Admin</TextBlock>
+                <TextBlock FontSize="20">Secretary</TextBlock>
+                <TextBlock FontSize="20">Mentor</TextBlock>
+                <TextBlock FontSize="20">Student</TextBlock>
+            </ComboBox>
             <Separator Grid.ColumnSpan="2" VerticalAlignment="Bottom" Height="1" Margin="25,0,25,2"/>
             <TextBlock Text="First name:" 
                        Grid.Column="0"
@@ -90,7 +98,7 @@
                     Foreground="Black"
                     FontSize="20"
                     Content="Cancel"
-                    Command="{Binding CancelButtonCommand}"/>
+                    Command="{Binding CancelButtonCommand}" Click="ButtonCancel_Click"/>
             <Button x:Name="ButtonAccept"
                     Grid.Column="1"
                     Grid.Row="5"
@@ -102,7 +110,7 @@
                     FontSize="20"
                     Content="Accept"
                     BorderBrush="Black"
-                    Command="{Binding AddNewAccountCommand}"/>
+                    Command="{Binding AddNewAccountCommand}" Click="ButtonAccept_Click"/>
         </Grid>
     </Border>
 </Window>

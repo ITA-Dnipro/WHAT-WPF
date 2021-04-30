@@ -37,6 +37,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="MaterialDesignColors, Version=2.0.0.2422, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.2.0.0\lib\net452\MaterialDesignColors.dll</HintPath>
       <Private>True</Private>
@@ -44,8 +50,19 @@
     <Reference Include="MaterialDesignThemes.Wpf, Version=4.0.0.2422, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignThemes.4.0.0\lib\net452\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="MySql.Data, Version=6.9.12.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.9.12\lib\net45\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.9.10.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.Entity.6.9.10\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.EntityFramework, Version=8.0.24.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Program Files (x86)\MySQL\Connector NET 8.0\Assemblies\v4.5.2\MySql.Data.EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -64,9 +81,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Enums\RolesEnum.cs" />
     <Compile Include="Interfaces\IUserFilter.cs" />
     <Compile Include="Models\Command.cs" />
     <Compile Include="Models\UserFilter.cs" />
+    <Compile Include="ViewsModels\AddUserViewModel.cs" />
+    <Compile Include="Views\Pages\AdminsPage.xaml.cs">
+      <DependentUpon>AdminsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\AllUsersPage.xaml.cs">
+      <DependentUpon>AllUsersPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\CoursesPage.xaml.cs">
       <DependentUpon>CoursesPage.xaml</DependentUpon>
     </Compile>
@@ -76,42 +101,48 @@
     <Compile Include="Views\Pages\LessonsPage.xaml.cs">
       <DependentUpon>LessonsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Pages\SchedulePage.xaml.cs">
-      <DependentUpon>SchedulePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Pages\SettingsPage.xaml.cs">
-      <DependentUpon>SettingsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ViewsModels\PagesViewModels\AdminsViewModel.cs" />
-    <Compile Include="ViewsModels\PagesViewModels\CoursesViewModel.cs" />
-    <Compile Include="ViewsModels\PagesViewModels\GroupsViewModel.cs" />
-    <Compile Include="ViewsModels\PagesViewModels\LessonsViewModel.cs" />
-    <Compile Include="ViewsModels\PagesViewModels\MentorsViewModel.cs" />
-    <Compile Include="ViewsModels\PagesViewModels\ScheduleViewModel.cs" />
-    <Compile Include="ViewsModels\PagesViewModels\SecretariesViewModel.cs" />
-    <Compile Include="Views\Pages\AdminsPage.xaml.cs">
-      <DependentUpon>AdminsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Pages\AllAccountsPage.xaml.cs">
-      <DependentUpon>AllAccountsPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Pages\MentorsPage.xaml.cs">
       <DependentUpon>MentorsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\SchedulePage.xaml.cs">
+      <DependentUpon>SchedulePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\SecretariesPage.xaml.cs">
       <DependentUpon>SecretariesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\StudentsPage.xaml.cs">
       <DependentUpon>StudentsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewsModels\PagesViewModels\SettingsViewModel.cs" />
-    <Compile Include="ViewsModels\PagesViewModels\StudentsViewModel.cs" />
-    <Compile Include="ViewsModels\AccountViewModel.cs" />
+    <Page Include="Views\AddUserWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ViewsModels\InitializeViewModel.cs" />
+    <Compile Include="ViewsModels\MainViewModel.cs" />
+    <Compile Include="ViewsModels\ViewModel.cs" />
+    <Compile Include="Views\AddUserWindow.xaml.cs">
+      <DependentUpon>AddUserWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Page Include="Views\Pages\AdminsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Pages\AllAccountsPage.xaml">
+    <Page Include="Views\Pages\AllUsersPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -147,30 +178,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AddUserWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ViewsModels\AddUserViewModel.cs" />
-    <Compile Include="ViewsModels\PagesViewModels\AllAccountsViewModel.cs" />
-    <Compile Include="ViewsModels\InitializeViewModel.cs" />
-    <Compile Include="ViewsModels\MainViewModel.cs" />
-    <Compile Include="ViewsModels\ViewModel.cs" />
-    <Compile Include="Views\AddUserWindow.xaml.cs">
-      <DependentUpon>AddUserWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Configurations\AccountConfiguration.cs" />
