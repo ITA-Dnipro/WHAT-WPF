@@ -5,17 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tetris"
         mc:Ignorable="d"
-        Title="MainWindow" Height="300" Width="300" Background="{StaticResource windowBackground}">
+        Title="MainWindow" Height="650" Width="500" Background="{StaticResource windowBackground}"> <!--300 300-->
 
+    <Grid>
+        <Frame Source="/Views/GameStartView.xaml"></Frame>
+    </Grid>
+
+    
     <Window.Resources>
         <ResourceDictionary Source="Styles/MainWindowStyle.xaml"/>
     </Window.Resources>
 
-    <StackPanel HorizontalAlignment="Center"
+    <!--<StackPanel HorizontalAlignment="Center"
                 VerticalAlignment="Center">
         <Button Style="{StaticResource startButton}">START</Button>
         <Button Style="{StaticResource startButton}">SETTINGS</Button>
         <Button Style="{StaticResource startButton}">EXIT</Button>
-    </StackPanel>
+    </StackPanel>-->
     
 </Window>

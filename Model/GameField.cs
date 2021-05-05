@@ -8,5 +8,7 @@ namespace Tetris.Model
 {
     class GameField
     {
+        public const int COLUMNS = 10;
+        public const int ROWS = 20;
     }
 }

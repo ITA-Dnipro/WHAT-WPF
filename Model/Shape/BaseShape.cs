@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tetris.Enums;
+using System.Windows.Input;
 
 namespace Tetris.Model.Shape
 {
@@ -11,29 +11,42 @@ namespace Tetris.Model.Shape
     {
         private List<Coordinate> points = new List<Coordinate>();
 
-        public bool CanMove(Arrow side, List<Coordinate> listOfAllShapesCoordinate)
+        public bool CanMove(Key side, List<Coordinate> listOfAllShapesCoordinate)
         {
-            bool moving = true;
-            int border = 0;
+            bool moving = false;
 
             switch (side)
             {
-                //case Arrow.Up: border = GameField.COLUMNS - 1;
-                //    break;
-                case Arrow.Down: border = GameField.ROWS - 1;
+                case Key.Down:
+                    if (!points.Exists(p => (p.Y + 1) == GameField.ROWS))
+                    {
+                        if (!listOfAllShapesCoordinate.Exists(allShapes => points.Exists(p => (p.Y + 1) == allShapes.X && p.Y == allShapes.Y)))
+                        {
+                            points.ForEach(p => { p.Y++; });
+                            moving = true;
+                        }
+                    }
                     break;
-                case Arrow.Left: border = -1;
+                case Key.Left:
+                    if (!points.Exists(p => (p.X - 1) < 0))
+                    {
+                        if (!listOfAllShapesCoordinate.Exists(allShapes => points.Exists(p => (p.X - 1) == allShapes.X && p.Y == allShapes.Y)))
+                        {
+                            points.ForEach(p => { p.X--; });
+                            moving = true;
+                        }
+                    }
                     break;
-                case Arrow.Right: border = GameField.COLUMNS - 1;
+                case Key.Right:
+                    if (!points.Exists(p => (p.X + 1) == GameField.COLUMNS))
+                    {
+                        if (!listOfAllShapesCoordinate.Exists(allShapes => points.Exists(p => (p.X + 1) == allShapes.X && p.Y == allShapes.Y)))
+                        {
+                            points.ForEach(p => { p.X++; });
+                            moving = true;
+                        }
+                    }
                     break;
-            }
-
-            if (!points.Exists(p => (p.X - 1) < 0))
-            {
-                if (!listOfAllShapesCoordinate.Exists(allShapes => points.Exists(p => (p.X - 1) == allShapes.X && p.Y == allShapes.Y)))
-                {
-                    points.ForEach(p => { p.X--; });
-                }
             }
 
             return moving;
