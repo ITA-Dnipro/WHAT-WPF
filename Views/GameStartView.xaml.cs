@@ -18,7 +18,6 @@ using Tetris.Model;
 
 namespace Tetris.Views
 {
-
     public partial class GameStartView : Page
     {
         public GameStartView()
@@ -28,15 +27,17 @@ namespace Tetris.Views
 
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
+          Window window =  Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
+
+            window.Top -= 150;
+            window.Left -= 150;
+
             Title = Assembly.GetExecutingAssembly().GetName().Name.ToString() + " " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
             CreateMainGrid();
-            // DrawAllCells();
         }
 
         private Rectangle _oneRectangle = new Rectangle();
         private List<List<Rectangle>> _listOfRectangles = new List<List<Rectangle>>(GameField.COLUMNS);
-        private List<List<Rectangle>> _listOfNextRectangles = new List<List<Rectangle>>(4);
-        // private GameField _gameManager;
 
         public void CreateMainGrid()
         {
@@ -47,6 +48,7 @@ namespace Tetris.Views
                 _listOfRectangles.Add(new List<Rectangle>());
                 for (int i = 0; i < GameField.COLUMNS; i++)
                 {
+
                     _oneRectangle = new Rectangle
                     {
                         Stretch = Stretch.Fill,
