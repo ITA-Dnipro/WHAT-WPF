@@ -8,8 +8,23 @@
         Title="Battleship" 
         Height="500" 
         Width="800"
-        Background="Orange">
-    <Viewbox>
-        
-    </Viewbox>
+        Style="{DynamicResource WindowStyle}">
+
+    <Window.Resources>
+        <ResourceDictionary Source="BattleshipDictionary.xaml" />
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="15*"/>
+        </Grid.RowDefinitions>
+
+        <Frame x:Name="MainFrame"
+               Grid.Row="1"/>
+
+        <Button x:Name="srt"
+                Content="Start">
+        </Button>
+    </Grid>
 </Window>
