@@ -56,7 +56,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\Commands\RelayCommand.cs" />
-    <Compile Include="ViewModel\GameStartViewModel.cs" />
+    <Compile Include="Model\FieldFiller.cs" />
+    <Compile Include="Model\ShapeCreator.cs" />
+    <Compile Include="Model\Shape\ShapeI.cs" />
+    <Compile Include="Model\Shape\ShapeJ.cs" />
+    <Compile Include="Model\Shape\ShapeL.cs" />
+    <Compile Include="Model\Shape\ShapeO.cs" />
+    <Compile Include="Model\Shape\ShapeS.cs" />
+    <Compile Include="Model\Shape\ShapeT.cs" />
+    <Compile Include="Model\Shape\ShapeZ.cs" />
     <Compile Include="Views\GameStartView.xaml.cs">
       <DependentUpon>GameStartView.xaml</DependentUpon>
     </Compile>
@@ -90,7 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Coordinate.cs" />
-    <Compile Include="Model\GameField.cs" />
+    <Compile Include="Model\GameManager.cs" />
     <Compile Include="Model\Shape\BaseShape.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

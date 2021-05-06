@@ -10,7 +10,8 @@
         SizeToContent="WidthAndHeight"> 
 
     <Grid>
-        <Frame Source="/Views/MenuView.xaml"></Frame>
+        <Frame Source="/Views/MenuView.xaml" 
+               NavigationUIVisibility="Hidden"></Frame>
     </Grid>
 
 </Window>

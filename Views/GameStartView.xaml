@@ -53,5 +53,17 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions >
         </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+
+            <Button Grid.Row="3" FontSize="20"
+                    Click="Button_Click"> Start game</Button>
+        </Grid>
+
     </Grid>
 </Page>

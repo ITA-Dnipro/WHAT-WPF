@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using Tetris.Model;
+using Tetris.Model.Shape;
 
 namespace Tetris.Views
 {
@@ -36,17 +37,23 @@ namespace Tetris.Views
             CreateMainGrid();
         }
 
+
+        private GameManager _gameManager = new GameManager();
+        private BaseShape _nextMovingShape;
+        private BaseShape _movingShape;
+        private Random _rnd = new Random();
         private Rectangle _oneRectangle = new Rectangle();
-        private List<List<Rectangle>> _listOfRectangles = new List<List<Rectangle>>(GameField.COLUMNS);
+        private List<List<Rectangle>> _listOfRectangles = new List<List<Rectangle>>(GameManager.COLUMNS);
+
 
         public void CreateMainGrid()
-        {
+        {  
             Thickness ts = new Thickness(0);
 
-            for (int j = 0; j < GameField.ROWS; j++)
+            for (int j = 0; j < GameManager.ROWS; j++)
             {
                 _listOfRectangles.Add(new List<Rectangle>());
-                for (int i = 0; i < GameField.COLUMNS; i++)
+                for (int i = 0; i < GameManager.COLUMNS; i++)
                 {
 
                     _oneRectangle = new Rectangle
@@ -64,6 +71,12 @@ namespace Tetris.Views
                     _listOfRectangles[j].Add(_oneRectangle);
                 }
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            BaseShape shape = _gameManager.FigureCreator.CreateNewShape();
+           _listOfRectangles = _gameManager.Filler.DrawShape(shape, _listOfRectangles);
         }
     }
 }
