@@ -10,13 +10,14 @@ namespace Tetris.Model.Shape
 {
     class ShapeO : BaseShape
     {
-        public override void Create(int startX, int startY)
+        public override void Create(int startY, int startX)
         {
-            startX--;
-            Points.Add(new Coordinate(startX, startY));
-            Points.Add(new Coordinate(startX + 1, startY));
-            Points.Add(new Coordinate(startX, startY + 1));
-            Points.Add(new Coordinate(startX + 1, startY + 1));
+            startY--;
+
+            Points.Add(new Coordinate(startY, startX));
+            Points.Add(new Coordinate(startY + 1, startX));
+            Points.Add(new Coordinate(startY, startX + 1));
+            Points.Add(new Coordinate(startY + 1, startX + 1));
             SetColor(Colors.Yellow);
         }
     }

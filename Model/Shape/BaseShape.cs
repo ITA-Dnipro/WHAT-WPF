@@ -14,7 +14,7 @@ namespace Tetris.Model.Shape
 
         public List<Coordinate> Points { get { return points; } }
 
-        public abstract void Create(int startX, int startY);
+        public abstract void Create(int startY, int startX);
 
         public void SetColor(Color color)
         {

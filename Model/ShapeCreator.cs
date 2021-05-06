@@ -22,7 +22,7 @@ namespace Tetris.Model
             BaseShape shape = new ShapeO();
             Random _rnd = new Random();
 
-            switch (_rnd.Next(0, 0))
+            switch (_rnd.Next(0, 7))
             {
                 case 0:
                     {
