@@ -24,5 +24,15 @@ namespace Battleship_WPF
         {
             InitializeComponent();
         }
+
+        private void StartGameButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ExitGameButton_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }
