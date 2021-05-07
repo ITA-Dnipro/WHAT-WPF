@@ -9,14 +9,14 @@ namespace Tetris.Model.Shape
 {
     class ShapeI : BaseShape
     {
-        public override void Create(int startY, int startX)
+        public override void Create(int startX, int startY)
         {
             startY--;
 
-            base.Points.Add(new Coordinate(startY - 1, startX));
-            base.Points.Add(new Coordinate(startY, startX));
-            base.Points.Add(new Coordinate(startY + 1, startX));
-            base.Points.Add(new Coordinate(startY + 2, startX));
+            base.Points.Add(new Coordinate(startX, startY - 1));
+            base.Points.Add(new Coordinate(startX, startY));
+            base.Points.Add(new Coordinate(startX, startY + 1));
+            base.Points.Add(new Coordinate(startX, startY + 2));
             base.SetColor(Colors.Cyan);
         }
     }

@@ -12,7 +12,7 @@ namespace Tetris.Model
         public BaseShape CreateNewShape()
         {
             BaseShape shape = GetRandomShape();
-            shape.Create(GameManager.COLUMNS / 2, 0);
+            shape.Create(0, GameManager.COLUMNS / 2);
 
             return shape;
         }

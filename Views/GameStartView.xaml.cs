@@ -28,26 +28,29 @@ namespace Tetris.Views
 
         private void PageLoaded(object sender, RoutedEventArgs e)
         {
+
           Window window =  Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
 
-            window.Top -= 150;
-            window.Left -= 150;
+           window.Top -= 150;
+           window.Left -= 150;
 
-            Title = Assembly.GetExecutingAssembly().GetName().Name.ToString() + " " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            CreateMainGrid();
+           Title = Assembly.GetExecutingAssembly().GetName().Name.ToString() + " " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            window.KeyDown += Page_KeyDown;
+                CreateMainGrid();
         }
 
 
         private GameManager _gameManager = new GameManager();
-        private BaseShape _nextMovingShape;
-        private BaseShape _movingShape;
+        private List<Coordinate> _previousShapeCoordinate = new List<Coordinate>();
+        //private BaseShape _nextMovingShape;
+        //private BaseShape _movingShape;
         private Random _rnd = new Random();
         private Rectangle _oneRectangle = new Rectangle();
         private List<List<Rectangle>> _listOfRectangles = new List<List<Rectangle>>(GameManager.COLUMNS);
 
 
         public void CreateMainGrid()
-        {  
+        {
             Thickness ts = new Thickness(0);
 
             for (int j = 0; j < GameManager.ROWS; j++)
@@ -75,23 +78,76 @@ namespace Tetris.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            _listOfRectangles.ForEach(l => l.ForEach(r => { r.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#507387"));}));
+            _listOfRectangles.ForEach(l => l.ForEach(r => { r.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#507387")); }));
+
+            _gameManager.MovingShape = _gameManager.FigureCreator.CreateNewShape();
+
+            // List<Coordinate> previousShapeCoordinate = shape.Points; 
+
+            //_listOfRectangles = _gameManager.Filler.ClearPreviousShape(previousShapeCoordinate, _listOfRectangles);
+            _listOfRectangles = _gameManager.Filler.DrawShape(_gameManager.MovingShape, _listOfRectangles);
 
 
+            // _previousShapeCoordinate.AddRange(_gameManager.MovingShape.Points);
 
-            BaseShape shape = _gameManager.FigureCreator.CreateNewShape();
+            _previousShapeCoordinate = _gameManager.MovingShape.Points.ConvertAll(p => (Coordinate)p.Clone());
 
-           // List<Coordinate> previousShapeCoordinate = shape.Points; 
+            //    shape = _gameManager.FigureCreator.CreateNewShape();
 
-           //_listOfRectangles = _gameManager.Filler.ClearPreviousShape(previousShapeCoordinate, _listOfRectangles);
-           _listOfRectangles = _gameManager.Filler.DrawShape(shape, _listOfRectangles);
+            //    _listOfRectangles = _gameManager.Filler.ClearPreviousShape(previousShapeCoordinate, _listOfRectangles);
+            //    _listOfRectangles = _gameManager.Filler.DrawShape(shape, _listOfRectangles);
+        }
 
-        //    previousShapeCoordinate = shape.Points;
+        private void Page_KeyDown(object sender, KeyEventArgs e)
+        {
+            KeyDownMethod(e.Key);
+        }
 
-        //    shape = _gameManager.FigureCreator.CreateNewShape();
+        private void KeyDownMethod(Key key)
+        {
+            if (_gameManager.MovingShape == null)
+            {
+                return;
+            }
 
-        //    _listOfRectangles = _gameManager.Filler.ClearPreviousShape(previousShapeCoordinate, _listOfRectangles);
-        //    _listOfRectangles = _gameManager.Filler.DrawShape(shape, _listOfRectangles);
+            //if (gm.IsEndOfGame)
+            //{
+            //    //AllDraw();
+            //    return;
+            //}
+            switch (key)
+            {
+                case Key.Left:
+                    if (_gameManager.MovingShape.CanMove(Key.Left, _gameManager.Filler.ListOfAllPoints))
+                    {
+                        _gameManager.MovingShape.Move(Key.Left);
+                    }
+                    break;
+                case Key.Right:
+                    if (_gameManager.MovingShape.CanMove(Key.Right, _gameManager.Filler.ListOfAllPoints))
+                    {
+                        _gameManager.MovingShape.Move(Key.Right);
+                    }
+                    break;
+                case Key.Down:
+                    if (_gameManager.MovingShape.CanMove(Key.Down, _gameManager.Filler.ListOfAllPoints))
+                    {
+                        _gameManager.MovingShape.Move(Key.Down);
+                    }
+                    break;
+                case Key.Up:
+                    //_gameManager.Rotate();
+                    break;
+            }
+
+            _listOfRectangles = _gameManager.Filler.ClearPreviousShape(_previousShapeCoordinate, _listOfRectangles);
+            _listOfRectangles = _gameManager.Filler.DrawShape(_gameManager.MovingShape, _listOfRectangles);
+            _previousShapeCoordinate = _gameManager.MovingShape.Points.ConvertAll(p => (Coordinate)p.Clone());
+
+            //AllDraw();
+            //txtLevel.Text = gm.Level.ToString();
+            //txtScore.Text = gm.Score.ToString();
+            //  if (gm.IsEndOfGame) txtLabel.Text = "GAME OVER";
         }
     }
 }

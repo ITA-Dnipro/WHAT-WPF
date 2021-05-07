@@ -19,10 +19,10 @@ namespace Tetris.Model
 
         private bool _isEndOfGame;
         private List<Coordinate> _listOfAllPoints;
-        private BaseShape _movingShape;
+       // private BaseShape _movingShape;
 
         public bool IsEndOfGame => _isEndOfGame;
         public List<Coordinate> GetAllPoints => _listOfAllPoints;
-        public BaseShape MovingShape => _movingShape;
+        public BaseShape MovingShape { get; set; }
     }
 }

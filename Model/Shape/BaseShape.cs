@@ -14,7 +14,7 @@ namespace Tetris.Model.Shape
 
         public List<Coordinate> Points { get { return points; } }
 
-        public abstract void Create(int startY, int startX);
+        public abstract void Create(int startX, int startY);
 
         public void SetColor(Color color)
         {
@@ -28,31 +28,28 @@ namespace Tetris.Model.Shape
             switch (side)
             {
                 case Key.Down:
-                    if (!points.Exists(p => (p.Y + 1) == GameManager.ROWS))
+                    if (!points.Exists(p => (p.X + 1) == GameManager.ROWS))
                     {
-                        if (!listOfAllShapesCoordinate.Exists(allShapes => points.Exists(p => (p.Y + 1) == allShapes.X && p.Y == allShapes.Y)))
+                        if (listOfAllShapesCoordinate.Exists(shapeCoordinate => points.Exists(p => (p.X + 1) != shapeCoordinate.X && p.Y == shapeCoordinate.Y)))
                         {
-                            points.ForEach(p => { p.Y++; });
                             moving = true;
                         }
                     }
                     break;
                 case Key.Left:
-                    if (!points.Exists(p => (p.X - 1) < 0))
+                    if (!points.Exists(p => (p.Y - 1) < 0))
                     {
-                        if (!listOfAllShapesCoordinate.Exists(allShapes => points.Exists(p => (p.X - 1) == allShapes.X && p.Y == allShapes.Y)))
+                        if (listOfAllShapesCoordinate.Exists(allShapes => points.Exists(p => (p.Y - 1) != allShapes.Y && p.X == allShapes.X)))
                         {
-                            points.ForEach(p => { p.X--; });
                             moving = true;
                         }
                     }
                     break;
                 case Key.Right:
-                    if (!points.Exists(p => (p.X + 1) == GameManager.COLUMNS))
+                    if (!points.Exists(p => (p.Y + 1) == GameManager.COLUMNS))
                     {
-                        if (!listOfAllShapesCoordinate.Exists(allShapes => points.Exists(p => (p.X + 1) == allShapes.X && p.Y == allShapes.Y)))
+                        if (listOfAllShapesCoordinate.Exists(allShapes => points.Exists(p => (p.Y + 1) != allShapes.Y && p.X == allShapes.X)))
                         {
-                            points.ForEach(p => { p.X++; });
                             moving = true;
                         }
                     }
@@ -60,6 +57,22 @@ namespace Tetris.Model.Shape
             }
 
             return moving;
+        }
+
+        public void Move(Key side)
+        {
+            switch (side)
+            {
+                case Key.Down:
+                    points.ForEach(p => { p.X++; });
+                    break;
+                case Key.Left:
+                    points.ForEach(p => { p.Y--; });
+                    break;
+                case Key.Right:
+                    points.ForEach(p => { p.Y++; });
+                    break;
+            }
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Windows.Media;
 
 namespace Tetris.Model
 {
-    class Coordinate
+    class Coordinate : ICloneable
     {
         public Coordinate(int x, int y)
         {
@@ -24,6 +24,11 @@ namespace Tetris.Model
 
         public int X { get; set; }
         public int Y { get; set; }
-        public Color PointColor { get; set; } 
+        public Color PointColor { get; set; }
+
+        public object Clone()
+        {
+            return new Coordinate(this.X, this.Y, this.PointColor);
+        }
     }
 }
