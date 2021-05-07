@@ -136,7 +136,7 @@ namespace Tetris.Views
                     }
                     break;
                 case Key.Up:
-                    //_gameManager.Rotate();
+                    _gameManager.MovingShape.Rotate();
                     break;
             }
 

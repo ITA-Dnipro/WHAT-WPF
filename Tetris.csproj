@@ -55,7 +55,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Model\Commands\RelayCommand.cs" />
     <Compile Include="Model\FieldFiller.cs" />
     <Compile Include="Model\ShapeCreator.cs" />
     <Compile Include="Model\Shape\ShapeI.cs" />

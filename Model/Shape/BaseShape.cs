@@ -74,5 +74,43 @@ namespace Tetris.Model.Shape
                     break;
             }
         }
+
+        public void Rotate()
+        {
+            List<Coordinate> testPoints = new List<Coordinate>(points.Count());
+
+            foreach (var point in points)
+            {
+                int temp = point.X;
+                point.X = point.Y;
+                point.Y = temp;
+            }
+
+            int xMax = (points.Max(p => p.X));
+            int yMax = (points.Max(p => p.Y));
+            int xMin = (points.Min(p => p.X));
+            int yMin = (points.Min(p => p.Y));
+
+            int xLength = xMax - xMin + 1;
+            int yLength = yMax - yMin + 1;
+
+            if (xLength > yLength) xMin++;
+            if (yLength > xLength) xMin--;
+
+            foreach (var point in points)
+            {
+                testPoints.Add(new Coordinate(Math.Abs(point.Y - yMax) + xMin, (point.X - xMin) + yMin, point.PointColor));
+            }
+
+            points.Clear();
+            points.AddRange(testPoints);
+
+            foreach (var point in points)
+            {
+                int temp = point.X;
+                point.X = point.Y;
+                point.Y = temp;
+            }
+        }
     }
 }
