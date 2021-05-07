@@ -12,7 +12,19 @@
     <Page.Resources>
         <ResourceDictionary Source="BattleshipDictionary.xaml" />
     </Page.Resources>
-    <Grid>
+    
+    <Grid x:Name="GameCardGrid">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         
     </Grid>
 </Page>
