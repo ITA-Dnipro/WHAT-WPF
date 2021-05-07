@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace Battleship_WPF
 {
     /// <summary>
-    /// Логика взаимодействия для DifficultyPage.xaml
+    /// Логика взаимодействия для SettingsPage.xaml
     /// </summary>
-    public partial class DifficultyPage : Page
+    public partial class SettingsPage : Page
     {
-        public DifficultyPage()
+        public SettingsPage()
         {
             InitializeComponent();
-        }
-
-        private void RadioButton_Checked(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }
