@@ -12,15 +12,28 @@ namespace Tetris.Model
 {
     class FieldFiller
     {
-        public List<List<Rectangle>> DrawShape(BaseShape shape, List<List<Rectangle>> listOfRectangles)
+        public List<List<Rectangle>> DrawShape(BaseShape shape, List<Coordinate> previousShapeCoordinate, List<List<Rectangle>> listOfRectangles)
         {
+
+            listOfRectangles = ClearPreviousShape(previousShapeCoordinate, listOfRectangles);
+            //listOfRectangles.ForEach(l => l.ForEach(r => { r.Fill = new SolidColorBrush(Colors.White); }));
+
             shape.Points.ForEach(p => {listOfRectangles = DrawOnePoint(p, listOfRectangles); });
 
-            //listOfRectangles.ForEach(l => l.ForEach(r => { r.Fill = new SolidColorBrush(Colors.White); }));
             //listOfNextRectangles.ForEach(l => l.ForEach(r => { r.Fill = new SolidColorBrush(Colors.White); }));
             //_gameManager.GetAllPoints.ForEach(p => { DrawOnePoint(p.X, p.Y, p.PointColor); });
             //if (!_gameManager.IsEndOfGame) _gameManager.MovingShape.Points.ForEach(p => { DrawOnePoint(p.X, p.Y, p.PointColor); });
             //DrawNext();
+
+            return listOfRectangles;
+        }
+
+        private List<List<Rectangle>> ClearPreviousShape(List<Coordinate> previousShapeCoordinate, List<List<Rectangle>> listOfRectangles)
+        {
+            for (int i = 0; i < previousShapeCoordinate.Count; i++)
+            {
+                listOfRectangles[previousShapeCoordinate[i].Y][previousShapeCoordinate[i].X].Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#507387"));
+            }
 
             return listOfRectangles;
         }

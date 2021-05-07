@@ -75,8 +75,20 @@ namespace Tetris.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            _listOfRectangles.ForEach(l => l.ForEach(r => { r.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#507387"));}));
+
+
             BaseShape shape = _gameManager.FigureCreator.CreateNewShape();
-           _listOfRectangles = _gameManager.Filler.DrawShape(shape, _listOfRectangles);
+
+            List<Coordinate> previousShapeCoordinate = shape.Points; 
+
+           _listOfRectangles = _gameManager.Filler.DrawShape(shape, previousShapeCoordinate, _listOfRectangles);
+
+            previousShapeCoordinate = shape.Points;
+
+            shape = _gameManager.FigureCreator.CreateNewShape();
+
+            _listOfRectangles = _gameManager.Filler.DrawShape(shape, previousShapeCoordinate, _listOfRectangles);
         }
     }
 }
