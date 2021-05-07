@@ -78,17 +78,20 @@ namespace Tetris.Views
             _listOfRectangles.ForEach(l => l.ForEach(r => { r.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#507387"));}));
 
 
+
             BaseShape shape = _gameManager.FigureCreator.CreateNewShape();
 
-            List<Coordinate> previousShapeCoordinate = shape.Points; 
+           // List<Coordinate> previousShapeCoordinate = shape.Points; 
 
-           _listOfRectangles = _gameManager.Filler.DrawShape(shape, previousShapeCoordinate, _listOfRectangles);
+           //_listOfRectangles = _gameManager.Filler.ClearPreviousShape(previousShapeCoordinate, _listOfRectangles);
+           _listOfRectangles = _gameManager.Filler.DrawShape(shape, _listOfRectangles);
 
-            previousShapeCoordinate = shape.Points;
+        //    previousShapeCoordinate = shape.Points;
 
-            shape = _gameManager.FigureCreator.CreateNewShape();
+        //    shape = _gameManager.FigureCreator.CreateNewShape();
 
-            _listOfRectangles = _gameManager.Filler.DrawShape(shape, previousShapeCoordinate, _listOfRectangles);
+        //    _listOfRectangles = _gameManager.Filler.ClearPreviousShape(previousShapeCoordinate, _listOfRectangles);
+        //    _listOfRectangles = _gameManager.Filler.DrawShape(shape, _listOfRectangles);
         }
     }
 }

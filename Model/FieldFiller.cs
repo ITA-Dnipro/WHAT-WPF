@@ -12,12 +12,8 @@ namespace Tetris.Model
 {
     class FieldFiller
     {
-        public List<List<Rectangle>> DrawShape(BaseShape shape, List<Coordinate> previousShapeCoordinate, List<List<Rectangle>> listOfRectangles)
+        public List<List<Rectangle>> DrawShape(BaseShape shape, List<List<Rectangle>> listOfRectangles)
         {
-
-            listOfRectangles = ClearPreviousShape(previousShapeCoordinate, listOfRectangles);
-            //listOfRectangles.ForEach(l => l.ForEach(r => { r.Fill = new SolidColorBrush(Colors.White); }));
-
             shape.Points.ForEach(p => {listOfRectangles = DrawOnePoint(p, listOfRectangles); });
 
             //listOfNextRectangles.ForEach(l => l.ForEach(r => { r.Fill = new SolidColorBrush(Colors.White); }));
@@ -28,7 +24,7 @@ namespace Tetris.Model
             return listOfRectangles;
         }
 
-        private List<List<Rectangle>> ClearPreviousShape(List<Coordinate> previousShapeCoordinate, List<List<Rectangle>> listOfRectangles)
+        public List<List<Rectangle>> ClearPreviousShape(List<Coordinate> previousShapeCoordinate, List<List<Rectangle>> listOfRectangles)
         {
             for (int i = 0; i < previousShapeCoordinate.Count; i++)
             {
