@@ -20,9 +20,9 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
-        <TextBox Grid.Row="0"
+        <TextBlock Grid.Row="0"
                    Text="Select ships method:">
-        </TextBox>
+        </TextBlock>
 
         <StackPanel Grid.Row="1"
                     VerticalAlignment="Center"
@@ -31,16 +31,20 @@
             <RadioButton GroupName="ShipsSetting" 
                          Content="Auto" 
                          FontSize="24" 
+                         Checked="RadioButton_Checked" 
                          />
+            
             <RadioButton GroupName="ShipsSetting" 
                          Content="Manual"
-                         FontSize="24" 
+                         FontSize="24"
+                         Checked="RadioButton_Checked"
                          />
         </StackPanel>
 
         <Button x:Name="SettingButton" 
                 Grid.Row="2"
-                Content="GO">
+                Content="GO" 
+                Click="SettingButton_Click">
         </Button>
 
     </Grid>
