@@ -58,6 +58,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Pages\GameCardPage.xaml.cs">
+      <DependentUpon>GameCardPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\DifficultyPage.xaml.cs">
       <DependentUpon>DifficultyPage.xaml</DependentUpon>
     </Compile>
@@ -71,6 +74,10 @@
       <DependentUpon>UserNamePage.xaml</DependentUpon>
     </Compile>
     <Page Include="BattleshipDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\GameCardPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
