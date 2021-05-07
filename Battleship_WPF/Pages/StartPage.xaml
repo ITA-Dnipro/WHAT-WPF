@@ -40,7 +40,8 @@
             <Button x:Name="ExitGameButton"
                     Grid.Row="1"
                     Grid.Column="1"
-                    Content="Exit" Click="ExitGameButton_Click">
+                    Content="Exit" 
+                    Click="ExitGameButton_Click">
             </Button>
             
         </Grid>

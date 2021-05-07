@@ -17,6 +17,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1.3*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0"
@@ -32,6 +33,12 @@
             <RadioButton GroupName="Difficulty" Content="Hard" Checked="RadioButton_Checked"/>
             
         </StackPanel>
+
+        <Button x:Name="DifficultyButton" 
+                Grid.Row="2"
+                Content="Next" 
+                Click="DifficultyButton_Click">
+        </Button>
 
     </Grid>
 </Page>

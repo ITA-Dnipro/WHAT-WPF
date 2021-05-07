@@ -16,7 +16,8 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="1.3*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0"
@@ -24,13 +25,19 @@
         </TextBlock>
 
         <StackPanel Grid.Row="1"
-                    VerticalAlignment="Top"
+                    VerticalAlignment="Center"
                     HorizontalAlignment="Center">
 
             <TextBox x:Name="UserNameTextBox">
             </TextBox>
 
         </StackPanel>
+
+        <Button x:Name="NameButton" 
+                Grid.Row="2"
+                Content="Contunie" 
+                Click="NameButton_Click">
+        </Button>
 
     </Grid>
 </Page>

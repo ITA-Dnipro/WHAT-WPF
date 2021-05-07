@@ -24,5 +24,10 @@ namespace Battleship_WPF
         {
             InitializeComponent();
         }
+
+        private void NameButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

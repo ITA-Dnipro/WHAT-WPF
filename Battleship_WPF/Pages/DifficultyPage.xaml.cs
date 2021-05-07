@@ -29,5 +29,10 @@ namespace Battleship_WPF
         {
 
         }
+
+        private void DifficultyButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
