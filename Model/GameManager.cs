@@ -29,10 +29,6 @@ namespace Tetris.Model
 
             _previousShapeCoordinate = CreateShape(MovingShape, _listOfRectangles, _previousShapeCoordinate);
 
-            //_listOfRectangles = Filler.DrawShape(MovingShape, _listOfRectangles);
-            //Filler.ListOfAllPoints.AddRange(MovingShape.Points);
-            //_previousShapeCoordinate = MovingShape.Points.ConvertAll(p => (Coordinate)p.Clone());
-
              NextMovingShape = FigureCreator.CreateNewShape(4);
             _listOfNextRectangles = Filler.DrawShape(NextMovingShape, _listOfNextRectangles);
 
@@ -45,10 +41,6 @@ namespace Tetris.Model
             MovingShape = NextMovingShape;
 
             _previousShapeCoordinate = CreateShape(MovingShape, _listOfRectangles, _previousShapeCoordinate);
-
-            //_listOfRectangles = Filler.DrawShape(MovingShape, _listOfRectangles);
-            //Filler.ListOfAllPoints.AddRange(MovingShape.Points);
-            //_previousShapeCoordinate = MovingShape.Points.ConvertAll(p => (Coordinate)p.Clone());
 
             NextMovingShape = FigureCreator.CreateNewShape(4);
             _listOfNextRectangles = Filler.DrawShape(NextMovingShape, _listOfNextRectangles);

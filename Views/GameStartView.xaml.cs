@@ -139,13 +139,18 @@ namespace Tetris.Views
                     break;
             }
 
-          
+            bool isCollision = false;
+
+            if (_gameManager.MovingShape.Points.Exists(p => _gameManager.Filler.ListOfAllPoints.Exists(point => point.X == p.X + 1 && p.Y == point.Y)))
+            {
+                isCollision = true;
+            }
 
             _gameManager.Filler.ListOfAllPoints.AddRange(_gameManager.MovingShape.Points);
             _listOfRectangles = _gameManager.Filler.DrawShape(_gameManager.MovingShape, _listOfRectangles);
             _previousShapeCoordinate = _gameManager.MovingShape.Points.ConvertAll(p => (Coordinate)p.Clone());
 
-            if (_gameManager.MovingShape.Points.Exists(p => (p.X + 1) == GameManager.ROWS))
+            if (_gameManager.MovingShape.Points.Exists(p => _gameManager.Filler.ListOfAllPoints.Exists(point => (p.X + 1) == GameManager.ROWS || isCollision == true)))
             {
                 _gameManager.CreateNewShape(_listOfRectangles, _listOfNextRectangles, ref _previousShapeCoordinate);
             }
