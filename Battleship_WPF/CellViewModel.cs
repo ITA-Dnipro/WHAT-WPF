@@ -8,8 +8,13 @@ using System.Windows.Controls;
 
 namespace Battleship_WPF
 {
-    class CellButton : Button
+    public class CellViewModel
     {
         public Position Coord { get; set; }
+
+        public CellViewModel(Position coord)
+        {
+            Coord = coord;
+        }
     }
 }
