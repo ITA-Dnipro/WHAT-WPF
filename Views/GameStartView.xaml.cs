@@ -23,23 +23,18 @@ namespace Tetris.Views
     {
         public GameStartView()
         {
-            InitializeComponent();
+             //InitializeComponent();
         }
 
         private GameManager _gameManager = new GameManager();
         private List<Coordinate> _previousShapeCoordinate = new List<Coordinate>();
         private Window _window = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
-        //private BaseShape _nextMovingShape;
-        //private BaseShape _movingShape;
-        //private Random _rnd = new Random();
         private Rectangle _oneRectangle = new Rectangle();
         private List<List<Rectangle>> _listOfRectangles = new List<List<Rectangle>>(GameManager.COLUMNS);
         private List<List<Rectangle>> _listOfNextRectangles = new List<List<Rectangle>>(4);
 
         public void CreateMainGrid()
-        {
-           
-
+        { 
             _oneRectangle = new Rectangle();
 
             _oneRectangle.Style = (Style)Application.Current.Resources["rectangleBlock"];//SetResourceReference(Control.StyleProperty, "rectangleBlock");
@@ -152,6 +147,9 @@ namespace Tetris.Views
 
             if (_gameManager.MovingShape.Points.Exists(p => _gameManager.Filler.ListOfAllPoints.Exists(point => (p.X + 1) == GameManager.ROWS || isCollision == true)))
             {
+                _gameManager.CheckRowsForDeleting(_listOfRectangles);
+                //_listOfRectangles = _gameManager.Filler.DrawShape(_gameManager.Filler.ListOfAllPoints, _listOfRectangles);
+
                 _gameManager.CreateNewShape(_listOfRectangles, _listOfNextRectangles, ref _previousShapeCoordinate);
             }
 
@@ -166,8 +164,7 @@ namespace Tetris.Views
             _window.Top -= 150;
             _window.Left -= 150;
 
-            _window.Background = this.Background;
-            Title = Assembly.GetExecutingAssembly().GetName().Name.ToString() + " " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+           // _window.Background = this.Background;
             _window.KeyDown += Page_KeyDown;
             _window.SizeChanged += Window_SizeChanged;
 
@@ -176,8 +173,8 @@ namespace Tetris.Views
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            this.Width = _window.Width;
-            this.Height = _window.Height;
+            //this.Width = _window.Width;
+            //this.Height = _window.Height;
         }
     }
 }
