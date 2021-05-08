@@ -16,9 +16,9 @@ namespace Tetris.Model
 
         public List<List<Rectangle>> DrawShape(BaseShape shape, List<List<Rectangle>> listOfRectangles)
         {
-            shape.Points.ForEach(p => {listOfRectangles = DrawOnePoint(p, listOfRectangles); });
-
             ListOfAllPoints.AddRange(shape.Points);
+
+            shape.Points.ForEach(p => {listOfRectangles = DrawOnePoint(p, listOfRectangles); });
 
             //listOfNextRectangles.ForEach(l => l.ForEach(r => { r.Fill = new SolidColorBrush(Colors.White); }));
             //_gameManager.GetAllPoints.ForEach(p => { DrawOnePoint(p.X, p.Y, p.PointColor); });

@@ -136,7 +136,10 @@ namespace Tetris.Views
                     }
                     break;
                 case Key.Up:
-                    _gameManager.MovingShape.Rotate();
+                    if (_gameManager.MovingShape.CanRotate(_gameManager.Filler.ListOfAllPoints))
+                    {
+                        _gameManager.MovingShape.Rotate();
+                    }
                     break;
             }
 

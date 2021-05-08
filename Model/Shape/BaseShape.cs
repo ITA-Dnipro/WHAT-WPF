@@ -75,16 +75,29 @@ namespace Tetris.Model.Shape
             }
         }
 
-        public void Rotate()
+        public bool CanRotate(List<Coordinate> listOfAllShapesCoordinate)
+        {
+            bool rotating = false;
+
+            Swap();
+
+            List<Coordinate> testPoints = RotatePreparation();
+
+            if (!listOfAllShapesCoordinate.Exists(coord => testPoints.Exists(p => points.Exists(currP => (currP.X != coord.X && currP.Y != currP.Y) &&
+            (p.Y == coord.Y && p.X == coord.X) || p.X < 0 || p.Y < 0 ||
+                    p.X >= GameManager.COLUMNS || p.Y >= GameManager.ROWS || p.Y < 0 || p.X < 0))))
+            {
+                rotating = true;
+            }
+
+            Swap();
+
+            return rotating;
+        }
+
+        private List<Coordinate> RotatePreparation()
         {
             List<Coordinate> testPoints = new List<Coordinate>(points.Count());
-
-            foreach (var point in points)
-            {
-                int temp = point.X;
-                point.X = point.Y;
-                point.Y = temp;
-            }
 
             int xMax = (points.Max(p => p.X));
             int yMax = (points.Max(p => p.Y));
@@ -102,15 +115,29 @@ namespace Tetris.Model.Shape
                 testPoints.Add(new Coordinate(Math.Abs(point.Y - yMax) + xMin, (point.X - xMin) + yMin, point.PointColor));
             }
 
-            points.Clear();
-            points.AddRange(testPoints);
+            return testPoints;
+        }
 
+        private void Swap()
+        {
             foreach (var point in points)
             {
                 int temp = point.X;
                 point.X = point.Y;
                 point.Y = temp;
             }
+        }
+
+        public void Rotate()
+        {
+            Swap();
+
+            List<Coordinate> testPoints = RotatePreparation();
+
+            points.Clear();
+            points.AddRange(testPoints);
+
+            Swap();
         }
     }
 }
