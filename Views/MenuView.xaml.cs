@@ -25,9 +25,25 @@ namespace Tetris.Views
             InitializeComponent();
         }
 
+        private Window _window;
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            this.Width = _window.Width;
+            this.Height = _window.Height;
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("Views/GameStartView.xaml", UriKind.Relative));
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+             _window = Window.GetWindow(this) as MainWindow;
+            _window.Background = this.Background;
+
+            _window.SizeChanged += Window_SizeChanged;
         }
     }
 }

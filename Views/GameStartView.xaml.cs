@@ -26,43 +26,33 @@ namespace Tetris.Views
             InitializeComponent();
         }
 
-        private void PageLoaded(object sender, RoutedEventArgs e)
-        {
-
-          Window window =  Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
-
-           window.Top -= 150;
-           window.Left -= 150;
-
-           Title = Assembly.GetExecutingAssembly().GetName().Name.ToString() + " " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            window.KeyDown += Page_KeyDown;
-                CreateMainGrid();
-        }
-
-
         private GameManager _gameManager = new GameManager();
         private List<Coordinate> _previousShapeCoordinate = new List<Coordinate>();
+        private Window _window = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
         //private BaseShape _nextMovingShape;
         //private BaseShape _movingShape;
-        private Random _rnd = new Random();
+        //private Random _rnd = new Random();
         private Rectangle _oneRectangle = new Rectangle();
         private List<List<Rectangle>> _listOfRectangles = new List<List<Rectangle>>(GameManager.COLUMNS);
-
+        private List<List<Rectangle>> _listOfNextRectangles = new List<List<Rectangle>>(4);
 
         public void CreateMainGrid()
         {
-            Thickness ts = new Thickness(0);
+           
+
+            _oneRectangle = new Rectangle();
+
+            _oneRectangle.Style = (Style)Application.Current.Resources["rectangleBlock"];//SetResourceReference(Control.StyleProperty, "rectangleBlock");
 
             for (int j = 0; j < GameManager.ROWS; j++)
             {
                 _listOfRectangles.Add(new List<Rectangle>());
+
                 for (int i = 0; i < GameManager.COLUMNS; i++)
                 {
-
                     _oneRectangle = new Rectangle
                     {
                         Stretch = Stretch.Fill,
-                        Margin = ts,
                         Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#507387")),
                         Stroke = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#363835"))
                     };
@@ -74,28 +64,32 @@ namespace Tetris.Views
                     _listOfRectangles[j].Add(_oneRectangle);
                 }
             }
+
+            for (int j = 0; j < 4; j++)
+            {
+                _listOfNextRectangles.Add(new List<Rectangle>());
+
+                for (int i = 0; i < 4; i++)
+                {
+                    _oneRectangle = new Rectangle
+                    {
+                        Stretch = Stretch.Fill,
+                        Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#364c5c")),
+                        Stroke = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#364c5c"))
+                    };
+
+                    Grid.SetColumn(_oneRectangle, i);
+                    Grid.SetRow(_oneRectangle, j);
+                    sideGrid.Children.Add(_oneRectangle);
+
+                    _listOfNextRectangles[j].Add(_oneRectangle);
+                }
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            _listOfRectangles.ForEach(l => l.ForEach(r => { r.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#507387")); }));
-
-            _gameManager.MovingShape = _gameManager.FigureCreator.CreateNewShape();
-
-            // List<Coordinate> previousShapeCoordinate = shape.Points; 
-
-            //_listOfRectangles = _gameManager.Filler.ClearPreviousShape(previousShapeCoordinate, _listOfRectangles);
-            _listOfRectangles = _gameManager.Filler.DrawShape(_gameManager.MovingShape, _listOfRectangles);
-
-
-            // _previousShapeCoordinate.AddRange(_gameManager.MovingShape.Points);
-
-            _previousShapeCoordinate = _gameManager.MovingShape.Points.ConvertAll(p => (Coordinate)p.Clone());
-
-            //    shape = _gameManager.FigureCreator.CreateNewShape();
-
-            //    _listOfRectangles = _gameManager.Filler.ClearPreviousShape(previousShapeCoordinate, _listOfRectangles);
-            //    _listOfRectangles = _gameManager.Filler.DrawShape(shape, _listOfRectangles);
+        _gameManager.Start(_listOfRectangles, _listOfNextRectangles, ref _previousShapeCoordinate);
         }
 
         private void Page_KeyDown(object sender, KeyEventArgs e)
@@ -115,6 +109,8 @@ namespace Tetris.Views
             //    //AllDraw();
             //    return;
             //}
+            _listOfRectangles = _gameManager.Filler.ClearPreviousShape(_previousShapeCoordinate, _listOfRectangles);
+
             switch (key)
             {
                 case Key.Left:
@@ -143,14 +139,40 @@ namespace Tetris.Views
                     break;
             }
 
-            _listOfRectangles = _gameManager.Filler.ClearPreviousShape(_previousShapeCoordinate, _listOfRectangles);
+          
+
+            _gameManager.Filler.ListOfAllPoints.AddRange(_gameManager.MovingShape.Points);
             _listOfRectangles = _gameManager.Filler.DrawShape(_gameManager.MovingShape, _listOfRectangles);
             _previousShapeCoordinate = _gameManager.MovingShape.Points.ConvertAll(p => (Coordinate)p.Clone());
+
+            if (_gameManager.MovingShape.Points.Exists(p => (p.X + 1) == GameManager.ROWS))
+            {
+                _gameManager.CreateNewShape(_listOfRectangles, _listOfNextRectangles, ref _previousShapeCoordinate);
+            }
 
             //AllDraw();
             //txtLevel.Text = gm.Level.ToString();
             //txtScore.Text = gm.Score.ToString();
             //  if (gm.IsEndOfGame) txtLabel.Text = "GAME OVER";
+        }
+
+        private void PageLoaded(object sender, RoutedEventArgs e)
+        {
+            _window.Top -= 150;
+            _window.Left -= 150;
+
+            _window.Background = this.Background;
+            Title = Assembly.GetExecutingAssembly().GetName().Name.ToString() + " " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            _window.KeyDown += Page_KeyDown;
+            _window.SizeChanged += Window_SizeChanged;
+
+            CreateMainGrid();
+        }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            this.Width = _window.Width;
+            this.Height = _window.Height;
         }
     }
 }

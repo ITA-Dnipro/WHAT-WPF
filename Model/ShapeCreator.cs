@@ -9,18 +9,19 @@ namespace Tetris.Model
 {
     class ShapeCreator 
     {
-        public BaseShape CreateNewShape()
+        Random _rnd = new Random();
+
+        public BaseShape CreateNewShape(int ColumnSize)
         {
             BaseShape shape = GetRandomShape();
-            shape.Create(0, GameManager.COLUMNS / 2);
+            shape.Create(0, ColumnSize / 2);
 
             return shape;
         }
 
         private BaseShape GetRandomShape()
         {
-            BaseShape shape = new ShapeO();
-            Random _rnd = new Random();
+            BaseShape shape = new ShapeO(); 
 
             switch (_rnd.Next(0, 7))
             {

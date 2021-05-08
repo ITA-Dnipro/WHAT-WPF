@@ -30,7 +30,7 @@ namespace Tetris.Model.Shape
                 case Key.Down:
                     if (!points.Exists(p => (p.X + 1) == GameManager.ROWS))
                     {
-                        if (listOfAllShapesCoordinate.Exists(shapeCoordinate => points.Exists(p => (p.X + 1) != shapeCoordinate.X && p.Y == shapeCoordinate.Y)))
+                        if (!listOfAllShapesCoordinate.Exists(shapeCoordinate => points.Exists(p => (p.X + 1) == shapeCoordinate.X && p.Y == shapeCoordinate.Y)))
                         {
                             moving = true;
                         }
@@ -39,7 +39,7 @@ namespace Tetris.Model.Shape
                 case Key.Left:
                     if (!points.Exists(p => (p.Y - 1) < 0))
                     {
-                        if (listOfAllShapesCoordinate.Exists(allShapes => points.Exists(p => (p.Y - 1) != allShapes.Y && p.X == allShapes.X)))
+                        if (!listOfAllShapesCoordinate.Exists(shapeCoordinate => points.Exists(p => (p.Y - 1) == shapeCoordinate.Y && p.X == shapeCoordinate.X)))
                         {
                             moving = true;
                         }
@@ -48,7 +48,7 @@ namespace Tetris.Model.Shape
                 case Key.Right:
                     if (!points.Exists(p => (p.Y + 1) == GameManager.COLUMNS))
                     {
-                        if (listOfAllShapesCoordinate.Exists(allShapes => points.Exists(p => (p.Y + 1) != allShapes.Y && p.X == allShapes.X)))
+                        if (!listOfAllShapesCoordinate.Exists(shapeCoordinate => points.Exists(p => (p.Y + 1) == shapeCoordinate.Y && p.X == shapeCoordinate.X)))
                         {
                             moving = true;
                         }
@@ -79,18 +79,22 @@ namespace Tetris.Model.Shape
         {
             bool rotating = false;
 
-            Swap();
+            Swap(points);
 
             List<Coordinate> testPoints = RotatePreparation();
 
-            if (!listOfAllShapesCoordinate.Exists(coord => testPoints.Exists(p => points.Exists(currP => (currP.X != coord.X && currP.Y != currP.Y) &&
-            (p.Y == coord.Y && p.X == coord.X) || p.X < 0 || p.Y < 0 ||
-                    p.X >= GameManager.COLUMNS || p.Y >= GameManager.ROWS || p.Y < 0 || p.X < 0))))
+            Swap(testPoints);
+
+
+            if (!testPoints.Exists(p=>p.X >= GameManager.ROWS || p.X < 0 || p.Y < 0 || p.Y >= GameManager.COLUMNS))
             {
-                rotating = true;
+                if (!listOfAllShapesCoordinate.Exists(coord => testPoints.Exists(p=> p.X == coord.X && p.Y == coord.Y)))
+                {
+                    rotating = true;
+                }
             }
 
-            Swap();
+            Swap(points);
 
             return rotating;
         }
@@ -118,7 +122,7 @@ namespace Tetris.Model.Shape
             return testPoints;
         }
 
-        private void Swap()
+        private void Swap(List<Coordinate> points)
         {
             foreach (var point in points)
             {
@@ -130,14 +134,14 @@ namespace Tetris.Model.Shape
 
         public void Rotate()
         {
-            Swap();
+            Swap(points);
 
             List<Coordinate> testPoints = RotatePreparation();
 
             points.Clear();
             points.AddRange(testPoints);
 
-            Swap();
+            Swap(points);
         }
     }
 }
