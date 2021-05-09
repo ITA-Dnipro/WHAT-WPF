@@ -13,6 +13,7 @@
         <ResourceDictionary Source="GameCardDictionary.xaml" />
     </Page.Resources>
     
+    
     <Grid x:Name="GameCardGrid">
 
         <Grid.RowDefinitions>
@@ -26,6 +27,17 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
+        <TextBlock Text="Enemy's map"
+                   FontSize="22"
+                   Foreground="Orange"
+                   />
+
+        <TextBlock Grid.Column="1"
+                   Text="Player's map"
+                   FontSize="22"
+                   Foreground="Orange"
+                   />
+
         <Grid Grid.Row="1">
             
             <Grid.ColumnDefinitions>
@@ -38,11 +50,72 @@
                 <RowDefinition Height="10*"/>
             </Grid.RowDefinitions>
 
+            <Grid x:Name="CellNumber"
+                  Grid.Row="1"
+                  Grid.Column="0">
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="1"/>
+                <TextBlock Grid.Row="1" Text="2"/>
+                <TextBlock Grid.Row="2" Text="3"/>
+                <TextBlock Grid.Row="3" Text="4"/>
+                <TextBlock Grid.Row="4" Text="5"/>
+                <TextBlock Grid.Row="5" Text="6"/>
+                <TextBlock Grid.Row="6" Text="7"/>
+                <TextBlock Grid.Row="7" Text="8"/>
+                <TextBlock Grid.Row="8" Text="9"/>
+                <TextBlock Grid.Row="9" Text="10"/>
+            </Grid>
+
+            <Grid x:Name="CellLetter"
+                  Grid.Row="0"
+                  Grid.Column="1">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="A"/>
+                <TextBlock Grid.Column="1" Text="B"/>
+                <TextBlock Grid.Column="2" Text="C"/>
+                <TextBlock Grid.Column="3" Text="D"/>
+                <TextBlock Grid.Column="4" Text="E"/>
+                <TextBlock Grid.Column="5" Text="F"/>
+                <TextBlock Grid.Column="6" Text="G"/>
+                <TextBlock Grid.Column="7" Text="H"/>
+                <TextBlock Grid.Column="8" Text="I"/>
+                <TextBlock Grid.Column="9" Text="J"/>
+
+            </Grid>
+            
+            
+
             <Grid x:Name="EnemySeaGrid" 
                   Grid.Row="1" 
                   Grid.Column="1">
 
-                <ItemsControl ItemsSource="{Binding EnemyCells}" 
+                <ItemsControl ItemsSource="{Binding PlayerCells}" 
                       ItemsPanel="{StaticResource GridPanelTemplate}"
                       ItemContainerStyle="{StaticResource GridStyle}"
                       ItemTemplate="{StaticResource GridDataTemplate}">
@@ -53,36 +126,37 @@
             
         </Grid>
 
-        <Grid x:Name="PlayerSeaGrid" Grid.Row="1" Grid.Column="1">
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="10*"/>
             </Grid.RowDefinitions>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+            <Grid x:Name="PlayerSeaGrid" 
+                  Grid.Row="1" 
+                  Grid.Column="1">
 
-            </Grid.ColumnDefinitions>
+                <ItemsControl ItemsSource="{Binding EnemyCells}" 
+                      ItemsPanel="{StaticResource GridPanelTemplate}"
+                      ItemContainerStyle="{StaticResource GridStyle}"
+                      ItemTemplate="{StaticResource GridDataTemplate}">
+
+                </ItemsControl>
+
+            </Grid>
+
         </Grid>
+
+        <TextBlock x:Name="InfoNextBlock"
+                   Grid.Row="2"
+                   Grid.ColumnSpan="2">
+            
+        </TextBlock>
 
     </Grid>
 </Page>
