@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 E:\Sasha\Programming\SoftServeCourse\Applications\WPF Projects\Tetris\App.xaml
-5-2063214740
+52031855192
 
-201935106718
+20-1388036331
 13-1505183044
-MainWindow.xaml;Styles\GameStartStyle.xaml;Styles\MainWindowStyle.xaml;Views\GameStartView.xaml;Views\MenuView.xaml;
+MainWindow.xaml;Styles\MainWindowStyle.xaml;Styles\TetrisStartStyle.xaml;Views\MenuView.xaml;Views\TetrisStartView.xaml;
 
-True
+False
 

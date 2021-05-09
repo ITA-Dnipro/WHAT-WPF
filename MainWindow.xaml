@@ -9,9 +9,9 @@
         WindowStartupLocation="CenterScreen"
         SizeToContent="WidthAndHeight">
 
-    <Grid >
+    <!--<Grid >
         <Frame x:Name="frame" Source="/Views/MenuView.xaml" 
                NavigationUIVisibility="Hidden"></Frame>
-    </Grid>
+    </Grid>-->
 
 </Window>

@@ -18,32 +18,41 @@ namespace Tetris.Views
     /// <summary>
     /// Interaction logic for MenuView.xaml
     /// </summary>
-    public partial class MenuView : Page
+    public partial class MenuView : Window
     {
         public MenuView()
         {
             InitializeComponent();
         }
 
-        private Window _window;
+       // private Window _window;
 
-        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            this.Width = _window.Width;
-            this.Height = _window.Height;
-        }
+        //private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        //{
+        //    this.Width = _window.Width;
+        //    this.Height = _window.Height;
+        //}
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("Views/GameStartView.xaml", UriKind.Relative));
+            TetrisStartView tetrisStart = new TetrisStartView();
+
+            this.Close();
+            tetrisStart.Show();
+           // NavigationService.Navigate(new Uri("Views/GameStartView.xaml", UriKind.Relative));
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-             _window = Window.GetWindow(this) as MainWindow;
-            _window.Background = this.Background;
+        //private void Page_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //     _window = Window.GetWindow(this) as MainWindow;
+        //    _window.Background = this.Background;
 
-            _window.SizeChanged += Window_SizeChanged;
+        //    _window.SizeChanged += Window_SizeChanged;
+        //}
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

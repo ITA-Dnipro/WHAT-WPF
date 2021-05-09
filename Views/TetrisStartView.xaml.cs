@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,34 +10,30 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using Tetris.Model;
-using Tetris.Model.Shape;
 
 namespace Tetris.Views
 {
-    public partial class GameStartView : Page
+    /// <summary>
+    /// Interaction logic for TetrisStartView.xaml
+    /// </summary>
+    public partial class TetrisStartView : Window
     {
-        public GameStartView()
+        public TetrisStartView()
         {
-             //InitializeComponent();
+            InitializeComponent();
         }
 
         private GameManager _gameManager = new GameManager();
         private List<Coordinate> _previousShapeCoordinate = new List<Coordinate>();
-        private Window _window = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
         private Rectangle _oneRectangle = new Rectangle();
         private List<List<Rectangle>> _listOfRectangles = new List<List<Rectangle>>(GameManager.COLUMNS);
         private List<List<Rectangle>> _listOfNextRectangles = new List<List<Rectangle>>(4);
 
         public void CreateMainGrid()
-        { 
-            //_oneRectangle = new Rectangle();
-
-           // _oneRectangle.Style = (Style)Application.Current.Resources["rectangleBlock"];//SetResourceReference(Control.StyleProperty, "rectangleBlock");
-
+        {
             for (int j = 0; j < GameManager.ROWS; j++)
             {
                 _listOfRectangles.Add(new List<Rectangle>());
@@ -95,6 +90,14 @@ namespace Tetris.Views
             KeyDownMethod(e.Key);
         }
 
+        //void MoveDownByThread()
+        //{
+        //    this.Dispatcher.Invoke((Action)(() =>
+        //    {
+        //        KeyDownMethod(Key.Down);
+        //    }));
+        //}
+
         private void KeyDownMethod(Key key)
         {
             if (_gameManager.MovingShape == null)
@@ -150,8 +153,8 @@ namespace Tetris.Views
 
             if (_gameManager.MovingShape.Points.Exists(p => _gameManager.Filler.ListOfAllPoints.Exists(point => (p.X + 1) == GameManager.ROWS || isCollision == true)))
             {
-              score.Text = _gameManager.CheckRowsForDeleting(_listOfRectangles).ToString();
-              level.Text = _gameManager.Level.ToString();
+                score.Text = _gameManager.CheckRowsForDeleting(_listOfRectangles).ToString();
+                level.Text = _gameManager.Level.ToString();
 
                 _gameManager.CreateNewShape(_listOfRectangles, _listOfNextRectangles, ref _previousShapeCoordinate);
             }
@@ -159,22 +162,9 @@ namespace Tetris.Views
             //  if (gm.IsEndOfGame) txtLabel.Text = "GAME OVER";
         }
 
-        private void PageLoaded(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            _window.Top -= 150;
-            _window.Left -= 150;
-
-           // _window.Background = this.Background;
-            _window.KeyDown += Page_KeyDown;
-            _window.SizeChanged += Window_SizeChanged;
-
             CreateMainGrid();
-        }
-
-        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            //this.Width = _window.Width;
-            //this.Height = _window.Height;
         }
     }
 }
