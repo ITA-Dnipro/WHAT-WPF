@@ -7,9 +7,7 @@
       mc:Ignorable="d" 
       Width="300" Height="300"
       Title="MenuView"
-      Background="{StaticResource windowBackground}"
-      Loaded="Window_Loaded">
-
+      Background="{StaticResource windowBackground}">
 
     <Window.Resources>
         <ResourceDictionary Source="../Styles/MainWindowStyle.xaml"/>

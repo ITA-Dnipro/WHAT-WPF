@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -21,9 +22,21 @@ namespace Tetris.Model
         public ShapeCreator FigureCreator { get; } = new ShapeCreator();
         public BaseShape MovingShape { get; set; }
         public BaseShape NextMovingShape { get; set; }
+        public delegate void MoveDownByThreadHandler();
+        public event MoveDownByThreadHandler MoveDownByThr;
+
+        private bool isEndOfGame = false;
+        public bool IsPressed { get; set; } = false;
+        public Thread MovingThread { get; set; }
+        public int TimeOut { get; set; } = 1000;
+
 
         public void Start(List<List<Rectangle>> _listOfRectangles, List<List<Rectangle>> _listOfNextRectangles, ref List<Coordinate> _previousShapeCoordinate)
         {
+            MovingThread = new Thread(MoveDownByThread);
+            MovingThread.IsBackground = false;
+            MovingThread.Start();
+
             _listOfRectangles.ForEach(l => l.ForEach(r => { r.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#507387")); }));
             _listOfNextRectangles.ForEach(l => l.ForEach(r => { r.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#364c5c")); }));
 
@@ -36,7 +49,7 @@ namespace Tetris.Model
 
         }
 
-        public void CreateNewShape(List<List<Rectangle>> _listOfRectangles, List<List<Rectangle>> _listOfNextRectangles, ref List<Coordinate> _previousShapeCoordinate)
+        public void CreateNextShape(List<List<Rectangle>> _listOfRectangles, List<List<Rectangle>> _listOfNextRectangles, ref List<Coordinate> _previousShapeCoordinate)
         {
             _listOfNextRectangles.ForEach(l => l.ForEach(r => { r.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#364c5c")); }));
 
@@ -105,8 +118,11 @@ namespace Tetris.Model
                         Score += delRows * 1200 + 1200;
                         break;
                 }
+            }
 
-                 if (Score >= ((Level + 1) * 3000) * 3 / 2) LevelUp();
+            if (Score >= ((Level + 1) * 3000) * 3 / 2)
+            {
+                LevelUp();
             }
 
             return Score;
@@ -115,6 +131,25 @@ namespace Tetris.Model
         public void LevelUp()
         {
             Level++;
+          TimeOut = (int)(TimeOut * 0.8f);
+        }
+
+        private void MoveDownByThread()
+        {
+            while (!isEndOfGame )
+            {
+                if (isEndOfGame) MovingThread.Abort();
+
+                if (MoveDownByThr != null && IsPressed == false)
+                {
+                    MoveDownByThr();
+                }
+
+                IsPressed = false;
+
+                Thread.Sleep(TimeOut);
+
+            }
         }
     }
 }
