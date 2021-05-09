@@ -21,10 +21,11 @@
         </Grid.RowDefinitions>
 
         <Frame x:Name="MainFrame"
-               Grid.Row="1"/>
+               Grid.Row="1"
+               NavigationUIVisibility="Hidden"/>
 
-        <Button x:Name="srt"
+        <!--<Button x:Name="srt"
                 Content="Start">
-        </Button>
+        </Button>-->
     </Grid>
 </Window>

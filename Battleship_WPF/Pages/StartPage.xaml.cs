@@ -27,7 +27,7 @@ namespace Battleship_WPF
 
         private void StartGameButton_Click(object sender, RoutedEventArgs e)
         {
-
+            this.NavigationService.Navigate(new Uri("Pages\\DifficultyPage.xaml", UriKind.Relative));
         }
 
         private void ExitGameButton_Click(object sender, RoutedEventArgs e)

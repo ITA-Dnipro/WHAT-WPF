@@ -32,7 +32,7 @@ namespace Battleship_WPF
 
         private void DifficultyButton_Click(object sender, RoutedEventArgs e)
         {
-
+            this.NavigationService.Navigate(new Uri("Pages\\GameCardPage.xaml", UriKind.Relative));
         }
     }
 }

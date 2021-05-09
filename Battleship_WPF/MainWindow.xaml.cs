@@ -23,6 +23,8 @@ namespace Battleship_WPF
         public MainWindow()
         {
             InitializeComponent();
+
+            MainFrame.NavigationService.Navigate(new Uri("Pages\\StartPage.xaml", UriKind.Relative));
         }
     }
 }

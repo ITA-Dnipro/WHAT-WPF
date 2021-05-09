@@ -9,9 +9,9 @@
       Title="StartPage"
       Style="{DynamicResource PageStyle}">
 
-    <Page.Resources>
+    <!--<Page.Resources>
         <ResourceDictionary Source="BattleshipDictionary.xaml" />
-    </Page.Resources>
+    </Page.Resources>-->
 
     <Grid>
         <Grid.RowDefinitions>
