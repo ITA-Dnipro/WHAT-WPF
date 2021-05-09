@@ -11,6 +11,10 @@
       Loaded="PageLoaded" 
       Background="#364c5c">
 
+    <Page.Resources>
+        <ResourceDictionary Source="../Styles/GameStartStyle.xaml"/>
+    </Page.Resources>
+
     <Grid Background="#364c5c">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2.5*"/>
@@ -54,7 +58,7 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions >
         </Grid>
-        <Grid Grid.Column="1" Margin="5">
+        <Grid Grid.Column="1" Margin="0,10,10,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
@@ -63,6 +67,30 @@
                 <RowDefinition Height="1*"/>
 
             </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" 
+                        Style="{StaticResource scorePanel}" >
+                <TextBlock Text="Score" 
+                           Style="{StaticResource score}"/>
+                <TextBlock Text="0" 
+                           Name="score"
+                           Style="{StaticResource score}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="2"
+                        HorizontalAlignment="Left"
+                        Margin="20"
+                        Orientation="Horizontal"
+                        Style="{StaticResource scorePanel}">
+                <TextBlock Grid.Row="2" 
+                       Text="Level:"
+                Style="{StaticResource score}"/>
+                <TextBlock Text="1"
+                           Name="level"
+                    Style="{StaticResource score}"/>
+            </StackPanel>
+            
+
 
             <Grid Grid.Row="1"  Margin="5">
                 <Grid.ColumnDefinitions>

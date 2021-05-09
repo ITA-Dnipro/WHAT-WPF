@@ -35,9 +35,9 @@ namespace Tetris.Views
 
         public void CreateMainGrid()
         { 
-            _oneRectangle = new Rectangle();
+            //_oneRectangle = new Rectangle();
 
-            _oneRectangle.Style = (Style)Application.Current.Resources["rectangleBlock"];//SetResourceReference(Control.StyleProperty, "rectangleBlock");
+           // _oneRectangle.Style = (Style)Application.Current.Resources["rectangleBlock"];//SetResourceReference(Control.StyleProperty, "rectangleBlock");
 
             for (int j = 0; j < GameManager.ROWS; j++)
             {
@@ -84,7 +84,10 @@ namespace Tetris.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-        _gameManager.Start(_listOfRectangles, _listOfNextRectangles, ref _previousShapeCoordinate);
+            score.Text = "0";
+            level.Text = "1";
+            _gameManager = new GameManager();
+            _gameManager.Start(_listOfRectangles, _listOfNextRectangles, ref _previousShapeCoordinate);
         }
 
         private void Page_KeyDown(object sender, KeyEventArgs e)
@@ -147,15 +150,12 @@ namespace Tetris.Views
 
             if (_gameManager.MovingShape.Points.Exists(p => _gameManager.Filler.ListOfAllPoints.Exists(point => (p.X + 1) == GameManager.ROWS || isCollision == true)))
             {
-                _gameManager.CheckRowsForDeleting(_listOfRectangles);
-                //_listOfRectangles = _gameManager.Filler.DrawShape(_gameManager.Filler.ListOfAllPoints, _listOfRectangles);
+              score.Text = _gameManager.CheckRowsForDeleting(_listOfRectangles).ToString();
+              level.Text = _gameManager.Level.ToString();
 
                 _gameManager.CreateNewShape(_listOfRectangles, _listOfNextRectangles, ref _previousShapeCoordinate);
             }
 
-            //AllDraw();
-            //txtLevel.Text = gm.Level.ToString();
-            //txtScore.Text = gm.Score.ToString();
             //  if (gm.IsEndOfGame) txtLabel.Text = "GAME OVER";
         }
 

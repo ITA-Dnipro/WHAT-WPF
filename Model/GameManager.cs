@@ -14,8 +14,8 @@ namespace Tetris.Model
         public const int COLUMNS = 10;
         public const int ROWS = 20;
 
-        private int _score;
-        private int _level;
+        public int Score { get; set; }
+        public int Level { get; set; } = 1;
 
         public FieldFiller Filler { get; } = new FieldFiller();
         public ShapeCreator FigureCreator { get; } = new ShapeCreator();
@@ -26,7 +26,6 @@ namespace Tetris.Model
         {
             _listOfRectangles.ForEach(l => l.ForEach(r => { r.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#507387")); }));
             _listOfNextRectangles.ForEach(l => l.ForEach(r => { r.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#364c5c")); }));
-            Filler.ListOfAllPoints.Clear();
 
             MovingShape = FigureCreator.CreateNewShape(GameManager.COLUMNS);
 
@@ -59,7 +58,7 @@ namespace Tetris.Model
             return _previousShapeCoordinate;
         }
 
-        public void CheckRowsForDeleting(List<List<Rectangle>> _listOfRectangles)
+        public int CheckRowsForDeleting(List<List<Rectangle>> _listOfRectangles)
         {
             int delRows = 0;
             List<Coordinate> pointsToDel = new List<Coordinate>();
@@ -73,8 +72,6 @@ namespace Tetris.Model
                         _listOfRectangles[p.X][p.Y].Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#507387"));
                         Filler.ListOfAllPoints.Remove(p);
                     });
-
-                    int tempPos = 0;
 
                     for (int j = i; j > 0; j--)
                     {
@@ -96,21 +93,28 @@ namespace Tetris.Model
                 switch (delRows)
                 {
                     case 1:
-                        _score += delRows * 40 + 40;
+                        Score += delRows * 40 + 40;
                         break;
                     case 2:
-                        _score += delRows * 100 + 100;
+                        Score += delRows * 100 + 100;
                         break;
                     case 3:
-                        _score += delRows * 300 + 300;
+                        Score += delRows * 300 + 300;
                         break;
                     case 4:
-                        _score += delRows * 1200 + 1200;
+                        Score += delRows * 1200 + 1200;
                         break;
                 }
-                // if (_score >= ((_level + 1) * 3000) * 3 / 2) NewLevel();
 
+                 if (Score >= ((Level + 1) * 3000) * 3 / 2) LevelUp();
             }
+
+            return Score;
+        }
+
+        public void LevelUp()
+        {
+            Level++;
         }
     }
 }
