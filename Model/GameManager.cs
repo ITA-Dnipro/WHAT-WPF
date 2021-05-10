@@ -42,7 +42,7 @@ namespace Tetris.Model
 
             MovingShape = FigureCreator.CreateNewShape(GameManager.COLUMNS);
 
-            _previousShapeCoordinate = CreateShape(MovingShape, _listOfRectangles, _previousShapeCoordinate);
+            _previousShapeCoordinate = CreateShape(_listOfRectangles, _previousShapeCoordinate);
 
             NextMovingShape = FigureCreator.CreateNewShape(4);
             _listOfNextRectangles = Filler.DrawShape(NextMovingShape, _listOfNextRectangles);
@@ -57,7 +57,7 @@ namespace Tetris.Model
 
             MovingShape = NextMovingShape;
 
-            _previousShapeCoordinate = CreateShape(MovingShape, _listOfRectangles, _previousShapeCoordinate);
+            _previousShapeCoordinate = CreateShape(_listOfRectangles, _previousShapeCoordinate);
 
             NextMovingShape = FigureCreator.CreateNewShape(4);
             _listOfNextRectangles = Filler.DrawShape(NextMovingShape, _listOfNextRectangles);
@@ -78,7 +78,7 @@ namespace Tetris.Model
             return IsEndOfGame;
         }
 
-        public List<Coordinate> CreateShape(BaseShape movingShape, List<List<Rectangle>> _listOfRectangles, List<Coordinate> _previousShapeCoordinate)
+        public List<Coordinate> CreateShape(List<List<Rectangle>> _listOfRectangles, List<Coordinate> _previousShapeCoordinate)
         {
             _listOfRectangles = Filler.DrawShape(MovingShape, _listOfRectangles);
             Filler.ListOfAllPoints.AddRange(MovingShape.Points);
@@ -91,6 +91,7 @@ namespace Tetris.Model
         {
             int delRows = 0;
             List<Coordinate> pointsToDel = new List<Coordinate>();
+
             for (int i = 0; i < GameManager.ROWS; i++)
             {
                 pointsToDel = Filler.ListOfAllPoints.Where(p => p.X == i).ToList();
@@ -102,21 +103,39 @@ namespace Tetris.Model
                         Filler.ListOfAllPoints.Remove(p);
                     });
 
-                    for (int j = i; j > 0; j--)
-                    {
-                        for (int k = 0; k < COLUMNS; k++)
-                        {
-                            _listOfRectangles[j][k].Fill = _listOfRectangles[j - 1][k].Fill;
-                            if (Filler.ListOfAllPoints.Exists(p => p.X == j && p.Y == k))
-                            {
-                                Filler.ListOfAllPoints.ForEach(p => { if (p.X == j && p.Y == k) p.X++; });
-                            }
-                        }
-                    }
+                    ShiftToDown(i, _listOfRectangles);
 
                     delRows++;
                 }
             }
+
+            UpdateScore(delRows);
+
+            if (Score >= ((Level + 1) * 3000) * 3 / 2)
+            {
+                LevelUp();
+            }
+
+            return Score;
+        }
+
+        public void ShiftToDown(int firstBottomLine, List<List<Rectangle>> _listOfRectangles)
+        {
+            for (int j = firstBottomLine; j > 0; j--)
+            {
+                for (int k = 0; k < COLUMNS; k++)
+                {
+                    _listOfRectangles[j][k].Fill = _listOfRectangles[j - 1][k].Fill;
+                    if (Filler.ListOfAllPoints.Exists(p => p.X == j && p.Y == k))
+                    {
+                        Filler.ListOfAllPoints.ForEach(p => { if (p.X == j && p.Y == k) p.X++; });
+                    }
+                }
+            }
+        }
+
+        public void UpdateScore(int delRows)
+        {
             if (delRows > 0)
             {
                 switch (delRows)
@@ -135,13 +154,6 @@ namespace Tetris.Model
                         break;
                 }
             }
-
-            if (Score >= ((Level + 1) * 3000) * 3 / 2)
-            {
-                LevelUp();
-            }
-
-            return Score;
         }
 
         public void LevelUp()

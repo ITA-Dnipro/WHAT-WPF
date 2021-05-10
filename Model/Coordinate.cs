@@ -15,7 +15,7 @@ namespace Tetris.Model
             Y = y;
         }
 
-        public Coordinate(int x, int y, Color pointColor)
+        public Coordinate(int x, int y, LinearGradientBrush pointColor)
         {
             X = x;
             Y = y;
@@ -24,7 +24,7 @@ namespace Tetris.Model
 
         public int X { get; set; }
         public int Y { get; set; }
-        public Color PointColor { get; set; }
+        public LinearGradientBrush PointColor { get; set; }
 
         public object Clone()
         {

@@ -16,7 +16,7 @@ namespace Tetris.Model.Shape
 
         public abstract void Create(int startX, int startY);
 
-        public void SetColor(Color color)
+        public void SetColor(LinearGradientBrush color)
         {
             points.ForEach(p => p.PointColor = color);
         }

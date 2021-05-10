@@ -36,7 +36,7 @@ namespace Tetris.Model
 
         private List<List<Rectangle>> DrawOnePoint(Coordinate coord,  List<List<Rectangle>> listOfRectangles)
         {
-            listOfRectangles[coord.X][coord.Y].Fill = new SolidColorBrush(coord.PointColor);
+            listOfRectangles[coord.X][coord.Y].Fill = new LinearGradientBrush(coord.PointColor.GradientStops);
 
             return listOfRectangles;
         }

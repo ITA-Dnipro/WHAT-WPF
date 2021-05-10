@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 
 namespace Tetris.Model.Shape
@@ -17,7 +18,18 @@ namespace Tetris.Model.Shape
             base.Points.Add(new Coordinate(startX + 1, startY));
             base.Points.Add(new Coordinate(startX + 1, startY + 1));
             base.Points.Add(new Coordinate(startX, startY));
-            base.SetColor(Colors.DarkMagenta);
+
+            LinearGradientBrush gradient = new LinearGradientBrush
+            {
+                StartPoint = new Point(0, 0.5),
+                EndPoint = new Point(0.5, 1)
+            };
+
+            gradient.GradientStops.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#9e1af0"), 0));
+            gradient.GradientStops.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#9e1af0"), 0.2));
+            gradient.GradientStops.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#7b22b3"), 1));
+
+            SetColor(gradient);
         }
     }
 }
