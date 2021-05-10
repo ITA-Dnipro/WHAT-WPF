@@ -104,7 +104,23 @@ namespace Tetris.Views
 
         private void Button_Pause_Click(object sender, RoutedEventArgs e)
         {
-            //TODO:
+            if (_gameManager.MovingShape == null)
+            {
+                return;
+            } 
+
+            if (_gameManager.IsPaused)
+            {
+                buttonPause.Content = "Pause";
+                _gameManager.IsPaused = false;
+            }
+            else
+            {
+                buttonPause.Content = "Reset";
+                _gameManager.IsPaused = true;
+            }
+
+            
         }
 
         private void Button_Info_Click(object sender, RoutedEventArgs e)
@@ -129,7 +145,7 @@ namespace Tetris.Views
 
         private void KeyDownMethod(Key key)
         {
-            if (_gameManager.MovingShape == null || _gameManager.IsEndOfGame)
+            if (_gameManager.MovingShape == null || _gameManager.IsEndOfGame || _gameManager.IsPaused)
             {
                 return;
             }
@@ -176,7 +192,7 @@ namespace Tetris.Views
                     }
                     break;
                 case Key.Up:
-                    if (_gameManager.MovingShape.CanRotate(_gameManager.Filler.ListOfAllPoints))
+                    if (_gameManager.MovingShape.CanRotate(_gameManager.Filler.ListOfAllPoints) && !_gameManager.IsPaused)
                     {
                         _gameManager.MovingShape.Rotate();
                     }

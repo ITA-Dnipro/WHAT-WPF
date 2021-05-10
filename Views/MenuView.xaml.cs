@@ -31,5 +31,10 @@ namespace Tetris.Views
             this.Close();
             tetrisStart.Show();
         }
+
+        private void Button_Exit(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

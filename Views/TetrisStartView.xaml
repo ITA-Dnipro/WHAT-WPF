@@ -10,7 +10,8 @@
       Title="GameStartView"
      Loaded="Window_Loaded"
         KeyDown="Page_KeyDown"
-      Background="#364c5c">
+      Background="#364c5c"
+        WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -147,7 +148,8 @@
                         Width="150"
                         Margin="2"
                         Background="{StaticResource GrayGradientBrush}"
-                    Click="Button_Pause_Click">Pause</Button>
+                    Click="Button_Pause_Click"
+                        Name="buttonPause">Pause</Button>
                 <Button Style="{StaticResource startButton}"
                         FontSize="22"
                         Width="150"
