@@ -29,6 +29,8 @@ namespace Battleship_WPF
         private bool _isTargetEnemy;
         private Level _currentLevel;
 
+        #endregion
+
         public GameViewModel(Level currentLevel)
         {
             _playerMap = null;
@@ -122,7 +124,10 @@ namespace Battleship_WPF
             }
         }
 
-        #endregion
+        public void GetPlayerShot()
+        {
+
+        }
 
     }
 }

@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:Battleship_WPF"
         mc:Ignorable="d"
         Title="Battleship" 
-        Height="500" 
-        Width="800"
+        Height="550" 
+        Width="700"
         Style="{DynamicResource WindowStyle}">
 
     <Window.Resources>
@@ -15,17 +15,10 @@
     </Window.Resources>
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="11*"/>
-        </Grid.RowDefinitions>
-
+       
         <Frame x:Name="MainFrame"
-               Grid.Row="1"
-               NavigationUIVisibility="Hidden"/>
+               NavigationUIVisibility="Hidden"
+               />
 
-        <!--<Button x:Name="srt"
-                Content="Start">
-        </Button>-->
     </Grid>
 </Window>

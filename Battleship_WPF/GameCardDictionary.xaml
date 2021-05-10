@@ -78,11 +78,6 @@
         <Setter Property="Grid.Column" Value="{Binding Path=Coord.OX}"/>
     </Style>
 
-    <DataTemplate x:Key="GridDataTemplate">
-        <Button Content="{Binding Content}" Command="{Binding Command}" />
-    </DataTemplate>
-
-
     <ItemsPanelTemplate x:Key="NumbersTemplate">
         <Grid >
             <Grid.RowDefinitions>
