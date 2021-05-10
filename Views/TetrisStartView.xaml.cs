@@ -33,47 +33,35 @@ namespace Tetris.Views
 
         public void CreateMainGrid()
         {
-            for (int j = 0; j < GameManager.ROWS; j++)
+            Style rectangleStyle = this.FindResource("rectangleBlock") as Style;
+            Style nextRectangleStyle = this.FindResource("nextRectangleBlock") as Style;
+
+            _listOfRectangles = CreateGrid(GameManager.ROWS, GameManager.COLUMNS, _listOfRectangles, rectangleStyle, mainGrid);
+            _listOfNextRectangles = CreateGrid(4, 4, _listOfNextRectangles, nextRectangleStyle, sideGrid);
+        }
+
+        public List<List<Rectangle>> CreateGrid(int rows, int cols, List<List<Rectangle>> _listOfRectangles, Style style, Grid gridName)
+        {
+            for (int j = 0; j < rows; j++)
             {
                 _listOfRectangles.Add(new List<Rectangle>());
 
-                for (int i = 0; i < GameManager.COLUMNS; i++)
+                for (int i = 0; i < cols; i++)
                 {
                     _oneRectangle = new Rectangle
                     {
-                        Stretch = Stretch.Fill,
-                        Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#507387")),
-                        Stroke = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#363835"))
+                        Style = style
                     };
 
                     Grid.SetColumn(_oneRectangle, i);
                     Grid.SetRow(_oneRectangle, j);
-                    mainGrid.Children.Add(_oneRectangle);
+                    gridName.Children.Add(_oneRectangle);
 
                     _listOfRectangles[j].Add(_oneRectangle);
                 }
             }
 
-            for (int j = 0; j < 4; j++)
-            {
-                _listOfNextRectangles.Add(new List<Rectangle>());
-
-                for (int i = 0; i < 4; i++)
-                {
-                    _oneRectangle = new Rectangle
-                    {
-                        Stretch = Stretch.Fill,
-                        Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#364c5c")),
-                        Stroke = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#364c5c"))
-                    };
-
-                    Grid.SetColumn(_oneRectangle, i);
-                    Grid.SetRow(_oneRectangle, j);
-                    sideGrid.Children.Add(_oneRectangle);
-
-                    _listOfNextRectangles[j].Add(_oneRectangle);
-                }
-            }
+            return _listOfRectangles;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -108,18 +96,31 @@ namespace Tetris.Views
 
         private void KeyDownMethod(Key key)
         {
-            if (_gameManager.MovingShape == null)
-            {
-                return;
-            }
-
-            if (_gameManager.IsEndOfGame)
+            if (_gameManager.MovingShape == null || _gameManager.IsEndOfGame)
             {
                 return;
             }
 
             _listOfRectangles = _gameManager.Filler.ClearPreviousShape(_previousShapeCoordinate, _listOfRectangles);
 
+            MoveShape(key);
+
+            bool isCollision = false;
+
+            if (_gameManager.MovingShape.Points.Exists(p => _gameManager.Filler.ListOfAllPoints.Exists(point => point.X == p.X + 1 && p.Y == point.Y)))
+            {
+                isCollision = true;
+            }
+
+            _gameManager.Filler.ListOfAllPoints.AddRange(_gameManager.MovingShape.Points);
+            _listOfRectangles = _gameManager.Filler.DrawShape(_gameManager.MovingShape, _listOfRectangles);
+            _previousShapeCoordinate = _gameManager.MovingShape.Points.ConvertAll(p => (Coordinate)p.Clone());
+
+            CheckCollisionLastRow(isCollision);
+        }
+
+        public void MoveShape(Key key)
+        {
             switch (key)
             {
                 case Key.Left:
@@ -148,18 +149,10 @@ namespace Tetris.Views
                     }
                     break;
             }
+        }
 
-            bool isCollision = false;
-
-            if (_gameManager.MovingShape.Points.Exists(p => _gameManager.Filler.ListOfAllPoints.Exists(point => point.X == p.X + 1 && p.Y == point.Y)))
-            {
-                isCollision = true;
-            }
-
-            _gameManager.Filler.ListOfAllPoints.AddRange(_gameManager.MovingShape.Points);
-            _listOfRectangles = _gameManager.Filler.DrawShape(_gameManager.MovingShape, _listOfRectangles);
-            _previousShapeCoordinate = _gameManager.MovingShape.Points.ConvertAll(p => (Coordinate)p.Clone());
-
+        public void CheckCollisionLastRow( bool isCollision)
+        {
             if (_gameManager.MovingShape.Points.Exists(p => _gameManager.Filler.ListOfAllPoints.Exists(point => (p.X + 1) == GameManager.ROWS || isCollision == true)))
             {
                 if (!firstCheck)
@@ -181,13 +174,12 @@ namespace Tetris.Views
                 {
                     firstCheck = false;
                 }
-
             }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            CreateMainGrid();   
+            CreateMainGrid();
         }
     }
 }
