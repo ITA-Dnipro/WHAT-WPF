@@ -18,14 +18,14 @@ namespace Tetris.Model
         public int Score { get; set; }
         public int Level { get; set; } = 1;
 
-        public FieldFiller Filler { get; } = new FieldFiller();
+        public FieldFiller Filler { get; set; } = new FieldFiller();
         public ShapeCreator FigureCreator { get; } = new ShapeCreator();
         public BaseShape MovingShape { get; set; }
         public BaseShape NextMovingShape { get; set; }
         public delegate void MoveDownByThreadHandler();
         public event MoveDownByThreadHandler MoveDownByThr;
 
-        private bool isEndOfGame = false;
+        public bool IsEndOfGame { get; set; } = false;
         public bool IsPressed { get; set; } = false;
         public Thread MovingThread { get; set; }
         public int TimeOut { get; set; } = 1000;
@@ -49,7 +49,7 @@ namespace Tetris.Model
 
         }
 
-        public void CreateNextShape(List<List<Rectangle>> _listOfRectangles, List<List<Rectangle>> _listOfNextRectangles, ref List<Coordinate> _previousShapeCoordinate)
+        public bool CreateNextShape(List<List<Rectangle>> _listOfRectangles, List<List<Rectangle>> _listOfNextRectangles, ref List<Coordinate> _previousShapeCoordinate)
         {
             _listOfNextRectangles.ForEach(l => l.ForEach(r => { r.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#364c5c")); }));
 
@@ -60,6 +60,20 @@ namespace Tetris.Model
             NextMovingShape = FigureCreator.CreateNewShape(4);
             _listOfNextRectangles = Filler.DrawShape(NextMovingShape, _listOfNextRectangles);
 
+
+            _listOfRectangles = Filler.ClearPreviousShape(_previousShapeCoordinate, _listOfRectangles);
+
+            if (MovingShape.Points.Exists(p => Filler.ListOfAllPoints.Exists(point => point.X == p.X + 1 && p.Y == point.Y && p.X == 0)))
+            {
+                IsEndOfGame = true;
+            }
+            else
+            {
+                _listOfRectangles = Filler.DrawShape(MovingShape, _listOfRectangles);
+                Filler.ListOfAllPoints.AddRange(MovingShape.Points);
+            }
+
+            return IsEndOfGame;
         }
 
         public List<Coordinate> CreateShape(BaseShape movingShape, List<List<Rectangle>> _listOfRectangles, List<Coordinate> _previousShapeCoordinate)
@@ -136,9 +150,9 @@ namespace Tetris.Model
 
         private void MoveDownByThread()
         {
-            while (!isEndOfGame )
+            while (!IsEndOfGame )
             {
-                if (isEndOfGame) MovingThread.Abort();
+                if (IsEndOfGame) MovingThread.Abort();
 
                 if (MoveDownByThr != null && IsPressed == false)
                 {

@@ -17,9 +17,6 @@ using Tetris.Model;
 
 namespace Tetris.Views
 {
-    /// <summary>
-    /// Interaction logic for TetrisStartView.xaml
-    /// </summary>
     public partial class TetrisStartView : Window
     {
         public TetrisStartView()
@@ -115,10 +112,11 @@ namespace Tetris.Views
                 return;
             }
 
-            //if (gm.IsEndOfGame)
-            //{
-            //    return;
-            //}
+            if (_gameManager.IsEndOfGame)
+            {
+                return;
+            }
+
             _listOfRectangles = _gameManager.Filler.ClearPreviousShape(_previousShapeCoordinate, _listOfRectangles);
 
             switch (key)
@@ -168,7 +166,11 @@ namespace Tetris.Views
                     score.Text = _gameManager.CheckRowsForDeleting(_listOfRectangles).ToString();
                     level.Text = (_gameManager.Level + 1).ToString();
 
-                    _gameManager.CreateNextShape(_listOfRectangles, _listOfNextRectangles, ref _previousShapeCoordinate);
+                    if (_gameManager.CreateNextShape(_listOfRectangles, _listOfNextRectangles, ref _previousShapeCoordinate))
+                    {
+                        _listOfRectangles.ForEach(l => l.ForEach(r => { r.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#507387")); }));
+                        _listOfNextRectangles.ForEach(l => l.ForEach(r => { r.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#364c5c")); }));
+                    }
 
                     firstCheck = true;
                 }
