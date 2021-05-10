@@ -53,6 +53,8 @@ namespace Tetris.Model
         {
             _listOfNextRectangles.ForEach(l => l.ForEach(r => { r.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#364c5c")); }));
 
+            NextMovingShape.Points.ForEach(point => point.Y += 3);
+
             MovingShape = NextMovingShape;
 
             _previousShapeCoordinate = CreateShape(MovingShape, _listOfRectangles, _previousShapeCoordinate);

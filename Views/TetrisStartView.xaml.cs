@@ -80,6 +80,7 @@ namespace Tetris.Views
         {
             score.Text = "0";
             level.Text = "1";
+            gameOver.Text = "";
 
             if (_gameManager.MovingThread != null)
             {
@@ -170,6 +171,8 @@ namespace Tetris.Views
                     {
                         _listOfRectangles.ForEach(l => l.ForEach(r => { r.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#507387")); }));
                         _listOfNextRectangles.ForEach(l => l.ForEach(r => { r.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#364c5c")); }));
+                        gameOver.Text = "GAME OVER";
+                        return;
                     }
 
                     firstCheck = true;
@@ -180,8 +183,6 @@ namespace Tetris.Views
                 }
 
             }
-
-            //  if (gm.IsEndOfGame) txtLabel.Text = "GAME OVER";
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

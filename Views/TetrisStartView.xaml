@@ -91,8 +91,6 @@
                     Style="{StaticResource score}"/>
             </StackPanel>
 
-
-
             <Grid Grid.Row="1"  Margin="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
@@ -114,8 +112,13 @@
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
                 </Grid>
-
             </Grid>
+
+            <TextBlock Grid.Row="3"
+                       Foreground="Red"
+                       Name="gameOver"
+                       VerticalAlignment="Top"
+                       Style="{StaticResource score}"/>
 
             <Button Grid.Row="4" FontSize="20"
                     Click="Button_Click">Start game</Button>
