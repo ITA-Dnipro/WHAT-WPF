@@ -58,8 +58,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CellViewModel.cs" />
-    <Compile Include="GameViewModel.cs" />
+    <Compile Include="Classes\CellViewModel.cs" />
+    <Compile Include="Classes\GameViewModel.cs" />
     <Compile Include="Pages\GameCardPage.xaml.cs">
       <DependentUpon>GameCardPage.xaml</DependentUpon>
     </Compile>
@@ -141,6 +141,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resourses\BombCell.png" />
+    <Resource Include="Resourses\DestructionCell.png" />
+    <Resource Include="Resourses\PastCell.png" />
+    <Resource Include="Resourses\ShipCell.png" />
+    <Resource Include="Resourses\WaveCell.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

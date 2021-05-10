@@ -23,17 +23,23 @@ namespace Battleship_WPF
     /// </summary>
     public partial class GameCardPage : Page
     {
-        private Sea _playerMap;
-        private Sea _enemyMap;
+        public GameViewModel currentGame;
 
         public GameCardPage()
         {
             InitializeComponent();
 
-            PlayerCells = new ObservableCollection<CellViewModel>();
-            EnemyCells = new ObservableCollection<CellViewModel>();
-            AddCells(PlayerCells);
-            AddCells(EnemyCells);
+            currentGame = new GameViewModel(Level.Meduim);
+            currentGame.StartUp();
+
+            //PlayerCells = new ObservableCollection<CellViewModel>();
+            //EnemyCells = new ObservableCollection<CellViewModel>();
+            //AddCells(PlayerCells);
+            //AddCells(EnemyCells);
+
+            PlayerCells = currentGame.PlayerCells;
+            EnemyCells = currentGame.EnemyCells;
+
             DataContext = this;
         }
 
@@ -41,16 +47,15 @@ namespace Battleship_WPF
 
         public ObservableCollection<CellViewModel> EnemyCells { get; set; }
 
-        public void AddCells(ObservableCollection<CellViewModel> cells)
-        {
-            for (int OY = 0; OY < 10; OY++)
-            {
-                for (int OX = 0; OX < 10; OX++)
-                {
-                    cells.Add(new CellViewModel(new Position(OY, OX)));
-                }
-            }
-
-        }
+        //public void AddCells(ObservableCollection<CellViewModel> cells)
+        //{
+        //    for (int OY = 0; OY < 10; OY++)
+        //    {
+        //        for (int OX = 0; OX < 10; OX++)
+        //        {
+        //            cells.Add(new CellViewModel(new Position(OY, OX)));
+        //        }
+        //    }
+        //}
     }
 }

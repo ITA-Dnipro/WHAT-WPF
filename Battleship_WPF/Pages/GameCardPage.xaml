@@ -110,14 +110,11 @@
 
             </Grid>
             
-
-
-
             <Grid x:Name="EnemySeaGrid" 
                   Grid.Row="1" 
                   Grid.Column="1">
 
-                <ItemsControl ItemsSource="{Binding EnemyCells}" 
+                <ItemsControl ItemsSource="{Binding Path=EnemyCells}" 
                       ItemsPanel="{StaticResource GridPanelTemplate}"
                       ItemContainerStyle="{StaticResource GridStyle}"
                       ItemTemplate="{StaticResource GridDataTemplate}">
@@ -202,7 +199,7 @@
                   Grid.Row="1" 
                   Grid.Column="1">
 
-                <ItemsControl ItemsSource="{Binding PlayerCells}" 
+                <ItemsControl ItemsSource="{Binding Path=PlayerCells}" 
                       ItemsPanel="{StaticResource GridPanelTemplate}"
                       ItemContainerStyle="{StaticResource GridStyle}"
                       ItemTemplate="{StaticResource GridDataTemplate}">
@@ -210,7 +207,7 @@
                 </ItemsControl>
 
             </Grid>
-
+            
         </Grid>
 
         <TextBlock x:Name="InfoNextBlock"
