@@ -116,9 +116,17 @@
 
                 <ItemsControl ItemsSource="{Binding Path=EnemyCells}" 
                       ItemsPanel="{StaticResource GridPanelTemplate}"
-                      ItemContainerStyle="{StaticResource GridStyle}"
-                      ItemTemplate="{StaticResource GridDataTemplate}">
-                    
+                      ItemContainerStyle="{StaticResource GridStyle}">
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate >
+                            <Button Content="{Binding Content}" 
+                                    Command="{Binding Command}"
+                                    Click="CellButton_Click"
+                                    />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+
                 </ItemsControl>
                 
             </Grid>
@@ -201,8 +209,15 @@
 
                 <ItemsControl ItemsSource="{Binding Path=PlayerCells}" 
                       ItemsPanel="{StaticResource GridPanelTemplate}"
-                      ItemContainerStyle="{StaticResource GridStyle}"
-                      ItemTemplate="{StaticResource GridDataTemplate}">
+                      ItemContainerStyle="{StaticResource GridStyle}">
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate >
+                            <Button Content="{Binding Content}" 
+                                    Command="{Binding Command}"
+                                    />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
 
                 </ItemsControl>
 

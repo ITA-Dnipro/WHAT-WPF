@@ -57,5 +57,10 @@ namespace Battleship_WPF
         //        }
         //    }
         //}
+
+        private void CellButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }
