@@ -59,6 +59,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CellViewModel.cs" />
+    <Compile Include="GameViewModel.cs" />
     <Compile Include="Pages\GameCardPage.xaml.cs">
       <DependentUpon>GameCardPage.xaml</DependentUpon>
     </Compile>

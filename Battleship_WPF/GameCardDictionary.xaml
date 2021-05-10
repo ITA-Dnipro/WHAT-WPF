@@ -75,12 +75,68 @@
     </ItemsPanelTemplate>
 
     <Style x:Key="GridStyle">
-        <Setter Property="Grid.Row" Value="{Binding Path=Coord.Y}"/>
-        <Setter Property="Grid.Column" Value="{Binding Path=Coord.X}"/>
+        <Setter Property="Grid.Row" Value="{Binding Path=Coord.OY}"/>
+        <Setter Property="Grid.Column" Value="{Binding Path=Coord.OX}"/>
     </Style>
 
     <DataTemplate x:Key="GridDataTemplate">
         <Button Content="{Binding Content}" Command="{Binding Command}" />
     </DataTemplate>
+
+
+    <ItemsPanelTemplate x:Key="NumbersTemplate">
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="1"/>
+            <TextBlock Grid.Row="1" Text="2"/>
+            <TextBlock Grid.Row="2" Text="3"/>
+            <TextBlock Grid.Row="3" Text="4"/>
+            <TextBlock Grid.Row="4" Text="5"/>
+            <TextBlock Grid.Row="5" Text="6"/>
+            <TextBlock Grid.Row="6" Text="7"/>
+            <TextBlock Grid.Row="7" Text="8"/>
+            <TextBlock Grid.Row="8" Text="9"/>
+            <TextBlock Grid.Row="9" Text="10"/>
+        </Grid>
+    </ItemsPanelTemplate>
+
+    <Grid x:Key="LettersTemplate">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Column="0" Text="A"/>
+        <TextBlock Grid.Column="1" Text="B"/>
+        <TextBlock Grid.Column="2" Text="C"/>
+        <TextBlock Grid.Column="3" Text="D"/>
+        <TextBlock Grid.Column="4" Text="E"/>
+        <TextBlock Grid.Column="5" Text="F"/>
+        <TextBlock Grid.Column="6" Text="G"/>
+        <TextBlock Grid.Column="7" Text="H"/>
+        <TextBlock Grid.Column="8" Text="I"/>
+        <TextBlock Grid.Column="9" Text="J"/>
+    </Grid>
+
 
 </ResourceDictionary>

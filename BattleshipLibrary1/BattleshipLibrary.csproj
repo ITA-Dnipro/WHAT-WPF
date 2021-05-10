@@ -49,6 +49,7 @@
     <Compile Include="Classes\RandomCoords.cs" />
     <Compile Include="Classes\Sea.cs" />
     <Compile Include="Classes\Ship.cs" />
+    <Compile Include="Difficulty.cs" />
     <Compile Include="Enum\Borders.cs" />
     <Compile Include="Enum\BitShipType.cs" />
     <Compile Include="Enum\Direction.cs" />

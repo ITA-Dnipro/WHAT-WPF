@@ -12,6 +12,8 @@ namespace Battleship_WPF
     {
         public Position Coord { get; set; }
 
+        public string ImagePath { get; set; }
+
         public CellViewModel(Position coord)
         {
             Coord = coord;
