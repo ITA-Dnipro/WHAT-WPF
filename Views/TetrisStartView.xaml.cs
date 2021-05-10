@@ -83,6 +83,12 @@ namespace Tetris.Views
         {
             score.Text = "0";
             level.Text = "1";
+
+            if (_gameManager.MovingThread != null)
+            {
+                _gameManager.MovingThread.Abort();
+            }
+
             _gameManager = new GameManager();
             _gameManager.Start(_listOfRectangles, _listOfNextRectangles, ref _previousShapeCoordinate);
 
