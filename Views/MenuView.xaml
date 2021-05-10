@@ -15,7 +15,8 @@
 
     <StackPanel HorizontalAlignment="Center"
                 VerticalAlignment="Center">
-        <Button Style="{StaticResource startButton}" Click="Button_Click">START</Button>
+        <Button Style="{StaticResource startButton}"
+                Click="Button_Click">START</Button>
         <Button Style="{StaticResource startButton}">SETTINGS</Button>
         <Button Style="{StaticResource startButton}">EXIT</Button>
     </StackPanel>

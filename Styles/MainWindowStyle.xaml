@@ -19,6 +19,7 @@
         <Setter Property="FontSize" Value="24"/>
         <Setter Property="FontFamily" Value="Arial"/>
         <Setter Property="Margin" Value="10"/>
+        <Setter Property="Background" Value="{StaticResource BlueGradientBrush}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -45,7 +46,7 @@
                                    RadiusX="20"
                                    RadiusY="20"
                                    StrokeThickness="20"
-                                   Fill="{StaticResource BlueGradientBrush}"/>
+                                   Fill="{TemplateBinding Background}"/> <!--, StaticResource BlueGradientBrush-->
                         <!--Content presenter-->
                         <DockPanel x:Name="myContentPresenter">
                             <ContentPresenter Margin="20"

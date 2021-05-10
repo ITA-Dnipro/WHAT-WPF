@@ -78,7 +78,7 @@
 
             <StackPanel Grid.Row="0" 
                         Style="{StaticResource scorePanel}" >
-                <Border BorderBrush="Yellow"
+                <Border BorderBrush="SlateGray"
                         BorderThickness="1"
                         Padding="5">
                     <StackPanel>
@@ -135,9 +135,25 @@
                        VerticalAlignment="Top"
                        Style="{StaticResource score}"/>
 
-            <StackPanel Grid.Row="5" Style="{StaticResource scorePanel}">
+            <StackPanel Grid.Row="4" Grid.RowSpan ="2" Style="{StaticResource scorePanel}">
                 <Button Style="{StaticResource startButton}"
-                    Click="Button_Click">New game</Button>
+                        FontSize="22"
+                        Width="150"
+                        Margin="2"
+                        Background="{StaticResource GrayGradientBrush}"
+                    Click="Button_Start_Click">New game</Button>
+                <Button Style="{StaticResource startButton}"
+                        FontSize="22"
+                        Width="150"
+                        Margin="2"
+                        Background="{StaticResource GrayGradientBrush}"
+                    Click="Button_Pause_Click">Pause</Button>
+                <Button Style="{StaticResource startButton}"
+                        FontSize="22"
+                        Width="150"
+                        Margin="2"
+                        Background="{StaticResource GrayGradientBrush}"
+                    Click="Button_Info_Click">Info</Button>
             </StackPanel>
 
         </Grid>

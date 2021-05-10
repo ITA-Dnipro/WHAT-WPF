@@ -13,7 +13,14 @@
         <Setter Property="FontWeight" Value="Bold"></Setter>
         <Setter Property="HorizontalAlignment" Value="Center"></Setter>
         <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="Foreground" Value="LightSteelBlue"></Setter>
     </Style>
+
+    <LinearGradientBrush x:Key="GrayGradientBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+        <GradientStop Color="#3e75b5" Offset="0" />
+
+        <GradientStop Color="#4170a6" Offset="1.0"/>
+    </LinearGradientBrush>
 
 
     <Style x:Key="rectangleBlock" TargetType="{x:Type Rectangle}">
@@ -27,12 +34,5 @@
         <Setter Property="Fill" Value="#364c5c"/>
         <Setter Property="Stroke" Value="#364c5c"/>
     </Style>
-
-    <LinearGradientBrush x:Key="shapeOColor" StartPoint="0,0" EndPoint="1,1">
-        <GradientStop Color="#eaed32" Offset="0" />
-        <!--<GradientStop Color="DeepSkyBlue" Offset="0.2" />
-        <GradientStop Color="LightSkyBlue" Offset="0.6" />-->
-        <GradientStop Color="#b8ba1e" Offset="1.0"/>
-    </LinearGradientBrush>
 
 </ResourceDictionary>

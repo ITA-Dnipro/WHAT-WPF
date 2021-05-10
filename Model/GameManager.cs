@@ -30,6 +30,8 @@ namespace Tetris.Model
         public Thread MovingThread { get; set; }
         public int TimeOut { get; set; } = 1000;
 
+        public bool IsPaused { get; set; }
+
 
         public void Start(List<List<Rectangle>> _listOfRectangles, List<List<Rectangle>> _listOfNextRectangles, ref List<Coordinate> _previousShapeCoordinate)
         {

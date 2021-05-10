@@ -23,8 +23,8 @@ namespace Tetris.Model.Shape
             gradient.StartPoint = new Point(0, 0);
             gradient.EndPoint = new Point(0, 1);
 
-            gradient.GradientStops.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#eaed32"), 0));
-            gradient.GradientStops.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#eaed32"), 0.3));
+            gradient.GradientStops.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#d1d437"), 0));
+            gradient.GradientStops.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#d1d437"), 0.3));
             gradient.GradientStops.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#b3b06f"), 1));
 
             SetColor(gradient);

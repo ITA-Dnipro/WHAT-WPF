@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MsgBoxEx;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,26 @@ namespace Tetris.Views
         public TetrisStartView()
         {
             InitializeComponent();
+            this.InitMessageBox();
+        }
+
+        private void InitMessageBox()
+        {
+            // font family name is validate against fonts installed in windows.
+            MessageBoxEx.SetFont("Verdana", 14);
+
+            MessageBoxEx.SetMessageForeground(Colors.White);
+            MessageBoxEx.SetMessageBackground(Colors.Black);
+            MessageBoxEx.SetButtonBackground(MessageBoxEx.ColorFromString("#26283b"));
+
+            // template name is validated and if not found in your app, will not be applied
+            MessageBoxEx.SetButtonTemplateName("AefCustomButton");
+
+            // default max width is the width of the primary screen's work area minus 100 pixels
+            MessageBoxEx.SetMaxFormWidth(1000);
+
+            // if you want to make the messagebox silent when you use icons, uncomment the next line
+            //MessageBoxEx.SetAsSilent(true);
         }
 
         private GameManager _gameManager = new GameManager();
@@ -64,7 +85,7 @@ namespace Tetris.Views
             return _listOfRectangles;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Start_Click(object sender, RoutedEventArgs e)
         {
             score.Text = "0";
             level.Text = "1";
@@ -79,6 +100,18 @@ namespace Tetris.Views
             _gameManager.Start(_listOfRectangles, _listOfNextRectangles, ref _previousShapeCoordinate);
 
             _gameManager.MoveDownByThr += MoveDownByThread;
+        }
+
+        private void Button_Pause_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO:
+        }
+
+        private void Button_Info_Click(object sender, RoutedEventArgs e)
+        {
+            _gameManager.IsPaused = true;
+            MessageBoxEx.Show("← move left \n→ move right \n↓ move down \n↑ rotate");
+            _gameManager.IsPaused = false;
         }
 
         private void Page_KeyDown(object sender, KeyEventArgs e)
@@ -180,6 +213,11 @@ namespace Tetris.Views
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             CreateMainGrid();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

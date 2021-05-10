@@ -25,9 +25,9 @@ namespace Tetris.Model.Shape
                 EndPoint = new Point(0.5, 1)
             };
 
-            gradient.GradientStops.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#f0291a"), 0));
-            gradient.GradientStops.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#f0291a"), 0.2));
-            gradient.GradientStops.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#cf2f23"), 1));
+            gradient.GradientStops.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#961209"), 0));
+            gradient.GradientStops.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#961209"), 0.2));
+            gradient.GradientStops.Add(new GradientStop((Color)ColorConverter.ConvertFromString("#661b15"), 1));
 
             SetColor(gradient);
         }
