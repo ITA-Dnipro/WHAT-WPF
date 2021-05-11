@@ -91,12 +91,21 @@ namespace Tetris.Views
             level.Text = "1";
             gameOver.Text = "";
 
+
             if (_gameManager.MovingThread != null)
             {
                 _gameManager.MovingThread.Abort();
             }
 
+            bool isPaused = _gameManager.IsPaused;
+
             _gameManager = new GameManager();
+
+            if (isPaused)
+            {
+                _gameManager.IsPaused = true;
+            }
+
             _gameManager.Start(_listOfRectangles, _listOfNextRectangles, ref _previousShapeCoordinate);
 
             _gameManager.MoveDownByThr += MoveDownByThread;
