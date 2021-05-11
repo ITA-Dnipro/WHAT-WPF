@@ -15,17 +15,17 @@
         <Setter Property="Height" Value="30"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate>
+                <ControlTemplate TargetType="Button">
                     <Border CornerRadius="6" 
                             BorderBrush="{TemplateBinding BorderBrush }"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            Background="{TemplateBinding Background}">
+                            Background="{TemplateBinding Background}"
+                            >
                         <Grid>
                             <Image Source="{Binding ImagePath}"/>
-                            <!--<Rectangle Fill="Aqua"/>-->
                         </Grid>
                     </Border>
-                    
+
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

@@ -46,7 +46,9 @@ namespace Battleship_WPF
         {
             Button cell = (Button)sender;
             Position coord = (Position)cell.DataContext;
+            //MessageBox.Show(coord.OY.ToString());
             currentGame.GetPlayerShot(coord);
+
         }
     }
 }

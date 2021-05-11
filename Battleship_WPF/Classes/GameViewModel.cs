@@ -124,9 +124,91 @@ namespace Battleship_WPF
             }
         }
 
-        public void GetPlayerShot(Position coord)
+        public void GetPlayerShot(Position coords)
         {
+             bool shipSearched = _enemyMap.SearchShips();
 
+            if (!shipSearched)
+            {
+                return;
+            }
+
+            _enemyMap.TargetCoordY = coords.OY;
+            _enemyMap.TargetCoordX = coords.OX;
+            
+            bool wasShot = _enemyMap.WasShot();
+
+            if (wasShot)
+            {
+                return;
+            }
+
+            bool isFinishedOfShipEnemy = false;
+            _isTargetEnemy = _enemyMap.HitTarget(ref isFinishedOfShipEnemy);
+
+            if (_isTargetEnemy && !isFinishedOfShipEnemy)
+            {
+                _enemyMap.MarkImpossibleTargets();
+            }
+
+            if (!_isTargetEnemy)
+            {
+                GetEnemyShot();
+            }
+        }
+
+        public UserActions GetEnemyShot()
+        {
+            UserActions chosenAction = UserActions.StartGame;
+
+            if (_isEasyLevel)
+            {
+                ShotWithoutIntellegence(ref chosenAction);
+            }
+            else
+            {
+                ShotWithEnemyIntellegence(ref chosenAction);
+            }
+
+            return chosenAction;
+        }
+
+        private void ShotWithEnemyIntellegence(ref UserActions chosenAction)
+        {
+            do
+            {
+                _enemysMind.MakeTheShot(ref _isAlivePlayerAfterRigthShoot, _playerMap);
+                _isTargetPlayer = _enemysMind.IsTargetPlayer;
+
+                _playerMap.CheckShipCondition(_isTargetPlayer, _isAlivePlayerAfterRigthShoot, _enemysMind);
+
+                System.Threading.Thread.Sleep(1500);
+                bool shipSearched = _playerMap.SearchShips();
+
+                if (!shipSearched)
+                {
+                    break;
+                }
+
+            } while (_isTargetPlayer);
+        }
+
+        private void ShotWithoutIntellegence(ref UserActions chosenAction)
+        {
+            do
+            {
+                RandomCoords.SearchRandomCoords(_playerMap);
+                _isTargetPlayer = _playerMap.HitTarget(ref _isAlivePlayerAfterRigthShoot);
+
+                System.Threading.Thread.Sleep(1500);
+                bool shipSearched = _playerMap.SearchShips();
+
+                if (!shipSearched)
+                {
+                    break;
+                }
+
+            } while (_isTargetPlayer);
         }
 
     }

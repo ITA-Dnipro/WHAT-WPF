@@ -119,10 +119,10 @@
 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate >
-                            <Button Content="{Binding Content}"
-                                    Click="CellButton_Click"
-                                    DataContext="{Binding Path=Coord}"
+                            <Button Click="CellButton_Click"
+                                    
                                     />
+                            
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
 
