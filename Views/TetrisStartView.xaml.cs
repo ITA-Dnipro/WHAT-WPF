@@ -58,7 +58,7 @@ namespace Tetris.Views
             Style nextRectangleStyle = this.FindResource("nextRectangleBlock") as Style;
 
             _listOfRectangles = CreateGrid(GameManager.ROWS, GameManager.COLUMNS, _listOfRectangles, rectangleStyle, mainGrid);
-            _listOfNextRectangles = CreateGrid(4, 4, _listOfNextRectangles, nextRectangleStyle, sideGrid);
+            _listOfNextRectangles = CreateGrid(2, 4, _listOfNextRectangles, nextRectangleStyle, sideGrid);
         }
 
         public List<List<Rectangle>> CreateGrid(int rows, int cols, List<List<Rectangle>> _listOfRectangles, Style style, Grid gridName)
@@ -89,8 +89,9 @@ namespace Tetris.Views
         {
             score.Text = "0";
             level.Text = "1";
-            gameOver.Text = "";
-
+            deletedRows.Text = "0";
+            buttonStart.Focusable = false;
+            
 
             if (_gameManager.MovingThread != null)
             {
@@ -216,13 +217,13 @@ namespace Tetris.Views
                 if (!firstCheck)
                 {
                     score.Text = _gameManager.CheckRowsForDeleting(_listOfRectangles).ToString();
-                    level.Text = (_gameManager.Level + 1).ToString();
+                    level.Text = (_gameManager.Level).ToString();
+                    deletedRows.Text = _gameManager.AmountOfDeletedRows.ToString();
 
                     if (_gameManager.CreateNextShape(_listOfRectangles, _listOfNextRectangles, ref _previousShapeCoordinate))
                     {
                         _listOfRectangles.ForEach(l => l.ForEach(r => { r.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#507387")); }));
                         _listOfNextRectangles.ForEach(l => l.ForEach(r => { r.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#364c5c")); }));
-                        gameOver.Text = "GAME OVER";
                         return;
                     }
 

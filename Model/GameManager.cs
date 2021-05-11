@@ -30,6 +30,8 @@ namespace Tetris.Model
         public Thread MovingThread { get; set; }
         public int TimeOut { get; set; } = 1000;
 
+        public int AmountOfDeletedRows { get; set; } = 0;
+
         public bool IsPaused { get; set; }
 
 
@@ -111,9 +113,16 @@ namespace Tetris.Model
                 }
             }
 
+            AmountOfDeletedRows += delRows;
+
             UpdateScore(delRows);
 
-            if (Score >= ((Level + 1) * 3000) * 3 / 2)
+            //if (Score >= ((Level + 1) * 3000) * 3 / 2)
+            //{
+            //    LevelUp();
+            //}
+
+            if (AmountOfDeletedRows >= Level * 10)
             {
                 LevelUp();
             }
@@ -161,7 +170,7 @@ namespace Tetris.Model
         public void LevelUp()
         {
             Level++;
-          TimeOut = (int)(TimeOut * 0.8f);
+          TimeOut = (int)(TimeOut * 0.9f);
         }
 
         private void MoveDownByThread()
