@@ -58,6 +58,14 @@ namespace Battleship_WPF
             AddCells(PlayerCells, _playerMap, false);
             AddCells(EnemyCells, _enemyMap, true);
             SetLevel();
+
+            _playerMap.InjuredShip += ChangeInjuredCellOfPlayer;
+            _playerMap.DestroyedShip += ChangeDestroyedCellOfPlayer;
+            _playerMap.MissedCell += ChangePastCellOfPlayer;
+
+            _enemyMap.InjuredShip += ChangeInjuredCellOfEnemy;
+            _enemyMap.DestroyedShip += ChangeDestroyedCellOfEnemy;
+            _enemyMap.MissedCell += ChangePastCellOfEnemy;
         }
 
         public void AddCells(ObservableCollection<CellViewModel> cells, Sea map, bool isEnemyMap)
@@ -209,6 +217,80 @@ namespace Battleship_WPF
                 }
 
             } while (_isTargetPlayer);
+        }
+
+        private void ChangeInjuredCellOfPlayer(object sender, InjuredShipEventArgs e)
+        {
+            foreach (var cell in PlayerCells)
+            {
+                if (cell.Coord.OX == e.InjuredCell.OX && cell.Coord.OY == e.InjuredCell.OY )
+                {
+                    cell.ImagePath = "Resourses/BombCell.png";
+                }
+            }
+        }
+
+        private void ChangeDestroyedCellOfPlayer(object sender, DestroyedShipEventArgs e)
+        {
+            for (int i = 0; i < e.DestroyedShip.CountOfDeck; i++)
+            {
+                foreach (var cell in PlayerCells)
+                {
+                    if (cell.Coord.OX == e.DestroyedShip[i].OX && cell.Coord.OY == e.DestroyedShip[i].OY)
+                    {
+                        cell.ImagePath = "Resourses/DestructionCell.png";
+                    }
+                }
+            }
+        }
+        
+
+        private void ChangePastCellOfPlayer(object sender, MissedShotEventArgs e)
+        {
+            foreach (var cell in PlayerCells)
+            {
+                if (cell.Coord.OX == e.MissedPosition.OX && cell.Coord.OY == e.MissedPosition.OY)
+                {
+                    cell.ImagePath = "Resourses/PastCell.png";
+                }
+            }
+        }
+
+        private void ChangeInjuredCellOfEnemy(object sender, InjuredShipEventArgs e)
+        {
+            foreach (var cell in EnemyCells)
+            {
+                if (cell.Coord.OX == e.InjuredCell.OX && cell.Coord.OY == e.InjuredCell.OY)
+                {
+                    cell.ImagePath = "Resourses/BombCell.png";
+                }
+            }
+        }
+
+        private void ChangeDestroyedCellOfEnemy(object sender, DestroyedShipEventArgs e)
+        {
+            for (int i = 0; i < e.DestroyedShip.CountOfDeck; i++)
+            {
+                foreach (var cell in EnemyCells)
+                {
+                    if (cell.Coord.OX == e.DestroyedShip[i].OX && cell.Coord.OY == e.DestroyedShip[i].OY)
+                    {
+                        cell.ImagePath = "Resourses/DestructionCell.png";
+                    }
+                }
+            }
+        }
+
+
+        private void ChangePastCellOfEnemy(object sender, MissedShotEventArgs e)
+        {
+            foreach (var cell in EnemyCells)
+            {
+                if (cell.Coord.OX == e.MissedPosition.OX && cell.Coord.OY == e.MissedPosition.OY)
+                {
+                    cell.ImagePath = "Resourses/PastCell.png";
+                }
+            }
         }
 
     }

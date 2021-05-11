@@ -45,10 +45,11 @@ namespace Battleship_WPF
         private void CellButton_Click(object sender, RoutedEventArgs e)
         {
             Button cell = (Button)sender;
-            Position coord = (Position)cell.DataContext;
-            //MessageBox.Show(coord.OY.ToString());
-            currentGame.GetPlayerShot(coord);
+            //Position coord = (Position)cell.DataContext;
+            //currentGame.GetPlayerShot(coord);
 
+            Position coords = (Position)cell.Content;
+            currentGame.GetPlayerShot(coords);
         }
     }
 }

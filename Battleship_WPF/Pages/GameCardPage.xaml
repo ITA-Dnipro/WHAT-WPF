@@ -120,6 +120,7 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate >
                             <Button Click="CellButton_Click"
+                                    Content="{Binding Path=Coord}"
                                     
                                     />
                             
