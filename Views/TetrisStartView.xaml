@@ -96,7 +96,9 @@
             <TextBlock Grid.Row="1" 
                        Text="NEXT"
                        Style="{StaticResource score}"
-                       Foreground="Silver"/>
+                       Foreground="Silver"
+                       Name="textBoxNext"
+                       Visibility="Collapsed"/>
 
             <StackPanel Grid.Row="3"
                         HorizontalAlignment="Left"

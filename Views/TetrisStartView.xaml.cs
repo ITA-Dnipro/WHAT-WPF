@@ -81,7 +81,7 @@ namespace Tetris.Views
             level.Text = "1";
             deletedRows.Text = "0";
             buttonStart.Focusable = false;
-            
+            textBoxNext.Visibility = Visibility.Visible;
 
             if (_gameManager.MovingThread != null)
             {
@@ -253,6 +253,7 @@ namespace Tetris.Views
                         _listOfRectangles.ForEach(l => l.ForEach(r => { r.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#507387")); }));
                         _listOfNextRectangles.ForEach(l => l.ForEach(r => { r.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#364c5c")); }));
 
+                        textBoxNext.Visibility = Visibility.Collapsed;
                         MessageBoxEx.SetMessageForeground(Colors.Red);
                         MessageBoxEx.Show("GAME OVER", "Game Over");
                         MessageBoxEx.SetMessageForeground(Colors.White);
