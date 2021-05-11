@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
-
+using System.Windows.Threading;
 using Tetris.Model;
 
 namespace Tetris.Views
@@ -16,7 +16,7 @@ namespace Tetris.Views
         public TetrisStartView()
         {
             InitializeComponent();
-            this.InitMessageBox();
+            InitMessageBox();
         }
 
         private void InitMessageBox()
@@ -27,9 +27,6 @@ namespace Tetris.Views
             MessageBoxEx.SetMessageForeground(Colors.White);
             MessageBoxEx.SetMessageBackground(Colors.Black);
             MessageBoxEx.SetButtonBackground(MessageBoxEx.ColorFromString("#26283b"));
-
-            // template name is validated and if not found in your app, will not be applied
-            MessageBoxEx.SetButtonTemplateName("AefCustomButton");
 
             // default max width is the width of the primary screen's work area minus 100 pixels
             MessageBoxEx.SetMaxFormWidth(1000);
@@ -121,16 +118,18 @@ namespace Tetris.Views
             }
             else
             {
-                buttonPause.Content = "Reset";
+                buttonPause.Content = "Resume";
                 _gameManager.IsPaused = true;
             }
         }
 
         private void Button_Info_Click(object sender, RoutedEventArgs e)
         {
-            _gameManager.IsPaused = true;
-            MessageBoxEx.Show("← Move left \n→ Move right \n↓ Move down \n↑ Rotate\n\n F11 - Fullscreen\n Esc - Exit to main menu", "Info");
-            _gameManager.IsPaused = false;
+            if (_gameManager.IsPaused == false)
+            {
+                SetGameOnPause();
+            }
+            MessageBoxEx.Show("← Move left \n→ Move right \n↓ Move down \n↑ Rotate\n\n F11 - Fullscreen\n Esc - Exit to main menu", "Info", this);
         }
 
         private void Page_KeyDown(object sender, KeyEventArgs e)
@@ -154,7 +153,7 @@ namespace Tetris.Views
                         SetGameOnPause();
                     }
 
-                    MessageBoxResult exitResult = MessageBoxEx.Show("Do you really want exit to main menu?", "Exit", MessageBoxButton.YesNo);
+                    MessageBoxResult exitResult = MessageBoxEx.Show("Do you really want exit to main menu?", "Exit", MessageBoxButton.YesNo, this);
 
                     if (exitResult == MessageBoxResult.Yes)
                     {
@@ -255,7 +254,7 @@ namespace Tetris.Views
 
                         textBoxNext.Visibility = Visibility.Collapsed;
                         MessageBoxEx.SetMessageForeground(Colors.Red);
-                        MessageBoxEx.Show("GAME OVER", "Game Over");
+                        MessageBoxEx.Show("GAME OVER", "Game Over", this);
                         MessageBoxEx.SetMessageForeground(Colors.White);
                         return;
                     }
@@ -274,9 +273,12 @@ namespace Tetris.Views
             CreateMainGrid();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Window_Closed(object sender, EventArgs e)
         {
-
+            if (_gameManager.MovingThread != null)
+            {
+                _gameManager.MovingThread.Abort();
+            }
         }
     }
 }

@@ -11,7 +11,9 @@
      Loaded="Window_Loaded"
         KeyDown="Page_KeyDown"
       Background="#364c5c"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Closed="Window_Closed">
+    
 
     <Window.Resources>
         <ResourceDictionary>
@@ -148,21 +150,18 @@
             <StackPanel Grid.Row="4" Grid.RowSpan ="3" Style="{StaticResource scorePanel}">
                 <Button Style="{StaticResource startButton}"
                         FontSize="22"
-                        Width="150"
                         Margin="2"
                         Name="buttonStart"
                         Background="{StaticResource GrayGradientBrush}"
                     Click="Button_Start_Click">New game</Button>
                 <Button Style="{StaticResource startButton}"
                         FontSize="22"
-                        Width="150"
                         Margin="2"
                         Background="{StaticResource GrayGradientBrush}"
                     Click="Button_Pause_Click"
                         Name="buttonPause">Pause</Button>
                 <Button Style="{StaticResource startButton}"
                         FontSize="22"
-                        Width="150"
                         Margin="2"
                         Background="{StaticResource GrayGradientBrush}"
                     Click="Button_Info_Click">Info</Button>
