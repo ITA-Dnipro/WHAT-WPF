@@ -161,6 +161,7 @@ namespace Battleship_WPF
 
             if (!_isTargetEnemy)
             {
+                Change(coords);//////
                 GetEnemyShot();
             }
         }
@@ -287,6 +288,17 @@ namespace Battleship_WPF
             foreach (var cell in EnemyCells)
             {
                 if (cell.Coord.OX == e.MissedPosition.OX && cell.Coord.OY == e.MissedPosition.OY)
+                {
+                    cell.ImagePath = "Resourses/PastCell.png";
+                }
+            }
+        }
+
+        private void Change(Position coords)
+        {
+            foreach (var cell in EnemyCells)
+            {
+                if (cell.Coord.OX == coords.OX && cell.Coord.OY == coords.OY)
                 {
                     cell.ImagePath = "Resourses/PastCell.png";
                 }
