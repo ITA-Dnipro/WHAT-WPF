@@ -18,6 +18,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles/TetrisStartStyle.xaml"/>
                 <ResourceDictionary Source="../Styles/MainWindowStyle.xaml"/>
+                <ResourceDictionary Source="../Assets/Icons/PlayButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
         

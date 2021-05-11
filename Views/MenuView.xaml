@@ -11,13 +11,30 @@
         WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
-        <ResourceDictionary Source="../Styles/MainWindowStyle.xaml"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/MainWindowStyle.xaml"/>
+                <ResourceDictionary Source="../Assets/Icons/PlayButton.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Window.Resources>
 
     <StackPanel HorizontalAlignment="Center"
                 VerticalAlignment="Center">
         <Button Style="{StaticResource startButton}"
-                Click="Button_Click">START</Button>
-        <Button Style="{StaticResource startButton}" Click="Button_Exit">EXIT</Button>
+                Click="Button_Click">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="{StaticResource PlayButtonUnfieldDrawingImage}" />
+                <TextBlock Text="START"
+                           Margin="5,2,5,0"/>
+            </StackPanel>
+        </Button>
+        <Button Style="{StaticResource startButton}" Click="Button_Exit">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="{StaticResource LogoutDrawingImage}" />
+                <TextBlock Text="EXIT"
+                           Margin="5,0,10,0"/>
+            </StackPanel>
+        </Button>
     </StackPanel>
 </Window>
