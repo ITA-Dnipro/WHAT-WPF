@@ -124,7 +124,7 @@ namespace Battleship_WPF
             }
         }
 
-        public void GetPlayerShot()
+        public void GetPlayerShot(Position coord)
         {
 
         }

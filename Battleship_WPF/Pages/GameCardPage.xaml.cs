@@ -32,11 +32,6 @@ namespace Battleship_WPF
             currentGame = new GameViewModel(Level.Meduim);
             currentGame.StartUp();
 
-            //PlayerCells = new ObservableCollection<CellViewModel>();
-            //EnemyCells = new ObservableCollection<CellViewModel>();
-            //AddCells(PlayerCells);
-            //AddCells(EnemyCells);
-
             PlayerCells = currentGame.PlayerCells;
             EnemyCells = currentGame.EnemyCells;
 
@@ -47,20 +42,11 @@ namespace Battleship_WPF
 
         public ObservableCollection<CellViewModel> EnemyCells { get; set; }
 
-        //public void AddCells(ObservableCollection<CellViewModel> cells)
-        //{
-        //    for (int OY = 0; OY < 10; OY++)
-        //    {
-        //        for (int OX = 0; OX < 10; OX++)
-        //        {
-        //            cells.Add(new CellViewModel(new Position(OY, OX)));
-        //        }
-        //    }
-        //}
-
         private void CellButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            Button cell = (Button)sender;
+            Position coord = (Position)cell.DataContext;
+            currentGame.GetPlayerShot(coord);
         }
     }
 }

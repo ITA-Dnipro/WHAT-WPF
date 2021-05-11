@@ -121,6 +121,7 @@
                         <DataTemplate >
                             <Button Content="{Binding Content}"
                                     Click="CellButton_Click"
+                                    DataContext="{Binding Path=Coord}"
                                     />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
