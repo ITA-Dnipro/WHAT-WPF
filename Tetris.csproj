@@ -50,7 +50,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="WpfMessageBoxEx">
-      <HintPath>Lib\WpfMessageBoxEx\bin\Debug\WpfMessageBoxEx.dll</HintPath>
+      <HintPath>Libs\WpfMessageBoxEx.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

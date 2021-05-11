@@ -1,17 +1,10 @@
 ﻿using MsgBoxEx;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 using Tetris.Model;
@@ -40,9 +33,6 @@ namespace Tetris.Views
 
             // default max width is the width of the primary screen's work area minus 100 pixels
             MessageBoxEx.SetMaxFormWidth(1000);
-
-            // if you want to make the messagebox silent when you use icons, uncomment the next line
-            //MessageBoxEx.SetAsSilent(true);
         }
 
         private GameManager _gameManager = new GameManager();
@@ -114,10 +104,15 @@ namespace Tetris.Views
 
         private void Button_Pause_Click(object sender, RoutedEventArgs e)
         {
+            SetGameOnPause();
+        }
+
+        private void SetGameOnPause()
+        {
             if (_gameManager.MovingShape == null)
             {
                 return;
-            } 
+            }
 
             if (_gameManager.IsPaused)
             {
@@ -129,20 +124,53 @@ namespace Tetris.Views
                 buttonPause.Content = "Reset";
                 _gameManager.IsPaused = true;
             }
-
-            
         }
 
         private void Button_Info_Click(object sender, RoutedEventArgs e)
         {
             _gameManager.IsPaused = true;
-            MessageBoxEx.Show("← move left \n→ move right \n↓ move down \n↑ rotate");
+            MessageBoxEx.Show("← Move left \n→ Move right \n↓ Move down \n↑ Rotate\n\n F11 - Fullscreen\n Esc - Exit to main menu", "Info");
             _gameManager.IsPaused = false;
         }
 
         private void Page_KeyDown(object sender, KeyEventArgs e)
         {
-            KeyDownMethod(e.Key);
+            switch (e.Key)
+            {
+                case Key.F11:
+                    if (this.WindowState == WindowState.Normal)
+                    {
+                        this.WindowState = WindowState.Maximized;
+                    }
+                    else
+                    {
+                        this.WindowState = WindowState.Normal;
+                    }
+                    break;
+                case Key.Escape:
+
+                    if (_gameManager.IsPaused == false)
+                    {
+                        SetGameOnPause();
+                    }
+
+                    MessageBoxResult exitResult = MessageBoxEx.Show("Do you really want exit to main menu?", "Exit", MessageBoxButton.YesNo);
+
+                    if (exitResult == MessageBoxResult.Yes)
+                    {
+                        MenuView menu = new MenuView();
+                        menu.Show();
+                        this.Close();
+                    }
+
+                    break;
+                case Key.Up: 
+                case Key.Down: 
+                case Key.Left: 
+                case Key.Right:
+                    KeyDownMethod(e.Key);
+                    break;
+            }
         }
 
         void MoveDownByThread()
@@ -224,6 +252,10 @@ namespace Tetris.Views
                     {
                         _listOfRectangles.ForEach(l => l.ForEach(r => { r.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#507387")); }));
                         _listOfNextRectangles.ForEach(l => l.ForEach(r => { r.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#364c5c")); }));
+
+                        MessageBoxEx.SetMessageForeground(Colors.Red);
+                        MessageBoxEx.Show("GAME OVER", "Game Over");
+                        MessageBoxEx.SetMessageForeground(Colors.White);
                         return;
                     }
 
