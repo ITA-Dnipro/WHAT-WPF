@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Shapes;
+
 using Tetris.Model.Shape;
 
 namespace Tetris.Model
@@ -116,11 +114,6 @@ namespace Tetris.Model
             AmountOfDeletedRows += delRows;
 
             UpdateScore(delRows);
-
-            //if (Score >= ((Level + 1) * 3000) * 3 / 2)
-            //{
-            //    LevelUp();
-            //}
 
             if (AmountOfDeletedRows >= Level * 10)
             {
