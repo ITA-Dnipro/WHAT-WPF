@@ -11,9 +11,7 @@
      Loaded="Window_Loaded"
         KeyDown="Page_KeyDown"
       Background="#364c5c"
-        WindowStartupLocation="CenterScreen"
-        Closed="Window_Closed">
-    
+        WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <ResourceDictionary>

@@ -170,8 +170,6 @@ namespace Tetris.Model
         {
             while (!IsEndOfGame )
             {
-                if (IsEndOfGame) MovingThread.Abort();
-
                 if (MoveDownByThr != null && IsPressed == false)
                 {
                     MoveDownByThr();
@@ -180,8 +178,9 @@ namespace Tetris.Model
                 IsPressed = false;
 
                 Thread.Sleep(TimeOut);
-
             }
+
+            MovingThread.Abort();
         }
     }
 }

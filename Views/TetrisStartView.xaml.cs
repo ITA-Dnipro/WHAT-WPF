@@ -272,13 +272,5 @@ namespace Tetris.Views
         {
             CreateMainGrid();
         }
-
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            if (_gameManager.MovingThread != null)
-            {
-                _gameManager.MovingThread.Abort();
-            }
-        }
     }
 }
