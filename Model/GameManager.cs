@@ -12,6 +12,7 @@ namespace Tetris.Model
     {
         public const int COLUMNS = 10;
         public const int ROWS = 20;
+        public static readonly int[] scorePointsArray = { 40, 100, 300, 1200 }; 
 
         public int Score { get; set; }
         public int Level { get; set; } = 1;
@@ -89,7 +90,7 @@ namespace Tetris.Model
             return _previousShapeCoordinate;
         }
 
-        public int CheckRowsForDeleting(List<List<Rectangle>> _listOfRectangles)
+        public int CheckRowsForDeleting(ref int lastFoundedLine)
         {
             int delRows = 0;
             List<Coordinate> pointsToDel = new List<Coordinate>();
@@ -99,29 +100,21 @@ namespace Tetris.Model
                 pointsToDel = Filler.ListOfAllPoints.Where(p => p.X == i).ToList();
                 if (pointsToDel.Count() >= GameManager.COLUMNS)
                 {
-                    pointsToDel.ForEach(p =>
-                    {
-                        _listOfRectangles[p.X][p.Y].Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#507387"));
-                        Filler.ListOfAllPoints.Remove(p);
-                    });
-
-                    ShiftToDown(i, _listOfRectangles);
-
                     delRows++;
+                    lastFoundedLine = i;
+
+                    if (delRows == 4)
+                    {
+                        break;
+                    }
                 }
             }
 
             AmountOfDeletedRows += delRows;
 
-            UpdateScore(delRows);
-
-            if (AmountOfDeletedRows >= Level * 10)
-            {
-                LevelUp();
-            }
-
-            return Score;
+            return delRows;
         }
+
 
         public void ShiftToDown(int firstBottomLine, List<List<Rectangle>> _listOfRectangles)
         {
@@ -140,30 +133,16 @@ namespace Tetris.Model
 
         public void UpdateScore(int delRows)
         {
-            if (delRows > 0)
-            {
-                switch (delRows)
-                {
-                    case 1:
-                        Score += delRows * 40 + 40;
-                        break;
-                    case 2:
-                        Score += delRows * 100 + 100;
-                        break;
-                    case 3:
-                        Score += delRows * 300 + 300;
-                        break;
-                    case 4:
-                        Score += delRows * 1200 + 1200;
-                        break;
-                }
-            }
+            Score += delRows * scorePointsArray[delRows - 1] + scorePointsArray[delRows - 1];
         }
 
         public void LevelUp()
         {
-            Level++;
-          TimeOut = (int)(TimeOut * 0.9f);
+            if (AmountOfDeletedRows >= Level * 10)
+            {
+                Level++;
+                TimeOut = (int)(TimeOut * 0.9f);
+            }
         }
 
         private void MoveDownByThread()

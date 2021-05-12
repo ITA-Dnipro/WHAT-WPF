@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -243,7 +244,20 @@ namespace Tetris.Views
             {
                 if (!firstCheck)
                 {
-                    score.Text = _gameManager.CheckRowsForDeleting(_listOfRectangles).ToString();
+                    int lastFoundedLine = 0;
+                    int delRows = _gameManager.CheckRowsForDeleting(ref lastFoundedLine);
+
+                    if  (delRows > 0)
+                    {
+
+                        int firstFoundedLine = lastFoundedLine - delRows + 1;
+
+                        RemoveLines(delRows, firstFoundedLine);
+                        _gameManager.UpdateScore(delRows);
+                        _gameManager.LevelUp();
+                    }
+
+                    score.Text = _gameManager.Score.ToString();//_gameManager.CheckRowsForDeleting(_listOfRectangles).ToString();
                     level.Text = (_gameManager.Level).ToString();
                     deletedRows.Text = _gameManager.AmountOfDeletedRows.ToString();
 
@@ -264,6 +278,38 @@ namespace Tetris.Views
                 else
                 {
                     firstCheck = false;
+                }
+            }
+        }
+
+        private void RemoveLines(int delRows,int firstFoundedLine)
+        {
+            for (int i = 0; i < delRows; i++)
+            {
+                _listOfRectangles[firstFoundedLine + i].ForEach(p =>
+                {
+                    p.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#507387"));
+                });
+
+                _gameManager.Filler.ListOfAllPoints.Where(p => p.X == i);
+
+                _gameManager.Filler.ListOfAllPoints.RemoveAll(point => point.X == firstFoundedLine + i);
+
+                ShiftToDown(firstFoundedLine + i);
+            }
+        }
+
+        public void ShiftToDown(int firstBottomLine)
+        {
+            for (int j = firstBottomLine; j > 0; j--)
+            {
+                for (int k = 0; k < GameManager.COLUMNS; k++)
+                {
+                    _listOfRectangles[j][k].Fill = _listOfRectangles[j - 1][k].Fill;
+                    if (_gameManager.Filler.ListOfAllPoints.Exists(p => p.X == j && p.Y == k))
+                    {
+                        _gameManager.Filler.ListOfAllPoints.ForEach(p => { if (p.X == j && p.Y == k) p.X++; });
+                    }
                 }
             }
         }
