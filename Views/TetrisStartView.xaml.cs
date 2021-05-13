@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -39,6 +40,7 @@ namespace Tetris.Views
         private List<List<Rectangle>> _listOfRectangles = new List<List<Rectangle>>(GameManager.COLUMNS);
         private List<List<Rectangle>> _listOfNextRectangles = new List<List<Rectangle>>(4);
         private bool firstCheck = true;
+        private Timer timer;
 
         public void CreateMainGrid()
         {
@@ -81,11 +83,6 @@ namespace Tetris.Views
             buttonStart.Focusable = false;
             textBoxNext.Visibility = Visibility.Visible;
 
-            if (_gameManager.MovingThread != null)
-            {
-                _gameManager.MovingThread.Abort();
-            }
-
             bool isPaused = _gameManager.IsPaused;
 
             _gameManager = new GameManager();
@@ -95,16 +92,19 @@ namespace Tetris.Views
                 _gameManager.IsPaused = true;
             }
 
-            _gameManager.Start(_listOfRectangles, _listOfNextRectangles, ref _previousShapeCoordinate);
+            if (!timer.Enabled)
+            {
+                timer.Start();
+            }
 
-            _gameManager.MoveDownByThr += MoveDownByThread;
+            _gameManager.Start(_listOfRectangles, _listOfNextRectangles, ref _previousShapeCoordinate);
         }
 
         private void Button_Pause_Click(object sender, RoutedEventArgs e)
         {
             SetGameOnPause();
         }
-
+         
         private void SetGameOnPause()
         {
             if (_gameManager.MovingShape == null)
@@ -173,12 +173,19 @@ namespace Tetris.Views
             }
         }
 
-        void MoveDownByThread()
+        void MoveDownByThread(Object source, ElapsedEventArgs e)
         {
-            this.Dispatcher.Invoke((Action)(() =>
+            if (_gameManager.IsEndOfGame)
             {
-                KeyDownMethod(Key.Down);
-            }));
+                timer.Stop();
+            }
+            else
+            {
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    KeyDownMethod(Key.Down);
+                }));
+            }
         }
 
         private void KeyDownMethod(Key key)
@@ -225,8 +232,10 @@ namespace Tetris.Views
                 case Key.Down:
                     if (_gameManager.MovingShape.CanMove(Key.Down, _gameManager.Filler.ListOfAllPoints))
                     {
+                        timer.Stop();
                         _gameManager.MovingShape.Move(Key.Down);
-                        _gameManager.IsPressed = true;
+                        timer.Start();
+                        // _gameManager.IsPressed = true;
                     }
                     break;
                 case Key.Up:
@@ -257,7 +266,7 @@ namespace Tetris.Views
                         _gameManager.LevelUp();
                     }
 
-                    score.Text = _gameManager.Score.ToString();//_gameManager.CheckRowsForDeleting(_listOfRectangles).ToString();
+                    score.Text = _gameManager.Score.ToString();
                     level.Text = (_gameManager.Level).ToString();
                     deletedRows.Text = _gameManager.AmountOfDeletedRows.ToString();
 
@@ -317,6 +326,17 @@ namespace Tetris.Views
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             CreateMainGrid();
+
+            InitializeTimer();
+        }
+
+       private void InitializeTimer()
+        {
+            timer = new Timer
+            {
+                Interval = _gameManager.TimeOut,
+            };
+            timer.Elapsed += MoveDownByThread;
         }
     }
 }

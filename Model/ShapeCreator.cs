@@ -20,7 +20,7 @@ namespace Tetris.Model
         {
             BaseShape shape = new ShapeO(); 
 
-            switch (_rnd.Next(0,2))
+            switch (_rnd.Next(0,7))
             {
                 case 0:
                     {

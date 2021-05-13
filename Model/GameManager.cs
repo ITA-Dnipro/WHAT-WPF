@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Timers;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -12,7 +14,7 @@ namespace Tetris.Model
     {
         public const int COLUMNS = 10;
         public const int ROWS = 20;
-        public static readonly int[] scorePointsArray = { 40, 100, 300, 1200 }; 
+        public static readonly int[] scorePointsArray = { 40, 100, 300, 1200 };
 
         public int Score { get; set; }
         public int Level { get; set; } = 1;
@@ -21,25 +23,15 @@ namespace Tetris.Model
         public ShapeCreator FigureCreator { get; } = new ShapeCreator();
         public BaseShape MovingShape { get; set; }
         public BaseShape NextMovingShape { get; set; }
-        public delegate void MoveDownByThreadHandler();
-        public event MoveDownByThreadHandler MoveDownByThr;
 
         public bool IsEndOfGame { get; set; } = false;
         public bool IsPressed { get; set; } = false;
-        public Thread MovingThread { get; set; }
-        public int TimeOut { get; set; } = 1000;
-
-        public int AmountOfDeletedRows { get; set; } = 0;
-
         public bool IsPaused { get; set; }
-
+        public int TimeOut { get; set; } = 1000;
+        public int AmountOfDeletedRows { get; set; } = 0;
 
         public void Start(List<List<Rectangle>> _listOfRectangles, List<List<Rectangle>> _listOfNextRectangles, ref List<Coordinate> _previousShapeCoordinate)
         {
-            MovingThread = new Thread(MoveDownByThread);
-            MovingThread.IsBackground = false;
-            MovingThread.Start();
-
             _listOfRectangles.ForEach(l => l.ForEach(r => { r.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#507387")); }));
             _listOfNextRectangles.ForEach(l => l.ForEach(r => { r.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#364c5c")); }));
 
@@ -115,7 +107,6 @@ namespace Tetris.Model
             return delRows;
         }
 
-
         public void ShiftToDown(int firstBottomLine, List<List<Rectangle>> _listOfRectangles)
         {
             for (int j = firstBottomLine; j > 0; j--)
@@ -143,23 +134,6 @@ namespace Tetris.Model
                 Level++;
                 TimeOut = (int)(TimeOut * 0.9f);
             }
-        }
-
-        private void MoveDownByThread()
-        {
-            while (!IsEndOfGame )
-            {
-                if (MoveDownByThr != null && IsPressed == false)
-                {
-                    MoveDownByThr();
-                }
-
-                IsPressed = false;
-
-                Thread.Sleep(TimeOut);
-            }
-
-            MovingThread.Abort();
         }
     }
 }
