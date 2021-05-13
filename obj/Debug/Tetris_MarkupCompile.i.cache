@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-E:\Sasha\Programming\SoftServeCourse\Applications\WPF Projects\Tetris\obj\Debug\
+E:\Sasha\Programming\SoftServeCourse\Applications\WPF Projects\TetrisWPF\obj\Debug\
 Tetris
 none
 false
 DEBUG;TRACE
-E:\Sasha\Programming\SoftServeCourse\Applications\WPF Projects\Tetris\App.xaml
+E:\Sasha\Programming\SoftServeCourse\Applications\WPF Projects\TetrisWPF\App.xaml
 6-306044301
 
 20-1388036331
-14-719852250
+14-1690827937
 Assets\Icons\PlayButton.xaml;MainWindow.xaml;Styles\MainWindowStyle.xaml;Styles\TetrisStartStyle.xaml;Views\MenuView.xaml;Views\TetrisStartView.xaml;
 
 True

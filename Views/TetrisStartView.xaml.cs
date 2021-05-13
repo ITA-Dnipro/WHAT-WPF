@@ -276,9 +276,7 @@ namespace Tetris.Views
                         _listOfNextRectangles.ForEach(l => l.ForEach(r => { r.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#364c5c")); }));
 
                         textBoxNext.Visibility = Visibility.Collapsed;
-                        MessageBoxEx.SetMessageForeground(Colors.Red);
-                        MessageBoxEx.Show("GAME OVER", "Game Over", this);
-                        MessageBoxEx.SetMessageForeground(Colors.White);
+                        overlay.Visibility = Visibility.Visible;
                         return;
                     }
 
@@ -337,6 +335,14 @@ namespace Tetris.Views
                 Interval = _gameManager.TimeOut,
             };
             timer.Elapsed += MoveDownByThread;
+        }
+
+        private void Button__EndGame_Click(object sender, RoutedEventArgs e)
+        {
+            overlay.Visibility = Visibility.Collapsed;
+            score.Text = "0";
+            level.Text = "1";
+            deletedRows.Text = "0";
         }
     }
 }

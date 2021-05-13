@@ -30,6 +30,47 @@
             <ColumnDefinition Width="1.5*"/>
         </Grid.ColumnDefinitions>
 
+        <Grid x:Name="overlay"
+              Panel.ZIndex="1000"
+              Visibility="Collapsed"
+              Grid.ColumnSpan="2"
+              Background="Black"
+              Opacity="0.8">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            
+            <!--<Grid.Background>
+                <SolidColorBrush Color="Black" Opacity=".5"/>
+            </Grid.Background>-->
+
+            <TextBlock Style="{StaticResource score}"
+                       Text="GAME OVER"
+                       Foreground="Red"
+                       FontSize="40">
+            </TextBlock>
+
+            <StackPanel Grid.Row="1"
+                        Orientation="Horizontal"
+                        Style="{StaticResource scorePanel}">
+                <TextBlock Text="Score: "
+                       Foreground="Yellow"
+                       FontSize="40"/>
+                <TextBlock Text="{Binding ElementName=score, Path=Text}"
+                       Foreground="Yellow"
+                       FontSize="40"/>
+            </StackPanel>
+
+            <Button Grid.Row="2"
+                    Style="{StaticResource startButton}"
+                    Content="End Game"
+                    FontSize="25"
+                    Background="#626362" Click="Button__EndGame_Click"/>
+        </Grid>
+
         <Grid Grid.Column="0"
                   Name="mainGrid">
             <Grid.ColumnDefinitions>

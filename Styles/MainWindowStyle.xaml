@@ -19,7 +19,10 @@
         <Setter Property="FontSize" Value="24"/>
         <Setter Property="FontFamily" Value="Arial"/>
         <Setter Property="Margin" Value="10"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Background" Value="{StaticResource BlueGradientBrush}"/>
+        <Setter Property="Foreground" Value="Black"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -51,7 +54,7 @@
                         <DockPanel x:Name="myContentPresenter">
                             <ContentPresenter Margin="20"
                                    Content="{TemplateBinding  Content}"
-                                   TextBlock.Foreground="Black"
+                                   TextBlock.Foreground="{TemplateBinding Foreground}"
                                               HorizontalAlignment="Center"/>
                         </DockPanel>
                     </Grid>
