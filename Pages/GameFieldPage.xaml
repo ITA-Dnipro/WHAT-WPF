@@ -1,0 +1,114 @@
+﻿<Page x:Class="BarleyBreakWpf.Pages.GameFieldPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BarleyBreakWpf" 
+      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
+      xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" 
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="600"
+      Background="DarkCyan"
+      Title="Barley-Break">
+    <Page.Resources>
+        <local:OpacityConverter x:Key="_cnv"/>
+        <local:BorderVisibilityConvertor x:Key="_brdConverter"/>
+    </Page.Resources>
+    <Grid>
+        <Label VerticalAlignment="Top"
+               HorizontalAlignment="Right">
+            <TextBlock x:Name="_dataText"
+                       Text="{Binding Step}"
+                       FontSize="30"
+                       Margin="10"/>
+        </Label>
+        <ItemsControl x:Name="_data" 
+                      ItemsSource="{Binding Knuckles}"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      Width="440"
+                      Height="440">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Padding="20"
+                                        Margin="3"
+                                        BorderThickness="3"
+                                        BorderBrush="Gray"
+                                        Background="Silver"
+                                        Width="100"
+                                        Height="100"
+                                        CornerRadius="25"
+                                        MouseDown="MouseDownClick"
+                                        Opacity="{Binding Converter={StaticResource _cnv}}">
+                        <Border.Triggers>
+                            <EventTrigger RoutedEvent="Border.MouseDown">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="_borderTransform"
+                                                         Storyboard.TargetProperty="X"
+                                                         From="{Binding X}"
+                                                         To="{Binding X}"
+                                                         Duration="0:0:0.4"/>
+                                        <DoubleAnimation Storyboard.TargetName="_borderTransform"
+                                                         Storyboard.TargetProperty="Y"
+                                                         From="{Binding Y}"
+                                                         To="{Binding Y}"
+                                                         Duration="0:0:0.4"/>
+
+
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Border.Triggers>
+                        <Border.RenderTransform>
+                            <TranslateTransform x:Name="_borderTransform"
+                                                X="{Binding X}"
+                                                Y="{Binding Y}"/>
+                        </Border.RenderTransform>
+                        <TextBlock Text="{Binding Number}"
+                                               FontSize="40"
+                                               HorizontalAlignment="Center"
+                                               FontWeight="Bold">
+                            <TextBlock.BitmapEffect>
+                                <DropShadowBitmapEffect ShadowDepth="5" 
+                                                                    Opacity="0.5"/>
+                            </TextBlock.BitmapEffect>
+                        </TextBlock>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <Border x:Name="_winMenu" Background="#8000"
+                Visibility="{Binding IsVisible, Converter={StaticResource _brdConverter}}">
+            <Grid>
+                <TextBlock Text="You Win!"
+                       Foreground="Yellow"
+                       FontSize="40"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Bottom">
+                    <Button Content="Again"
+                            FontSize="30"
+                            Style="{DynamicResource MahApps.Styles.Button}"
+                            Margin="20"
+                            Command="{Binding RestartGame}"
+                            >
+                    </Button>
+                    <Button Content="Exit"
+                            FontSize="25"
+                            Style="{DynamicResource MahApps.Styles.Button}"
+                            Margin="20"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>
