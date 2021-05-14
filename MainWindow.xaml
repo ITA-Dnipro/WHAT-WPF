@@ -1,0 +1,95 @@
+﻿<Window x:Class="_2048.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_2048"
+		xmlns:localView="clr-namespace:_2048.View"
+		xmlns:localModels="clr-namespace:_2048.Models"
+		xmlns:localEnums="clr-namespace:_2048.Enums"
+		mc:Ignorable="d"
+        Title="MainWindow"
+		Height="500"
+		Width="400"
+		KeyUp="Window_KeyUp">
+
+	<Window.DataContext>
+		<localView:ViewModel/>
+	</Window.DataContext>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+		
+		<StackPanel>
+			<Button Content="R E S T A R T"
+					Background="SaddleBrown"
+					Foreground="White"
+					Height ="50"
+					Click="Button_Click"/>
+			<TextBlock Text="2 0 4 8" 
+					   FontSize="30" 
+					   FontWeight="Bold" 
+					   Background="SandyBrown" 
+					   TextAlignment="Center"/>
+		</StackPanel>
+
+		<ItemsControl Grid.Row="1" 
+					  ItemsSource="{Binding Cells}">
+			<ItemsControl.Resources>
+				<local:IntConverter x:Key="IntConverter"/>
+			</ItemsControl.Resources>
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<UniformGrid Rows="4" 
+								 Columns="4"/>
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+			<ItemsControl.ItemTemplate>
+				<DataTemplate DataType="{x:Type localModels:Cell}">
+					<Border BorderBrush="SandyBrown"
+							BorderThickness="5"
+							Background="SaddleBrown">
+						<Viewbox>
+							<Label HorizontalContentAlignment="Center"
+								   VerticalContentAlignment="Center"
+								   FontSize="20"
+								   FontWeight="Bold"
+								   Margin="5"
+								   BorderThickness="5">
+								<Label.Style>
+									<Style TargetType="Label">
+										<Setter Property="Content" 
+												Value="{Binding Value,
+														Converter={StaticResource IntConverter}}"/>
+										<Setter Property="Foreground" 
+												Value="White"/>
+										<Setter Property="BorderBrush" 
+												Value="Transparent"/>
+										<Style.Triggers>
+											<DataTrigger Binding="{Binding Value}" 
+														 Value="{x:Static localEnums:CellValue.None}">
+												<Setter Property="Content"
+														Value="{x:Null}"/>
+											</DataTrigger>
+										</Style.Triggers>
+									</Style>
+								</Label.Style>
+							</Label>
+						</Viewbox>
+					</Border>
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+			<ItemsControl.ItemContainerStyle>
+				<Style>
+					<Setter Property="Control.HorizontalContentAlignment"
+							Value="Stretch"/>
+					<Setter Property="Control.VerticalContentAlignment"
+							Value="Stretch"/>
+				</Style>
+			</ItemsControl.ItemContainerStyle>
+		</ItemsControl>
+	</Grid>
+</Window>
+
