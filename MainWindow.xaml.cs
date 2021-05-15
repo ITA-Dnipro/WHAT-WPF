@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Ink;
 using System.Windows.Input;
 using _2048.Enums;
 using _2048.View;
@@ -17,21 +20,21 @@ namespace _2048
 
         private void Window_KeyUp(object sender, KeyEventArgs e)
         {
-            switch (e.Key)
+            string key = e.Key.ToString();
+
+            viewModel.NextStep(key);
+        }
+
+        private void inkCanvas_Gesture(object sender, InkCanvasGestureEventArgs e)
+        {
+            string gesture = null;
+
+            foreach (GestureRecognitionResult res in e.GetGestureRecognitionResults())
             {
-                case Key.Up: 
-                    viewModel.NextStep(MoveDirection.Up); 
-                    break;
-                case Key.Down: 
-                    viewModel.NextStep(MoveDirection.Down); 
-                    break;
-                case Key.Left: 
-                    viewModel.NextStep(MoveDirection.Left); 
-                    break;
-                case Key.Right: 
-                    viewModel.NextStep(MoveDirection.Right); 
-                    break;
+                gesture = res.ApplicationGesture.ToString();
             }
+
+            viewModel.NextStep(gesture);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) //TODO: Command

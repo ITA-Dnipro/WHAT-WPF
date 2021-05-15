@@ -21,17 +21,19 @@
 			<RowDefinition Height="Auto"/>
 			<RowDefinition/>
 		</Grid.RowDefinitions>
-		
-		<StackPanel>
+
+		<StackPanel Background="SandyBrown" 
+>
 			<Button Content="R E S T A R T"
 					Background="SaddleBrown"
+					Margin="5"
 					Foreground="White"
-					Height ="50"
+					Height ="70"
 					Click="Button_Click"/>
-			<TextBlock Text="2 0 4 8" 
+			<TextBlock Height="50"
+					   Text="2 0 4 8" 
 					   FontSize="30" 
 					   FontWeight="Bold" 
-					   Background="SandyBrown" 
 					   TextAlignment="Center"/>
 		</StackPanel>
 
@@ -90,6 +92,19 @@
 				</Style>
 			</ItemsControl.ItemContainerStyle>
 		</ItemsControl>
+
+		<InkCanvas Name="inkCanvas" 
+                   Grid.Row="1" 
+                   Background="Transparent" 
+                   EditingMode="GestureOnly" 
+                   Gesture="inkCanvas_Gesture"
+				   Width="Auto"
+				   Height="Auto" UseCustomCursor="True">
+			<InkCanvas.DefaultDrawingAttributes >
+				<DrawingAttributes Color = "Transparent"/>
+			</InkCanvas.DefaultDrawingAttributes>
+		</InkCanvas>
+		
 	</Grid>
 </Window>
 

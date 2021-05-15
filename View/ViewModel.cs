@@ -47,14 +47,28 @@ namespace _2048.View
 			new CellValueGenerator(_mover.board);
 		}
 
-		public void NextStep(MoveDirection direction)
+		public void NextStep(string control)
 		{
 			if (IsGameOver)
 			{
 				return;
 			}
 
-			_mover.Step(direction);
+			switch (control)
+			{
+				case "Up":
+					_mover.Step(MoveDirection.Up);
+					break;
+				case "Down":
+					_mover.Step(MoveDirection.Down);
+					break;
+				case "Left":
+					_mover.Step(MoveDirection.Left);
+					break;
+				case "Right":
+					_mover.Step(MoveDirection.Right);
+					break;
+			}
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
