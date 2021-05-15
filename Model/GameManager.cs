@@ -25,7 +25,6 @@ namespace Tetris.Model
         public BaseShape NextMovingShape { get; set; }
 
         public bool IsEndOfGame { get; set; } = false;
-        public bool IsPressed { get; set; } = false;
         public bool IsPaused { get; set; }
         public int TimeOut { get; set; } = 1000;
         public int AmountOfDeletedRows { get; set; } = 0;

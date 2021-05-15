@@ -235,7 +235,6 @@ namespace Tetris.Views
                         timer.Stop();
                         _gameManager.MovingShape.Move(Key.Down);
                         timer.Start();
-                        // _gameManager.IsPressed = true;
                     }
                     break;
                 case Key.Up:

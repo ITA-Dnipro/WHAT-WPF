@@ -8,6 +8,8 @@ namespace Tetris.Model.Shape
 {
     abstract class BaseShape
     {
+        //public static List<string> shapesName;
+
         private List<Coordinate> points = new List<Coordinate>();
 
         public List<Coordinate> Points { get { return points; } }

@@ -1,15 +1,30 @@
 ﻿using System;
-
+using System.Collections.Generic;
 using Tetris.Model.Shape;
 
 namespace Tetris.Model
 {
     class ShapeCreator 
     {
-        Random _rnd = new Random();
+        readonly Random _rnd = new Random();
+        Dictionary<int, BaseShape> shapes;
+
+        private void InitializeShapeDictionary()
+        {
+            shapes.Add(shapes.Count, new ShapeI());
+            shapes.Add(shapes.Count, new ShapeJ());
+            shapes.Add(shapes.Count, new ShapeL());
+            shapes.Add(shapes.Count, new ShapeO());
+            shapes.Add(shapes.Count, new ShapeS());
+            shapes.Add(shapes.Count, new ShapeT());
+            shapes.Add(shapes.Count, new ShapeZ());
+        }
 
         public BaseShape CreateNewShape(int ColumnSize)
         {
+            shapes = new Dictionary<int, BaseShape>();
+            InitializeShapeDictionary();
+
             BaseShape shape = GetRandomShape();
             shape.Create(0, ColumnSize / 2);
 
@@ -18,48 +33,7 @@ namespace Tetris.Model
 
         private BaseShape GetRandomShape()
         {
-            BaseShape shape = new ShapeO(); 
-
-            switch (_rnd.Next(0,7))
-            {
-                case 0:
-                    {
-                        shape = new ShapeO();
-                        break;
-                    }
-                case 1:
-                    {
-                        shape = new ShapeI();
-                        break;
-                    }
-                case 2:
-                    {
-                        shape = new ShapeL();
-                        break;
-                    }
-                case 3:
-                    {
-                        shape = new ShapeZ();
-                        break;
-                    }
-                case 4:
-                    {
-                        shape = new ShapeT();
-                        break;
-                    }
-                case 5:
-                    {
-                        shape = new ShapeJ();
-                        break;
-                    }
-                case 6:
-                    {
-                        shape = new ShapeS();
-                        break;
-                    }
-            }
-
-            return shape;
+            return shapes[_rnd.Next(0, shapes.Count)];
         }
     }
 }
