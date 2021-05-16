@@ -7,8 +7,12 @@ namespace Minesweeper.Models.Helpers
 {
     public class GameFieldCreator : IGameFieldCreator
     {
+        int gameFieldSize = 0;
+
         public List<List<Cell>> CreateGameField(int gameFieldSize)
         {
+            this.gameFieldSize = gameFieldSize;
+
             List<List<Cell>> gameField = new List<List<Cell>>();
 
             Random rand = new Random();
@@ -27,7 +31,10 @@ namespace Minesweeper.Models.Helpers
                 {
                     for (int j = 0; j < gameFieldSize; j++)
                     {
-                        Cell cell = new Cell(rand.Next(0, gameFieldSize) % 11 == 1 && numOfBombs < gameFieldSize ? true : false, j % 2 == 0 ? HiddenCellColor.Color1 : HiddenCellColor.Color2, x, y);
+                        Cell cell = new Cell(rand.Next(0, gameFieldSize) % 11 == 1 
+                            && numOfBombs < gameFieldSize ? true : false,
+                            j % 2 == 0 ? HiddenCellColor.Color1 : HiddenCellColor.Color2,
+                            x, y);
                         row.Add(cell);
 
                         if (cell.IsMined == true)
@@ -42,7 +49,10 @@ namespace Minesweeper.Models.Helpers
                 {
                     for (int j = 0; j < gameFieldSize; j++)
                     {
-                        Cell cell = new Cell(rand.Next(0, gameFieldSize) % 11 == 1 && numOfBombs < gameFieldSize ? true : false, j % 2 == 0 ? HiddenCellColor.Color2 : HiddenCellColor.Color1, x, y);
+                        Cell cell = new Cell(rand.Next(0, gameFieldSize) % 11 == 1 
+                            && numOfBombs < gameFieldSize ? true : false, 
+                            j % 2 == 0 ? HiddenCellColor.Color2 : HiddenCellColor.Color1,
+                            x, y);
                         row.Add(cell);
 
                         if (cell.IsMined == true)
@@ -89,7 +99,7 @@ namespace Minesweeper.Models.Helpers
 
             for (int i = cellRow - 1; i <= cellRow + 1; i++)
             {
-                if (i < 0 || i > 9)
+                if (i < 0 || i > gameFieldSize - 1)
                 {
                     continue;
                 }
@@ -97,7 +107,7 @@ namespace Minesweeper.Models.Helpers
 
                 for (int j = cellCol - 1; j <= cellCol + 1; j++)
                 {
-                    if (j < 0 || j > 9)
+                    if (j < 0 || j > gameFieldSize - 1)
                     {
                         continue;
                     }

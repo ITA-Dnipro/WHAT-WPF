@@ -1,0 +1,632 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks">
+
+    <Style x:Key="buttonsStyle"
+           TargetType="Button">
+        <Setter Property="OverridesDefaultStyle"
+                Value="True"/>
+        <Setter Property="BorderBrush"
+                Value="Black"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsHidden}"
+                               Value="True"/>
+                    <Condition Binding="{Binding Color}"
+                               Value="Color1"/>
+                    <Condition Binding="{Binding IsMined}"
+                               Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="Yellow"/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsHidden}"
+                               Value="True"/>
+                    <Condition Binding="{Binding Color}"
+                               Value="Color2"/>
+                    <Condition Binding="{Binding IsMined}"
+                               Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="Yellow"/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsHidden}"
+                               Value="True"/>
+                    <Condition Binding="{Binding Color}"
+                               Value="Color1"/>
+                    <Condition Binding="{Binding IsMined}"
+                               Value="False"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="LightGreen"/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsHidden}"
+                               Value="True"/>
+                    <Condition Binding="{Binding Color}"
+                               Value="Color2"/>
+                    <Condition Binding="{Binding IsMined}"
+                               Value="False"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="Green"/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsHidden}"
+                               Value="False"/>
+                    <Condition Binding="{Binding OpenContent}"
+                               Value="Empty"/>
+                    <Condition Binding="{Binding Color}"
+                               Value="Color1"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="LightGray"/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsHidden}"
+                               Value="False"/>
+                    <Condition Binding="{Binding OpenContent}"
+                               Value="Empty"/>
+                    <Condition Binding="{Binding Color}"
+                               Value="Color2"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="Gray"/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsHidden}"
+                               Value="False"/>
+                    <Condition Binding="{Binding OpenContent}"
+                               Value="OneBombNear"/>
+                    <Condition Binding="{Binding Color}"
+                               Value="Color1"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="LightGray">
+                                    <iconPacks:PackIconFontaudio Kind="Digital1"
+                                                                 Height="20"
+                                                                 Width="20"
+                                                                 Foreground="Blue"
+                                                                 VerticalAlignment="Center"
+                                                                 HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsHidden}"
+                                                                   Value="False"/>
+                    <Condition Binding="{Binding OpenContent}"
+                                                                   Value="OneBombNear"/>
+                    <Condition Binding="{Binding Color}"
+                                                                   Value="Color2"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="Gray">
+                                    <iconPacks:PackIconFontaudio Kind="Digital1"
+                                                                                                     Height="20"
+                                                                                                     Width="20"
+                                                                                                     Foreground="Blue"
+                                                                                                     VerticalAlignment="Center"
+                                                                                                     HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsHidden}"
+                                                                   Value="False"/>
+                    <Condition Binding="{Binding OpenContent}"
+                                                                   Value="TwoBombNear"/>
+                    <Condition Binding="{Binding Color}"
+                                                                   Value="Color1"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="LightGray">
+                                    <iconPacks:PackIconFontaudio Kind="Digital2"
+                                                                                                     Height="20"
+                                                                                                     Width="20"
+                                                                                                     Foreground="Green"
+                                                                                                     VerticalAlignment="Center"
+                                                                                                     HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsHidden}"
+                                                                   Value="False"/>
+                    <Condition Binding="{Binding OpenContent}"
+                                                                   Value="TwoBombNear"/>
+                    <Condition Binding="{Binding Color}"
+                                                                   Value="Color2"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="Gray">
+                                    <iconPacks:PackIconFontaudio Kind="Digital2"
+                                                                                                     Height="20"
+                                                                                                     Width="20"
+                                                                                                     Foreground="Green"
+                                                                                                     VerticalAlignment="Center"
+                                                                                                     HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsHidden}"
+                                                                   Value="False"/>
+                    <Condition Binding="{Binding OpenContent}"
+                                                                   Value="ThreeBombNear"/>
+                    <Condition Binding="{Binding Color}"
+                                                                   Value="Color1"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="LightGray">
+                                    <iconPacks:PackIconFontaudio Kind="Digital3"
+                                                                                                     Height="20"
+                                                                                                     Width="20"
+                                                                                                     Foreground="Red"
+                                                                                                     VerticalAlignment="Center"
+                                                                                                     HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsHidden}"
+                                                                   Value="False"/>
+                    <Condition Binding="{Binding OpenContent}"
+                                                                   Value="ThreeBombNear"/>
+                    <Condition Binding="{Binding Color}"
+                                                                   Value="Color2"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="Gray">
+                                    <iconPacks:PackIconFontaudio Kind="Digital3"
+                                                                                                     Height="20"
+                                                                                                     Width="20"
+                                                                                                     Foreground="Red"
+                                                                                                     VerticalAlignment="Center"
+                                                                                                     HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsHidden}"
+                                                                   Value="False"/>
+                    <Condition Binding="{Binding OpenContent}"
+                                                                   Value="FourBombNear"/>
+                    <Condition Binding="{Binding Color}"
+                                                                   Value="Color1"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="LightGray">
+                                    <iconPacks:PackIconFontaudio Kind="Digital4"
+                                                                                                     Height="20"
+                                                                                                     Width="20"
+                                                                                                     Foreground="Purple"
+                                                                                                     VerticalAlignment="Center"
+                                                                                                     HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsHidden}"
+                                                                   Value="False"/>
+                    <Condition Binding="{Binding OpenContent}"
+                                                                   Value="FourBombNear"/>
+                    <Condition Binding="{Binding Color}"
+                                                                   Value="Color2"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="Gray">
+                                    <iconPacks:PackIconFontaudio Kind="Digital4"
+                                                                                                     Height="20"
+                                                                                                     Width="20"
+                                                                                                     Foreground="Purple"
+                                                                                                     VerticalAlignment="Center"
+                                                                                                     HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsHidden}"
+                                                                   Value="False"/>
+                    <Condition Binding="{Binding OpenContent}"
+                                                                   Value="FiveBombNear"/>
+                    <Condition Binding="{Binding Color}"
+                                                                   Value="Color1"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="LightGray">
+                                    <iconPacks:PackIconFontaudio Kind="Digital5"
+                                                                                                     Height="20"
+                                                                                                     Width="20"
+                                                                                                     Foreground="Yellow"
+                                                                                                     VerticalAlignment="Center"
+                                                                                                     HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsHidden}"
+                                                                   Value="False"/>
+                    <Condition Binding="{Binding OpenContent}"
+                                                                   Value="FiveBombNear"/>
+                    <Condition Binding="{Binding Color}"
+                                                                   Value="Color2"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="Gray">
+                                    <iconPacks:PackIconFontaudio Kind="Digital5"
+                                                                                                     Height="20"
+                                                                                                     Width="20"
+                                                                                                     Foreground="Yellow"
+                                                                                                     VerticalAlignment="Center"
+                                                                                                     HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsHidden}"
+                                                                   Value="False"/>
+                    <Condition Binding="{Binding OpenContent}"
+                                                                   Value="SixBombNear"/>
+                    <Condition Binding="{Binding Color}"
+                                                                   Value="Color1"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="LightGray">
+                                    <iconPacks:PackIconFontaudio Kind="Digital6"
+                                                                                                     Height="20"
+                                                                                                     Width="20"
+                                                                                                     Foreground="Salmon"
+                                                                                                     VerticalAlignment="Center"
+                                                                                                     HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsHidden}"
+                                                                   Value="False"/>
+                    <Condition Binding="{Binding OpenContent}"
+                                                                   Value="SixBombNear"/>
+                    <Condition Binding="{Binding Color}"
+                                                                   Value="Color2"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="Gray">
+                                    <iconPacks:PackIconFontaudio Kind="Digital6"
+                                                                                                     Height="20"
+                                                                                                     Width="20"
+                                                                                                     Foreground="Salmon"
+                                                                                                     VerticalAlignment="Center"
+                                                                                                     HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsHidden}"
+                                                                   Value="False"/>
+                    <Condition Binding="{Binding OpenContent}"
+                                                                   Value="SevenBombNear"/>
+                    <Condition Binding="{Binding Color}"
+                                                                   Value="Color1"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="LightGray">
+                                    <iconPacks:PackIconFontaudio Kind="Digital7"
+                                                                                                     Height="20"
+                                                                                                     Width="20"
+                                                                                                     Foreground="DarkKhaki"
+                                                                                                     VerticalAlignment="Center"
+                                                                                                     HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsHidden}"
+                                                                   Value="False"/>
+                    <Condition Binding="{Binding OpenContent}"
+                                                                   Value="SevenBombNear"/>
+                    <Condition Binding="{Binding Color}"
+                                                                   Value="Color2"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="Gray">
+                                    <iconPacks:PackIconFontaudio Kind="Digital7"
+                                                                                                     Height="20"
+                                                                                                     Width="20"
+                                                                                                     Foreground="DarkKhaki"
+                                                                                                     VerticalAlignment="Center"
+                                                                                                     HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsHidden}"
+                                                                   Value="False"/>
+                    <Condition Binding="{Binding OpenContent}"
+                                                                   Value="EightBombNear"/>
+                    <Condition Binding="{Binding Color}"
+                                                                   Value="Color1"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="LightGray">
+                                    <iconPacks:PackIconFontaudio Kind="Digital8"
+                                                                                                     Height="20"
+                                                                                                     Width="20"
+                                                                                                     Foreground="Black"
+                                                                                                     VerticalAlignment="Center"
+                                                                                                     HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsHidden}"
+                                                                   Value="False"/>
+                    <Condition Binding="{Binding OpenContent}"
+                                                                   Value="EightBombNear"/>
+                    <Condition Binding="{Binding Color}"
+                                                                   Value="Color2"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="Gray">
+                                    <iconPacks:PackIconFontaudio Kind="Digital8"
+                                                                                                     Height="20"
+                                                                                                     Width="20"
+                                                                                                     Foreground="Black"
+                                                                                                     VerticalAlignment="Center"
+                                                                                                     HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsHidden}"
+                                                                   Value="False"/>
+                    <Condition Binding="{Binding IsMined}"
+                                                                   Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="DarkRed">
+                                    <iconPacks:PackIconFontAwesome Kind="BombSolid"
+                                                                                                       Width="20"
+                                                                                                       Height="20"
+                                                                                                       VerticalAlignment="Center"
+                                                                                                       HorizontalAlignment="Center"
+                                                                                                       Margin="4"
+                                                                                                       Foreground="Black"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsHidden}"
+                                                                   Value="True"/>
+                    <Condition Binding="{Binding IsFlaged}"
+                                                                   Value="True"/>
+                    <Condition Binding="{Binding Color}"
+                                                                   Value="Color1"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="LightGreen">
+                                    <iconPacks:PackIconFontAwesome Kind="FlagSolid"
+                                                                                                       Width="15"
+                                                                                                       Height="15"
+                                                                                                       VerticalAlignment="Center"
+                                                                                                       HorizontalAlignment="Center"
+                                                                                                       Margin="4"
+                                                                                                       Foreground="BlueViolet"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsHidden}"
+                                                                   Value="True"/>
+                    <Condition Binding="{Binding IsFlaged}"
+                                                                   Value="True"/>
+                    <Condition Binding="{Binding Color}"
+                                                                   Value="Color2"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="Green">
+                                    <iconPacks:PackIconFontAwesome Kind="FlagSolid"
+                                                                                                       Width="15"
+                                                                                                       Height="15"
+                                                                                                       VerticalAlignment="Center"
+                                                                                                       HorizontalAlignment="Center"
+                                                                                                       Margin="4"
+                                                                                                       Foreground="BlueViolet"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>
+    

@@ -15,7 +15,11 @@ namespace Minesweeper
         {
             InitializeComponent();
 
-            DataContext = new GameViewModel();
+            var vm = new GameViewModel();
+
+            DataContext = vm;
+
+            vm.ClosingRequest += (sender, e) => this.Close();
         }
     }
 }

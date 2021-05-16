@@ -162,6 +162,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Enums\ContentInCell.cs" />
+    <Compile Include="Enums\GameSettings.cs" />
+    <Compile Include="Models\GameDifficulty.cs" />
     <Compile Include="Models\Helpers\CellsOpener.cs" />
     <Compile Include="Models\RelayCommand.cs" />
     <Compile Include="ViewModels\GameViewModel.cs" />
@@ -179,6 +181,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Styles\Buttons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\Fonts.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -191,7 +197,7 @@
   <ItemGroup>
     <Compile Include="Models\Cell.cs" />
     <Compile Include="Models\Helpers\GameFieldCreator.cs" />
-    <Compile Include="Models\NotifyPropertyChanged.cs" />
+    <Compile Include="Models\Base.cs" />
     <Compile Include="Models\RelayParameterCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

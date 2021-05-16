@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Minesweeper.Models
 {
-    public class Cell : NotifyPropertyChanged
+    public class Cell : Base
     {
         private bool isHidden;
         private bool isMined;
