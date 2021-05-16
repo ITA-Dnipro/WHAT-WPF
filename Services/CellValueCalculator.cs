@@ -1,12 +1,29 @@
 ﻿using System;
 using _2048.Models;
 using _2048.Enums;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace _2048.Services
 {
-	public class CellValueCalculator
+	public class CellValueCalculator : INotifyPropertyChanged
 	{
+		private int _score;
+
 		public bool isMoved = true;
+
+		public int Score
+		{
+			get
+			{
+				return _score;
+			}
+			set
+			{
+				_score = value;
+				OnPropertyChanged();
+			}
+		}
 
 		public Cell Calculate(Cell currentCell, Cell targetCell)
 		{
@@ -46,12 +63,21 @@ namespace _2048.Services
 
 				targetCell.IsSum = true;
 				currentCell.IsSum = false;
+
 				isMoved = true;
+				Score += sumValue;
 
 				return targetCell;
 			}
 
 			throw new Exception("Exception in CellValueMover"); //TODO: Handle
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		public void OnPropertyChanged([CallerMemberName] string prop = "")
+		{
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
 		}
 	}
 }

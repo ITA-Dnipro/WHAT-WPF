@@ -16,6 +16,7 @@
 	<Window.DataContext>
 		<localView:ViewModel/>
 	</Window.DataContext>
+	
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
@@ -24,17 +25,30 @@
 
 		<StackPanel Background="SandyBrown" 
 >
-			<Button Content="R E S T A R T"
-					Background="SaddleBrown"
+			<Button Background="SaddleBrown"					
+					BorderBrush="SandyBrown"
+					Cursor="Hand"
 					Margin="5"
-					Foreground="White"
 					Height ="70"
-					Click="Button_Click"/>
+					Click="Button_Click">
+				
+				<Label HorizontalContentAlignment="Center"
+					   VerticalContentAlignment="Center"
+					   Foreground="SandyBrown"
+					   FontSize="20"
+					   FontWeight="Bold"								   
+					   Margin="5"								   
+					   BorderThickness="5">NEW GAME
+				</Label>
+			</Button>
+			
 			<TextBlock Height="50"
-					   Text="2 0 4 8" 
-					   FontSize="30" 
-					   FontWeight="Bold" 
-					   TextAlignment="Center"/>
+					   TextAlignment="Center">
+				<Run Text="{Binding Score, Mode=OneWay}"					   
+					 FontSize="30" 					   
+					 FontWeight="Bold"/>
+			</TextBlock>
+			
 		</StackPanel>
 
 		<ItemsControl Grid.Row="1" 
@@ -48,6 +62,7 @@
 								 Columns="4"/>
 				</ItemsPanelTemplate>
 			</ItemsControl.ItemsPanel>
+			
 			<ItemsControl.ItemTemplate>
 				<DataTemplate DataType="{x:Type localModels:Cell}">
 					<Border BorderBrush="SandyBrown"
@@ -83,6 +98,7 @@
 					</Border>
 				</DataTemplate>
 			</ItemsControl.ItemTemplate>
+			
 			<ItemsControl.ItemContainerStyle>
 				<Style>
 					<Setter Property="Control.HorizontalContentAlignment"
@@ -91,6 +107,7 @@
 							Value="Stretch"/>
 				</Style>
 			</ItemsControl.ItemContainerStyle>
+			
 		</ItemsControl>
 
 		<InkCanvas Name="inkCanvas" 
@@ -99,7 +116,8 @@
                    EditingMode="GestureOnly" 
                    Gesture="inkCanvas_Gesture"
 				   Width="Auto"
-				   Height="Auto" UseCustomCursor="True">
+				   Height="Auto"
+				   UseCustomCursor="True">
 			<InkCanvas.DefaultDrawingAttributes >
 				<DrawingAttributes Color = "Transparent"/>
 			</InkCanvas.DefaultDrawingAttributes>

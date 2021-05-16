@@ -34,6 +34,19 @@ namespace _2048.View
 			}
 		}
 
+		public int Score
+		{
+			get
+			{
+				return _mover.calculator.Score;
+			}
+		}
+
+		List<string> Properties = new List<string>() 
+		{ 
+			nameof(CellValueCalculator.Score) 
+		};
+
 		public ViewModel()
 		{
 			Initialize();
@@ -44,6 +57,8 @@ namespace _2048.View
 			_mover = new CellValueMover();
 			_generator = new CellValueGenerator(_mover.board);
 			Cells = _mover.board.cellsList;
+			_mover.calculator.PropertyChanged += Model_PropertyChanged;
+
 			new CellValueGenerator(_mover.board);
 		}
 
@@ -68,6 +83,15 @@ namespace _2048.View
 				case "Right":
 					_mover.Step(MoveDirection.Right);
 					break;
+			}
+		}
+
+		private void Model_PropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			string propertyName = e.PropertyName;
+			if (string.IsNullOrEmpty(propertyName) || Properties.IndexOf(propertyName) >= 0)
+			{
+				OnPropertyChanged(propertyName);
 			}
 		}
 
