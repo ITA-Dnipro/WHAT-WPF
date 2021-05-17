@@ -142,18 +142,7 @@ namespace Minesweeper.ViewModels
         {
             if (parameter is GameDifficulty gameDifficulty)
             {
-                if (gameDifficulty.Difficulty == GameSettings.Easy)
-                {
-                    GameFieldSize = 10;
-                }
-                else if (gameDifficulty.Difficulty == GameSettings.Medium)
-                {
-                    GameFieldSize = 15;
-                }
-                else
-                {
-                    GameFieldSize = 18;
-                }
+                GameFieldSize = gameDifficulty.GameFieldSize;
 
                 NewGame();
             }
@@ -205,9 +194,9 @@ namespace Minesweeper.ViewModels
 
         public GameViewModel()
         {
-            GameDifficulties.Add(new GameDifficulty(GameSettings.Easy));
-            GameDifficulties.Add(new GameDifficulty(GameSettings.Medium));
-            GameDifficulties.Add(new GameDifficulty(GameSettings.Hard));
+            GameDifficulties.Add(new GameDifficulty(GameSettings.Easy, 10));
+            GameDifficulties.Add(new GameDifficulty(GameSettings.Medium, 15));
+            GameDifficulties.Add(new GameDifficulty(GameSettings.Hard, 18));
 
             Difficulty = GameDifficulties[0];
 
