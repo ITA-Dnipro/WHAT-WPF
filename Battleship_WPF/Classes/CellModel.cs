@@ -10,7 +10,7 @@ using System.Windows.Controls;
 
 namespace Battleship_WPF
 {
-    public class CellViewModel : INotifyPropertyChanged
+    public class CellModel : INotifyPropertyChanged
     {
         private Position _coord;
         private string _imagePath;
@@ -42,7 +42,7 @@ namespace Battleship_WPF
         }
 
         
-        public CellViewModel(Position coord, string imagePath)
+        public CellModel(Position coord, string imagePath)
         {
             _coord = coord;
             _imagePath = imagePath;

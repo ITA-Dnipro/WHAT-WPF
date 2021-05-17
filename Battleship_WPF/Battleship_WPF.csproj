@@ -58,7 +58,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Classes\CellViewModel.cs" />
+    <Compile Include="Classes\CellModel.cs" />
     <Compile Include="Classes\GameViewModel.cs" />
     <Compile Include="Pages\GameCardPage.xaml.cs">
       <DependentUpon>GameCardPage.xaml</DependentUpon>
@@ -117,6 +117,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PositionFormatter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

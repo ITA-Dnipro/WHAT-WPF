@@ -3,7 +3,7 @@
                     xmlns:local="clr-namespace:Battleship_WPF">
     
     <Style TargetType="Button">
-        <Setter Property="Background" Value="Black"/>
+        <Setter Property="Background" Value="White"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="BorderThickness" Value="2"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
@@ -19,7 +19,8 @@
                     <Border CornerRadius="6" 
                             BorderBrush="{TemplateBinding BorderBrush }"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            Background="{TemplateBinding Background}">
+                            Background="{TemplateBinding Background}"
+                            TextBlock.Foreground="White">
                         
                         <ContentControl Margin="{TemplateBinding Padding}"
                                         HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -28,7 +29,10 @@
                         </ContentControl>
                     </Border>
                 </ControlTemplate>
+                
+                
             </Setter.Value>
+            
         </Setter>
     </Style>
 

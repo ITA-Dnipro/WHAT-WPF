@@ -34,14 +34,16 @@
                     Grid.Row="1"
                     Grid.Column="0"
                     Content="Start" 
-                    Click="StartGameButton_Click">
+                    Click="StartGameButton_Click"
+                    Foreground="White">
             </Button>
 
             <Button x:Name="ExitGameButton"
                     Grid.Row="1"
                     Grid.Column="1"
                     Content="Exit" 
-                    Click="ExitGameButton_Click">
+                    Click="ExitGameButton_Click"
+                    Foreground="White">
             </Button>
             
         </Grid>

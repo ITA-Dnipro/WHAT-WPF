@@ -121,7 +121,6 @@
                         <DataTemplate >
                             <Button Click="CellButton_Click"
                                     Content="{Binding Path=Coord}"
-                                    
                                     />
                             
                         </DataTemplate>
@@ -130,7 +129,9 @@
                 </ItemsControl>
                 
             </Grid>
-            
+
+           
+
         </Grid>
 
         <Grid Grid.Row="1" Grid.Column="1">

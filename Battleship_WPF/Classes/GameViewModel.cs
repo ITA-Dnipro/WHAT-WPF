@@ -5,6 +5,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Threading;
 
 namespace Battleship_WPF
 {
@@ -21,7 +23,7 @@ namespace Battleship_WPF
 
         private Sea _playerMap;
         private Sea _enemyMap;
-        private bool _isPlayerWinner;
+        //private bool _isPlayerWinner;
         private bool _isAlivePlayerAfterRigthShoot;
         private bool _isEasyLevel;
         private Intelligence _enemysMind;
@@ -35,7 +37,7 @@ namespace Battleship_WPF
         {
             _playerMap = null;
             _enemyMap = null;
-            _isPlayerWinner = false;
+            //_isPlayerWinner = false;
             _isAlivePlayerAfterRigthShoot = false;
             _enemysMind = null;
             _isTargetEnemy = false;
@@ -43,9 +45,9 @@ namespace Battleship_WPF
             _currentLevel = currentLevel;
         }
 
-        public ObservableCollection<CellViewModel> PlayerCells { get; set; }
+        public ObservableCollection<CellModel> PlayerCells { get; set; }
 
-        public ObservableCollection<CellViewModel> EnemyCells { get; set; }
+        public ObservableCollection<CellModel> EnemyCells { get; set; }
 
         public void StartUp()
         {
@@ -53,8 +55,8 @@ namespace Battleship_WPF
             _enemyMap = new Sea(10);
             _playerMap.BuildAllTypeOfShips();
             _enemyMap.BuildAllTypeOfShips();
-            PlayerCells = new ObservableCollection<CellViewModel>();
-            EnemyCells = new ObservableCollection<CellViewModel>();
+            PlayerCells = new ObservableCollection<CellModel>();
+            EnemyCells = new ObservableCollection<CellModel>();
             AddCells(PlayerCells, _playerMap, false);
             AddCells(EnemyCells, _enemyMap, true);
             SetLevel();
@@ -68,7 +70,7 @@ namespace Battleship_WPF
             _enemyMap.MissedCell += ChangePastCellOfEnemy;
         }
 
-        public void AddCells(ObservableCollection<CellViewModel> cells, Sea map, bool isEnemyMap)
+        private void AddCells(ObservableCollection<CellModel> cells, Sea map, bool isEnemyMap)
         {
             for (int Y = 0; Y < HEIGTH; Y++)
             {
@@ -76,12 +78,12 @@ namespace Battleship_WPF
                 {
                     MapCondition condition = map[Y, X];
                     string imagePath = GetImagePath(condition, isEnemyMap);
-                    cells.Add(new CellViewModel(new Position(Y, X), imagePath));
+                    cells.Add(new CellModel(new Position(Y, X), imagePath));
                 }
             }
         }
 
-        public string GetImagePath(MapCondition condition, bool isEnemyMap)
+        private string GetImagePath(MapCondition condition, bool isEnemyMap)
         {
             if (isEnemyMap)
             {
@@ -114,7 +116,7 @@ namespace Battleship_WPF
             return path;
         }
 
-        public void SetLevel()
+        private void SetLevel()
         {
             switch (_currentLevel)
             {
@@ -161,12 +163,11 @@ namespace Battleship_WPF
 
             if (!_isTargetEnemy)
             {
-                Change(coords);//////
                 GetEnemyShot();
             }
         }
 
-        public UserActions GetEnemyShot()
+        private UserActions GetEnemyShot()
         {
             UserActions chosenAction = UserActions.StartGame;
 
@@ -209,7 +210,7 @@ namespace Battleship_WPF
                 RandomCoords.SearchRandomCoords(_playerMap);
                 _isTargetPlayer = _playerMap.HitTarget(ref _isAlivePlayerAfterRigthShoot);
 
-                System.Threading.Thread.Sleep(1500);
+                //System.Threading.Thread.Sleep(1500);
                 bool shipSearched = _playerMap.SearchShips();
 
                 if (!shipSearched)
@@ -293,17 +294,5 @@ namespace Battleship_WPF
                 }
             }
         }
-
-        private void Change(Position coords)
-        {
-            foreach (var cell in EnemyCells)
-            {
-                if (cell.Coord.OX == coords.OX && cell.Coord.OY == coords.OY)
-                {
-                    cell.ImagePath = "Resourses/PastCell.png";
-                }
-            }
-        }
-
     }
 }

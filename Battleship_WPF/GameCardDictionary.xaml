@@ -43,6 +43,11 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
 
+    <Style x:Key="GridStyle">
+        <Setter Property="Grid.Row" Value="{Binding Path=Coord.OY}"/>
+        <Setter Property="Grid.Column" Value="{Binding Path=Coord.OX}"/>
+    </Style>
+
     <ItemsPanelTemplate x:Key="GridPanelTemplate">
         <Grid >
             <Grid.ColumnDefinitions>
@@ -72,11 +77,6 @@
             </Grid.RowDefinitions>
         </Grid>
     </ItemsPanelTemplate>
-
-    <Style x:Key="GridStyle">
-        <Setter Property="Grid.Row" Value="{Binding Path=Coord.OY}"/>
-        <Setter Property="Grid.Column" Value="{Binding Path=Coord.OX}"/>
-    </Style>
 
     <ItemsPanelTemplate x:Key="NumbersTemplate">
         <Grid >
@@ -131,6 +131,5 @@
         <TextBlock Grid.Column="8" Text="I"/>
         <TextBlock Grid.Column="9" Text="J"/>
     </Grid>
-
 
 </ResourceDictionary>
