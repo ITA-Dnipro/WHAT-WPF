@@ -75,6 +75,7 @@
     <Compile Include="Pages\UserNamePage.xaml.cs">
       <DependentUpon>UserNamePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StyleConverter.cs" />
     <Page Include="BattleshipDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
