@@ -218,29 +218,29 @@ namespace Tetris.Views
             switch (key)
             {
                 case Key.Left:
-                    if (_gameManager.MovingShape.CanMove(Key.Left, _gameManager.Filler.ListOfAllPoints))
+                    if (_gameManager.MovingShape.movements.CanMove(Key.Left, _gameManager.Filler.ListOfAllPoints, _gameManager.MovingShape.Points))
                     {
-                        _gameManager.MovingShape.Move(Key.Left);
+                        _gameManager.MovingShape.movements.Move(Key.Left, _gameManager.MovingShape.Points);
                     }
                     break;
                 case Key.Right:
-                    if (_gameManager.MovingShape.CanMove(Key.Right, _gameManager.Filler.ListOfAllPoints))
+                    if (_gameManager.MovingShape.movements.CanMove(Key.Right, _gameManager.Filler.ListOfAllPoints, _gameManager.MovingShape.Points))
                     {
-                        _gameManager.MovingShape.Move(Key.Right);
+                        _gameManager.MovingShape.movements.Move(Key.Right, _gameManager.MovingShape.Points);
                     }
                     break;
                 case Key.Down:
-                    if (_gameManager.MovingShape.CanMove(Key.Down, _gameManager.Filler.ListOfAllPoints))
+                    if (_gameManager.MovingShape.movements.CanMove(Key.Down, _gameManager.Filler.ListOfAllPoints, _gameManager.MovingShape.Points))
                     {
                         timer.Stop();
-                        _gameManager.MovingShape.Move(Key.Down);
+                        _gameManager.MovingShape.movements.Move(Key.Down, _gameManager.MovingShape.Points);
                         timer.Start();
                     }
                     break;
                 case Key.Up:
-                    if (_gameManager.MovingShape.CanRotate(_gameManager.Filler.ListOfAllPoints) && !_gameManager.IsPaused)
+                    if (_gameManager.MovingShape.movements.CanRotate(_gameManager.Filler.ListOfAllPoints, _gameManager.MovingShape.Points) && !_gameManager.IsPaused)
                     {
-                        _gameManager.MovingShape.Rotate();
+                        _gameManager.MovingShape.movements.Rotate(_gameManager.MovingShape.Points);
                     }
                     break;
             }

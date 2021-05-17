@@ -60,9 +60,11 @@
     </ApplicationDefinition>
     <Compile Include="Model\FieldFiller.cs" />
     <Compile Include="Model\ShapeCreator.cs" />
+    <Compile Include="Model\Shape\IMovements.cs" />
     <Compile Include="Model\Shape\ShapeI.cs" />
     <Compile Include="Model\Shape\ShapeJ.cs" />
     <Compile Include="Model\Shape\ShapeL.cs" />
+    <Compile Include="Model\Shape\ShapeMovements.cs" />
     <Compile Include="Model\Shape\ShapeO.cs" />
     <Compile Include="Model\Shape\ShapeS.cs" />
     <Compile Include="Model\Shape\ShapeT.cs" />
