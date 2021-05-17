@@ -1,0 +1,168 @@
+﻿<mah:MetroWindow x:Class="Minesweeper.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Minesweeper"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        mc:Ignorable="d"
+        Title="Minesweeper" 
+        SizeToContent="WidthAndHeight"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
+        Background="Black">
+
+    <mah:MetroWindow.IconTemplate>
+        <DataTemplate>
+            <iconPacks:PackIconFontAwesome Kind="BombSolid"
+                                        Width="15"
+                                        Height="15"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Margin="4"
+                                        Foreground="{DynamicResource MahApps.Brushes.IdealForeground}"/>
+        </DataTemplate>
+    </mah:MetroWindow.IconTemplate>
+
+    <Grid Width="auto"
+          Height="auto">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Separator Grid.ColumnSpan="2"
+                   Grid.Row="0"
+                   VerticalAlignment="Bottom"
+                   Background="Gray"/>
+
+        <Separator Grid.ColumnSpan="2"
+                   Grid.Row="1"
+                   VerticalAlignment="Bottom"
+                   Background="Gray"/>
+
+        <TextBlock Text="MINESWEEPER"
+                   Style="{StaticResource BaseTextBlock}"
+                   FontSize="50"
+                   Foreground="White"
+                   Grid.Row="0"
+                   Grid.ColumnSpan="2"/>
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Grid.ColumnSpan="2">
+            <iconPacks:PackIconFontAwesome Kind="FlagSolid"
+                                        Width="20"
+                                        Height="20"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Margin="4"
+                                        Foreground="BlueViolet"/>
+            <TextBlock Text="{Binding FlagsOnField}"
+                       Style="{StaticResource BaseTextBlock}"
+                       FontSize="30"/>
+        </StackPanel>
+
+        <Button Grid.Row="1"
+                Grid.Column="0"
+                HorizontalAlignment="Center"
+                Width="150"
+                Height="35"
+                Content="NEW GAME"
+                Background="CadetBlue"
+                Command="{Binding NewGameCommand}"/>
+
+        <mah:SplitButton Grid.Row="1"
+                         Grid.Column="1"
+                         Width="150"
+                         Height="35"
+                         ItemsSource="{Binding GameDifficulties}"
+                         DisplayMemberPath="Title"
+                         SelectedIndex="0"
+                         SelectedValue="{Binding Difficulty}"
+                         Command="{Binding SettingsCommand}"
+                         CommandParameter="{Binding Difficulty}"
+                         Background="CadetBlue"
+                         FontFamily="{StaticResource ArcadeClassic}"
+                         FontSize="15"/>
+
+        <ItemsControl ItemsSource="{Binding GameField}"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      Focusable="False"
+                      Grid.Row="3"
+                      Grid.ColumnSpan="2">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <ItemsControl ItemsSource="{Binding}"
+                                  Focusable="False">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Width="40"
+                                        Height="40"
+                                        BorderThickness="1"
+                                        Focusable="False"
+                                        Style="{StaticResource buttonsStyle}">
+                                    <Button.InputBindings>
+                                        <MouseBinding Gesture="LeftClick" 
+                                                      Command="{Binding DataContext.CellClickCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                      CommandParameter="{Binding}"/>
+                                        <MouseBinding Gesture="RightClick"
+                                                      Command="{Binding DataContext.CellRightClickCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                      CommandParameter="{Binding}"/>
+                                    </Button.InputBindings>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <Border Grid.ColumnSpan="2"
+                Grid.RowSpan="4"
+                Background="Black"
+                Opacity="0.9"
+                Visibility="{Binding IsWin, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="YOU WON!"
+                           FontSize="65"
+                           Foreground="White"
+                           HorizontalAlignment="Center"
+                           FontFamily="{StaticResource ArcadeClassic}"/>
+                <Button Content="NEW GAME"
+                        Background="Transparent"
+                        Foreground="White"
+                        Width="200"
+                        Height="75"
+                        FontSize="45"
+                        FontFamily="{StaticResource ArcadeClassic}"
+                        Margin="100"
+                        Command="{Binding NewGameCommand}"/>
+                <Button Content="EXIT"
+                        Background="Transparent"
+                        Foreground="White"
+                        Width="150"
+                        Height="75"
+                        FontSize="45"
+                        FontFamily="{StaticResource ArcadeClassic}"
+                        Command="{Binding CloseCommand}"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</mah:MetroWindow>
