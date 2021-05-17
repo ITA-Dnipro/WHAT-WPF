@@ -21,7 +21,6 @@ namespace Minesweeper.ViewModels
         private ObservableCollection<GameDifficulty> gameDifficulties = new ObservableCollection<GameDifficulty>();
         private GameDifficulty difficulty;
         private int gameFieldSize = 10;
-        private int numOfOpenEmptyCells = 0;
         private bool isWin = true;
 
         public bool IsWin
@@ -34,15 +33,6 @@ namespace Minesweeper.ViewModels
             }
         }
 
-        public int NumOfOpenEmptyCells
-        {
-            get => numOfOpenEmptyCells;
-            set
-            {
-                numOfOpenEmptyCells += value;
-                OnPropertyChanged();
-            }
-        }
         public ObservableCollection<GameDifficulty> GameDifficulties
         {
             get => gameDifficulties;
@@ -93,18 +83,16 @@ namespace Minesweeper.ViewModels
 
                     CellsOpener cellsOpener = new CellsOpener();
 
-                    int numOpenCell;
-
-                    numOpenCell = cellsOpener.OpenCells(GameField, cell.X, cell.Y, ref flagsOnFieldTemp);
-
-                    NumOfOpenEmptyCells = numOpenCell;
+                    cellsOpener.OpenCells(GameField, cell.X, cell.Y, ref flagsOnFieldTemp);
 
                     FlagsOnField = flagsOnFieldTemp;
 
-                    if (numOfOpenEmptyCells == GameFieldSize * GameFieldSize - GameFieldSize)
-                    {
-                        IsWin = true;
-                    }
+
+
+                if (GameWin())
+                {
+                    IsWin = true;
+                }
                 }
                 else
                 {
@@ -190,6 +178,27 @@ namespace Minesweeper.ViewModels
                     }
                 }
             }
+        }
+
+        private bool GameWin()
+        {
+            int numOpenCells = 0;
+
+            for (int i = 0; i < GameFieldSize; i++)
+            {
+                List<Cell> row = GameField[i];
+
+                for (int j = 0; j < GameFieldSize; j++)
+                {
+                    if (!row[j].IsHidden)
+                    {
+                        numOpenCells++;
+                    }
+                    
+                }
+            }
+
+            return numOpenCells == GameFieldSize * GameFieldSize - GameFieldSize;
         }
 
         public GameViewModel()
