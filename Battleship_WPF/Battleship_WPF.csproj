@@ -58,6 +58,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CellCommand.cs" />
     <Compile Include="Classes\CellViewModel.cs" />
     <Compile Include="Classes\GameViewModel.cs" />
     <Compile Include="Pages\GameCardPage.xaml.cs">

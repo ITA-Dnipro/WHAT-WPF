@@ -81,20 +81,20 @@ namespace BattleshipLibrary
             }
         }
 
-        public MapCondition this[int indexOY, int indexOX ]
+        public MapCondition this[int indexOY, int indexOX]
         {
-            get 
+            get
             {
                 return _mapCells[indexOY, indexOX];
             }
-            set 
+            set
             {
                 _mapCells[indexOY, indexOX] = value;
 
             }
         }
 
-        public int TargetCoordY 
+        public int TargetCoordY
         {
             get
             {
@@ -130,11 +130,61 @@ namespace BattleshipLibrary
             }
         }
 
+        public int FourDeckShipCount
+        {
+            get
+            {
+                return CalculateShipsCount((int)TypeOfShips.FourDecker);
+            }
+        }
+
+        public int ThreeDeckShipCount
+        {
+            get
+            {
+                return CalculateShipsCount((int)TypeOfShips.ThreeDecker);
+            }
+        }
+
+        public int TwoDeckShipCount
+        {
+            get
+            {
+                return CalculateShipsCount((int)TypeOfShips.TwoDecker);
+            }
+        }
+
+        public int OneDeckShipCount
+        {
+            get
+            {
+                return CalculateShipsCount((int)TypeOfShips.OneDecker);
+            }
+        }
+
+        private int CalculateShipsCount(int deckCount)
+        {
+            int shipCount = 0;
+
+            for (int number = 0; number < _allShips.Length; number++)
+            {
+                if (deckCount == _allShips[number].CountOfDeck)
+                {
+                    if (_allShips[number].IsAliveShip)
+                    {
+                        shipCount++;
+                    }
+                }
+            }
+
+            return shipCount;
+        }
+
         public int GetLengthMapCells(int index)
         {
             if (index < 0 || index > _mapCells.Rank)
             {
-                throw new Exception();
+                throw new ArgumentException();
             }
 
             return _mapCells.GetLength(index);
@@ -183,7 +233,7 @@ namespace BattleshipLibrary
         {
             Ship oneShip = new Ship((int)countOfDecker, true);
 
-            for (int deckNumber = 0; deckNumber < (int)(countOfDecker); deckNumber++) 
+            for (int deckNumber = 0; deckNumber < (int)(countOfDecker); deckNumber++)
             {
                 _mapCells[_targetCoordY, _targetCoordX] = MapCondition.ShipSafe;
                 oneShip.CountOfDeck = (int)(countOfDecker);
@@ -231,7 +281,7 @@ namespace BattleshipLibrary
                         break;
                     }
 
-                    switch (shipDirection)  
+                    switch (shipDirection)
                     {
                         case Direction.Up:
                             _targetCoordY--;
@@ -263,7 +313,7 @@ namespace BattleshipLibrary
                     {
                         shipDirection -= Direction.Left;
                     }
-                    
+
                 }
             }
 
@@ -322,7 +372,7 @@ namespace BattleshipLibrary
 
         public void CheckShipCondition(bool isTargetPlayer, bool isAlivePlayerAfterRigthShoot, Intelligence enemyMind)
         {
-            if ((enemyMind.CounterSuccessfulShot >= RandomCoords.SECCESSFUL_SHOT) 
+            if ((enemyMind.CounterSuccessfulShot >= RandomCoords.SECCESSFUL_SHOT)
                     && !isTargetPlayer && isAlivePlayerAfterRigthShoot)
             {
                 enemyMind.CounterSuccessfulShot = 1;
@@ -392,8 +442,8 @@ namespace BattleshipLibrary
                 for (int deckNumb = 0; deckNumb < _allShips[shipIndex].CountOfDeck; deckNumb++)
                 {
 
-                    if (_allShips[shipIndex][deckNumb].OX == _targetCoordX               
-                            && _allShips[shipIndex][deckNumb].OY == _targetCoordY)    
+                    if (_allShips[shipIndex][deckNumb].OX == _targetCoordX
+                            && _allShips[shipIndex][deckNumb].OY == _targetCoordY)
                     {
                         hitShipNumber = shipIndex;
                         isFoundShip = true;
@@ -409,7 +459,7 @@ namespace BattleshipLibrary
 
             int shipSize = _allShips[hitShipNumber].CountOfDeck;
 
-            destroyedShip = new Ship(shipSize, false); 
+            destroyedShip = new Ship(shipSize, false);
 
             for (int deckNumb = 0; deckNumb < shipSize; deckNumb++)
             {
@@ -446,7 +496,7 @@ namespace BattleshipLibrary
             for (int i = (coordY - 1); i <= (coordY + size); i++)
             {
 
-                if ((i < 0) || (i >= _sizeOfMap)) 
+                if ((i < 0) || (i >= _sizeOfMap))
                 {
                     continue;
                 }
@@ -620,7 +670,7 @@ namespace BattleshipLibrary
                     _targetCoordY = _allShips[numberInjuredShip][deckNumb].OY;
                     _mapCells[_targetCoordY, _targetCoordX] = MapCondition.ShipDestroyed;
 
-                    
+
                     _destroyedShip?.Invoke(this, new DestroyedShipEventArgs(_allShips[numberInjuredShip]));
                 }
 

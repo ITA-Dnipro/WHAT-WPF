@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -10,12 +12,14 @@ using System.Windows.Threading;
 
 namespace Battleship_WPF
 {
-    public class GameViewModel
+    public class GameViewModel : INotifyPropertyChanged
     {
         #region Consts
 
         const int HEIGTH = 10;
         const int WIDTH = 10;
+        const string WIN = "YOU WIN!";
+        const string LOSE = "YOU LOSE!";
 
         #endregion
 
@@ -23,25 +27,29 @@ namespace Battleship_WPF
 
         private Sea _playerMap;
         private Sea _enemyMap;
-        //private bool _isPlayerWinner;
         private bool _isAlivePlayerAfterRigthShoot;
         private bool _isEasyLevel;
         private Intelligence _enemysMind;
         private bool _isTargetPlayer;
         private bool _isTargetEnemy;
         private Level _currentLevel;
-
+        private CellCommand _clickButton;
+        private string _targetCoords;
+        private PositionFormatter _formatter;
+        private int _fourDeckEnemyShipsCount;
+        private int _threeDeckEnemyShispCount;
+        private int _twoDeckEnemyShipsCount;
+        private int _oneDeckEnemyShipsCount;
+        private int _fourDeckPlayerShipsCount;
+        private int _threeDeckPlayerShispCount;
+        private int _twoDeckPlayerShipsCount;
+        private int _oneDeckPlayerShipsCount;
+        private string _winnerSatus;
+        private bool _isVisible;
         #endregion
 
         public GameViewModel(Level currentLevel)
         {
-            _playerMap = null;
-            _enemyMap = null;
-            //_isPlayerWinner = false;
-            _isAlivePlayerAfterRigthShoot = false;
-            _enemysMind = null;
-            _isTargetEnemy = false;
-            _isTargetPlayer = false;
             _currentLevel = currentLevel;
         }
 
@@ -49,10 +57,60 @@ namespace Battleship_WPF
 
         public ObservableCollection<CellViewModel> EnemyCells { get; set; }
 
+        public bool IsVisible
+        {
+            get => _isVisible;
+            set
+            {
+                _isVisible = value;
+                OnPropertyChanged("IsVisible");
+            }
+        }
+
+        public string WinnerStatus
+        {
+            get => _winnerSatus;
+            set
+            {
+                _winnerSatus = value;
+                OnPropertyChanged("WinnerStatus");
+            }
+        }
+
+        public string TargetCoords
+        {
+            get => _targetCoords;
+            set
+            {
+                _targetCoords = value;
+                OnPropertyChanged("TargetCoords");
+            }
+        }
+
+        public CellCommand ClickButton
+        {
+            get
+            {
+                return _clickButton ??
+                    (_clickButton = new CellCommand(obj =>
+                    {
+                        CellViewModel cell = obj as CellViewModel;
+
+                        GetPlayerShot(cell.Coord);
+                    },
+                    obj => obj is CellViewModel cell));
+            }
+        }
+
         public void StartUp()
         {
-            _playerMap = new Sea(10);
-            _enemyMap = new Sea(10);
+            _isAlivePlayerAfterRigthShoot = false;
+            _isTargetEnemy = false;
+            _isTargetPlayer = false;
+            _targetCoords = string.Empty;
+            _playerMap = new Sea(HEIGTH);
+            _enemyMap = new Sea(HEIGTH);
+            _formatter = new PositionFormatter();
             _playerMap.BuildAllTypeOfShips();
             _enemyMap.BuildAllTypeOfShips();
             PlayerCells = new ObservableCollection<CellViewModel>();
@@ -68,6 +126,15 @@ namespace Battleship_WPF
             _enemyMap.InjuredShip += ChangeInjuredCellOfEnemy;
             _enemyMap.DestroyedShip += ChangeDestroyedCellOfEnemy;
             _enemyMap.MissedCell += ChangePastCellOfEnemy;
+
+            FourDeckEnemyShipsCount = _enemyMap.FourDeckShipCount;
+            ThreeDeckEnemyShipsCount = _enemyMap.ThreeDeckShipCount;
+            TwoDeckEnemyShipsCount = _enemyMap.TwoDeckShipCount;
+            OneDeckEnemyShipsCount = _enemyMap.OneDeckShipCount;
+            FourDeckPlayerShipsCount = _playerMap.FourDeckShipCount;
+            ThreeDeckPlayerShipsCount = _playerMap.ThreeDeckShipCount;
+            TwoDeckPlayerShipsCount = _playerMap.TwoDeckShipCount;
+            OneDeckPlayerShipsCount = _playerMap.OneDeckShipCount;
         }
 
         private void AddCells(ObservableCollection<CellViewModel> cells, Sea map, bool isEnemyMap)
@@ -87,7 +154,7 @@ namespace Battleship_WPF
         {
             if (isEnemyMap)
             {
-                return "Resourses/WaveCell.png";
+                return "WaveCell";
             }
 
             string path = string.Empty;
@@ -95,19 +162,19 @@ namespace Battleship_WPF
             switch (condition)
             {
                 case MapCondition.MissedShot:
-                    path = "Resourses/PastCell.png";
+                    path = "PastCell";
                     break;
                 case MapCondition.NoneShot:
-                    path = "Resourses/WaveCell.png";
+                    path = "WaveCell";
                     break;
                 case MapCondition.ShipSafe:
-                    path = "Resourses/ShipCell.png";
+                    path = "ShipCell";
                     break;
                 case MapCondition.ShipInjured:
-                    path = "Resourses/BombCell.png";
+                    path = "BombCell";
                     break;
                 case MapCondition.ShipDestroyed:
-                    path = "Resourses/DestructionCell.png";
+                    path = "DestructionCell";
                     break;
                 default:
                     break;
@@ -136,7 +203,7 @@ namespace Battleship_WPF
 
         public void GetPlayerShot(Position coords)
         {
-             bool shipSearched = _enemyMap.SearchShips();
+            bool shipSearched = _enemyMap.SearchShips();
 
             if (!shipSearched)
             {
@@ -145,7 +212,7 @@ namespace Battleship_WPF
 
             _enemyMap.TargetCoordY = coords.OY;
             _enemyMap.TargetCoordX = coords.OX;
-            
+
             bool wasShot = _enemyMap.WasShot();
 
             if (wasShot)
@@ -161,60 +228,170 @@ namespace Battleship_WPF
                 _enemyMap.MarkImpossibleTargets();
             }
 
+            FourDeckEnemyShipsCount = _enemyMap.FourDeckShipCount;
+            ThreeDeckEnemyShipsCount = _enemyMap.ThreeDeckShipCount;
+            TwoDeckEnemyShipsCount = _enemyMap.TwoDeckShipCount;
+            OneDeckEnemyShipsCount = _enemyMap.OneDeckShipCount;
+
+            TargetCoords = _formatter.GetPosition(new Position(_enemyMap.TargetCoordY,
+                _enemyMap.TargetCoordX));
+
+            if (!_enemyMap.SearchShips())
+            {
+                WinnerStatus = WIN;
+                IsVisible = true;
+                return;
+            }
+
             if (!_isTargetEnemy)
             {
                 GetEnemyShot();
             }
         }
 
-        private UserActions GetEnemyShot()
+        public int FourDeckEnemyShipsCount
         {
-            UserActions chosenAction = UserActions.StartGame;
+            get => _fourDeckEnemyShipsCount;
+            set
+            {
+                _fourDeckEnemyShipsCount = value;
+                OnPropertyChanged("FourDeckEnemyShipsCount");
+            }
+        }
 
+        public int ThreeDeckEnemyShipsCount
+        {
+            get => _threeDeckEnemyShispCount;
+            set
+            {
+                _threeDeckEnemyShispCount = value;
+                OnPropertyChanged("ThreeDeckEnemyShipsCount");
+            }
+        }
+
+        public int TwoDeckEnemyShipsCount
+        {
+            get => _twoDeckEnemyShipsCount;
+            set
+            {
+                _twoDeckEnemyShipsCount = value;
+                OnPropertyChanged("TwoDeckEnemyShipsCount");
+            }
+        }
+
+        public int OneDeckEnemyShipsCount
+        {
+            get => _oneDeckEnemyShipsCount;
+            set
+            {
+                _oneDeckEnemyShipsCount = value;
+                OnPropertyChanged("OneDeckEnemyShipsCount");
+            }
+        }
+
+        public int FourDeckPlayerShipsCount
+        {
+            get => _fourDeckPlayerShipsCount;
+            set
+            {
+                _fourDeckPlayerShipsCount = value;
+                OnPropertyChanged("FourDeckPlayerShipsCount");
+            }
+        }
+
+        public int ThreeDeckPlayerShipsCount
+        {
+            get => _threeDeckPlayerShispCount;
+            set
+            {
+                _threeDeckPlayerShispCount = value;
+                OnPropertyChanged("ThreeDeckPlayerShipsCount");
+            }
+        }
+
+        public int TwoDeckPlayerShipsCount
+        {
+            get => _twoDeckPlayerShipsCount;
+            set
+            {
+                _twoDeckPlayerShipsCount = value;
+                OnPropertyChanged("TwoDeckPlayerShipsCount");
+            }
+        }
+
+        public int OneDeckPlayerShipsCount
+        {
+            get => _oneDeckPlayerShipsCount;
+            set
+            {
+                _oneDeckPlayerShipsCount = value;
+                OnPropertyChanged("OneDeckPlayerShipsCount");
+            }
+        }
+
+        private async void GetEnemyShot()
+        {
             if (_isEasyLevel)
             {
-                ShotWithoutIntellegence(ref chosenAction);
+                await Task.Run(() => ShotWithoutIntellegence());
             }
             else
             {
-                ShotWithEnemyIntellegence(ref chosenAction);
+                await Task.Run(() => ShotWithEnemyIntellegence());
             }
 
-            return chosenAction;
         }
 
-        private void ShotWithEnemyIntellegence(ref UserActions chosenAction)
+        private void ShotWithEnemyIntellegence()
         {
             do
             {
+                System.Threading.Thread.Sleep(2000);
                 _enemysMind.MakeTheShot(ref _isAlivePlayerAfterRigthShoot, _playerMap);
                 _isTargetPlayer = _enemysMind.IsTargetPlayer;
+                _playerMap.CheckShipCondition(_isTargetPlayer, _isAlivePlayerAfterRigthShoot,
+                        _enemysMind);
 
-                _playerMap.CheckShipCondition(_isTargetPlayer, _isAlivePlayerAfterRigthShoot, _enemysMind);
+                TargetCoords = _formatter.GetPosition(new Position(_playerMap.TargetCoordY,
+                        _playerMap.TargetCoordX));
 
-                System.Threading.Thread.Sleep(1500);
-                bool shipSearched = _playerMap.SearchShips();
+                FourDeckPlayerShipsCount = _playerMap.FourDeckShipCount;
+                ThreeDeckPlayerShipsCount = _playerMap.ThreeDeckShipCount;
+                TwoDeckPlayerShipsCount = _playerMap.TwoDeckShipCount;
+                OneDeckPlayerShipsCount = _playerMap.OneDeckShipCount;
 
-                if (!shipSearched)
+                if (!_playerMap.SearchShips())
                 {
+                    WinnerStatus = LOSE;
+                    IsVisible = true;
                     break;
                 }
 
             } while (_isTargetPlayer);
         }
 
-        private void ShotWithoutIntellegence(ref UserActions chosenAction)
+        private void ShotWithoutIntellegence()
         {
             do
             {
+                System.Threading.Thread.Sleep(2000);
                 RandomCoords.SearchRandomCoords(_playerMap);
                 _isTargetPlayer = _playerMap.HitTarget(ref _isAlivePlayerAfterRigthShoot);
 
-                //System.Threading.Thread.Sleep(1500);
+                TargetCoords = _formatter.GetPosition(new Position(_playerMap.TargetCoordY,
+                        _playerMap.TargetCoordX));
+
+                FourDeckPlayerShipsCount = _playerMap.FourDeckShipCount;
+                ThreeDeckPlayerShipsCount = _playerMap.ThreeDeckShipCount;
+                TwoDeckPlayerShipsCount = _playerMap.TwoDeckShipCount;
+                OneDeckPlayerShipsCount = _playerMap.OneDeckShipCount;
+
                 bool shipSearched = _playerMap.SearchShips();
 
                 if (!shipSearched)
                 {
+                    WinnerStatus = LOSE;
+                    IsVisible = true;
                     break;
                 }
 
@@ -225,9 +402,10 @@ namespace Battleship_WPF
         {
             foreach (var cell in PlayerCells)
             {
-                if (cell.Coord.OX == e.InjuredCell.OX && cell.Coord.OY == e.InjuredCell.OY )
+                if (cell.Coord.OX == e.InjuredCell.OX && cell.Coord.OY == e.InjuredCell.OY)
                 {
-                    cell.ImagePath = "Resourses/BombCell.png";
+                    cell.StyleKey = "BombCell";
+                    break;
                 }
             }
         }
@@ -240,12 +418,12 @@ namespace Battleship_WPF
                 {
                     if (cell.Coord.OX == e.DestroyedShip[i].OX && cell.Coord.OY == e.DestroyedShip[i].OY)
                     {
-                        cell.ImagePath = "Resourses/DestructionCell.png";
+                        cell.StyleKey = "DestructionCell";
+                        break;
                     }
                 }
             }
         }
-        
 
         private void ChangePastCellOfPlayer(object sender, MissedShotEventArgs e)
         {
@@ -253,7 +431,8 @@ namespace Battleship_WPF
             {
                 if (cell.Coord.OX == e.MissedPosition.OX && cell.Coord.OY == e.MissedPosition.OY)
                 {
-                    cell.ImagePath = "Resourses/PastCell.png";
+                    cell.StyleKey = "PastCell"; ;
+                    break;
                 }
             }
         }
@@ -264,7 +443,8 @@ namespace Battleship_WPF
             {
                 if (cell.Coord.OX == e.InjuredCell.OX && cell.Coord.OY == e.InjuredCell.OY)
                 {
-                    cell.ImagePath = "Resourses/BombCell.png";
+                    cell.StyleKey = "BombCell";
+                    break;
                 }
             }
         }
@@ -277,12 +457,12 @@ namespace Battleship_WPF
                 {
                     if (cell.Coord.OX == e.DestroyedShip[i].OX && cell.Coord.OY == e.DestroyedShip[i].OY)
                     {
-                        cell.ImagePath = "Resourses/DestructionCell.png";
+                        cell.StyleKey = "DestructionCell";
+                        break;
                     }
                 }
             }
         }
-
 
         private void ChangePastCellOfEnemy(object sender, MissedShotEventArgs e)
         {
@@ -290,9 +470,17 @@ namespace Battleship_WPF
             {
                 if (cell.Coord.OX == e.MissedPosition.OX && cell.Coord.OY == e.MissedPosition.OY)
                 {
-                    cell.ImagePath = "Resourses/PastCell.png";
+                    cell.StyleKey = "PastCell";
+                    break;
                 }
             }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void OnPropertyChanged([CallerMemberName]string prop = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
     }
 }
