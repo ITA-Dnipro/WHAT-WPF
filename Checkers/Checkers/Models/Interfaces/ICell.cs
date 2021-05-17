@@ -8,7 +8,7 @@ namespace Checkers.Models.Interfaces
 
         int Column { get; set; }
         
-        IChecker Checker { get; set; }
+        IFigure Checker { get; set; }
         
         Color Background { get; set; }
     }

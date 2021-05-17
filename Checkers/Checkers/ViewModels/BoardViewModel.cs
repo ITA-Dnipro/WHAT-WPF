@@ -14,8 +14,8 @@ namespace Checkers.ViewModels
         private bool _isFirstPlayer = true;
         private bool _isHappened = false;
 
-        private int _countWhiteChecker = 12;
-        private int _countBlackChecker = 12;
+        private int _countWhiteCheckers = 12;
+        private int _countBlackCheckers = 12;
         private string _winnerMessage;
 
         private Color _colorOfSelectedCell;
@@ -30,13 +30,16 @@ namespace Checkers.ViewModels
         private ICell _dependentCell;
         private ICell _mainMustAttack;
 
-        private ICell[,] _board;
         private List<ICell> _mustAtteck;
         private List<ICell> _paintedCells;
 
-        public ICell[,] Board => _board;
+        public ICell[,] Board { get; private set; }
 
         public int Size => 8;
+
+        public int CountWhiteCheckers => _countWhiteCheckers;
+        public int CountBlackCheckers => _countBlackCheckers;
+        public bool IsFirstPlayer => _isFirstPlayer;
 
         public int ZIndexToWinner => HaveWinner() ? 0 : 2;
 
@@ -55,7 +58,7 @@ namespace Checkers.ViewModels
         {
             SetColor();
 
-            SetBoard(_board);
+            SetBoard();
         }
 
         public ICommand Pressing => _pressing ?? (_pressing = new RelayCommand(pressedCell =>
@@ -86,9 +89,9 @@ namespace Checkers.ViewModels
             OnPropertyChanged(nameof(ZIndexToWinner));
         }
 
-        private void SetBoard(ICell[,] board) 
+        private void SetBoard() 
         {
-            _board = new ICell[Size, Size];
+            Board = new ICell[Size, Size];
 
             for (int i = 0; i < Size; i++)
             {
@@ -96,11 +99,11 @@ namespace Checkers.ViewModels
                 {
                     if ((((i % 2 == 0) && (j % 2 == 0)) || ((i % 2 == 1) && (j % 2 == 1))) && i < 3)
                     {
-                        _board[i, j] = new CheckerCell
+                        Board[i, j] = new CheckerCell
                         {
                             Row = i,
                             Column = j,
-                            Checker = new WhiteChecker(i, j, _board),
+                            Checker = new WhiteChecker(i, j),
                             Background = _colorOfUnselectedCell
                         };
 
@@ -109,11 +112,11 @@ namespace Checkers.ViewModels
 
                     if ((((i % 2 == 0) && (j % 2 == 0)) || ((i % 2 == 1) && (j % 2 == 1))) && i > 4)
                     {
-                        _board[i, j] = new CheckerCell
+                        Board[i, j] = new CheckerCell
                         {
                             Row = i,
                             Column = j,
-                            Checker = new BlackChecker(i, j, _board),
+                            Checker = new BlackChecker(i, j),
                             Background = _colorOfUnselectedCell
                         };
 
@@ -122,7 +125,7 @@ namespace Checkers.ViewModels
 
                     if (((i % 2 == 0) && (j % 2 == 0)) || ((i % 2 == 1) && (j % 2 == 1)))
                     {
-                        _board[i, j] = new CheckerCell
+                        Board[i, j] = new CheckerCell
                         {
                             Row = i,
                             Column = j,
@@ -132,7 +135,7 @@ namespace Checkers.ViewModels
                         continue;
                     }
 
-                    _board[i, j] = new CheckerCell
+                    Board[i, j] = new CheckerCell
                     {
                         Row = i,
                         Column = j,
@@ -146,8 +149,7 @@ namespace Checkers.ViewModels
         {
             if (_mainCell.Row == 7)
             {
-                _board[_mainCell.Row, _mainCell.Column].Checker = new WhiteKing(_mainCell.Row,
-                    _mainCell.Column, _board);
+                Board[_mainCell.Row, _mainCell.Column].Checker = new WhiteKing(_mainCell.Row, _mainCell.Column);
             }
         }
 
@@ -155,8 +157,7 @@ namespace Checkers.ViewModels
         {
             if (_mainCell.Row == 0)
             {
-                _board[_mainCell.Row, _mainCell.Column].Checker = new BlackKing(_mainCell.Row,
-                    _mainCell.Column, _board);
+                Board[_mainCell.Row, _mainCell.Column].Checker = new BlackKing(_mainCell.Row, _mainCell.Column);
             }
         }
 
@@ -167,11 +168,15 @@ namespace Checkers.ViewModels
 
             if (_isFirstPlayer)
             {
-                _countBlackChecker--;
+                _countBlackCheckers--;
+
+                OnPropertyChanged(nameof(CountBlackCheckers));
             }
             else
             {
-                _countWhiteChecker--;
+                _countWhiteCheckers--;
+
+                OnPropertyChanged(nameof(CountWhiteCheckers));
             }
         }
 
@@ -190,26 +195,22 @@ namespace Checkers.ViewModels
             {
                 if (_isFirstPlayer)
                 {
-                    _board[_dependentCell.Row, _dependentCell.Column].Checker = new WhiteKing(_dependentCell.Row,
-                        _dependentCell.Column, _board);
+                    Board[_dependentCell.Row, _dependentCell.Column].Checker = new WhiteKing(_dependentCell.Row, _dependentCell.Column);
                 }
                 else
                 {
-                    _board[_dependentCell.Row, _dependentCell.Column].Checker = new BlackKing(_dependentCell.Row,
-                        _dependentCell.Column, _board);
+                    Board[_dependentCell.Row, _dependentCell.Column].Checker = new BlackKing(_dependentCell.Row, _dependentCell.Column);
                 }
             }
             else 
             {
                 if (_isFirstPlayer)
                 {
-                    _board[_dependentCell.Row, _dependentCell.Column].Checker = new WhiteChecker(_dependentCell.Row,
-                        _dependentCell.Column, _board);
+                    Board[_dependentCell.Row, _dependentCell.Column].Checker = new WhiteChecker(_dependentCell.Row, _dependentCell.Column);
                 }
                 else
                 {
-                    _board[_dependentCell.Row, _dependentCell.Column].Checker = new BlackChecker(_dependentCell.Row,
-                        _dependentCell.Column, _board);
+                    Board[_dependentCell.Row, _dependentCell.Column].Checker = new BlackChecker(_dependentCell.Row, _dependentCell.Column);
                 }
             }
         }
@@ -235,20 +236,22 @@ namespace Checkers.ViewModels
             _dependentCell = null;
             _mainMustAttack = null;
             _isHappened = false;
+
+            OnPropertyChanged(nameof(IsFirstPlayer));
         }
 
-        private void PaintCell(ICell cellToPaint) 
+        private void PaintCell(ICell mainCell) //ToDo: add to new services
         {
-            if (cellToPaint == null)
+            if (mainCell == null)
             {
                 return;
             }
 
-            SetPaintedCells(cellToPaint);
+            SetPaintedCells(mainCell);
 
-            if (cellToPaint.Background == _colorOfUnselectedCell)
+            if (mainCell.Background == _colorOfUnselectedCell)
             {
-                cellToPaint.Background = _colorOfSelectedCell;
+                mainCell.Background = _colorOfSelectedCell;
 
                 foreach (var cell in _paintedCells) 
                 {
@@ -257,7 +260,7 @@ namespace Checkers.ViewModels
             }
             else 
             {
-                cellToPaint.Background = _colorOfUnselectedCell;
+                mainCell.Background = _colorOfUnselectedCell;
 
                 foreach (var cell in _paintedCells)
                 {
@@ -268,7 +271,7 @@ namespace Checkers.ViewModels
             }
         }
 
-        private void SetPaintedCells(ICell cellToPaint) 
+        private void SetPaintedCells(ICell cellToPaint) //ToDo: add to new services
         {
             if (_paintedCells == null)
             {
@@ -283,14 +286,14 @@ namespace Checkers.ViewModels
             }
         }
 
-        private void SetColor() 
+        private void SetColor() //ToDo: add to new services
         {
             _colorOfCellsToDoTurn = Color.FromRgb(35, 135, 63);
             _colorOfSelectedCell = Color.FromRgb(93, 92, 99);
             _colorOfUnselectedCell = Color.FromRgb(0, 0, 0);
         }
 
-        private void SetRowAndColumnDirection(out int rowDirection, out int columnDirection, ICell cellToGetDirection, ICell mainCell) 
+        private void SetRowAndColumnDirection(out int rowDirection, out int columnDirection, ICell cellToGetDirection, ICell mainCell) //ToDo: add to new services
         {
             if (cellToGetDirection != null && mainCell.Row < cellToGetDirection.Row)
             {
@@ -319,7 +322,7 @@ namespace Checkers.ViewModels
             }
         }
 
-        private void SetCellsToMainKingCellAttack(List<ICell> cellsToAttack, ICell mainCell) 
+        private void SetCellsToMainKingCellAttack(List<ICell> cellsToAttack, ICell mainCell) //ToDo: add to new services
         {
             List<ICell> diagonal;
             bool foundCellToAttack = false;
@@ -364,7 +367,7 @@ namespace Checkers.ViewModels
             }
         }
 
-        private void SetCellsToMainKingCellMove(List<ICell> cellsToAttack, ICell mainCell) 
+        private void SetCellsToMainKingCellMove(List<ICell> cellsToAttack, ICell mainCell) //ToDo: add to new services
         {
             List<ICell> diagonal;
 
@@ -396,8 +399,8 @@ namespace Checkers.ViewModels
             _isFirstPlayer = true;
             _isHappened = false;
 
-            _countBlackChecker = 12;
-            _countWhiteChecker = 12;
+            _countBlackCheckers = 12;
+            _countWhiteCheckers = 12;
             _winnerMessage = null;
 
             SetColor();
@@ -406,12 +409,15 @@ namespace Checkers.ViewModels
             _dependentCell = null;
             _mainMustAttack = null;
 
-            SetBoard(_board);
+            SetBoard();
 
             _mustAtteck = null;
             _paintedCells = null;
 
             OnBoardChanged();
+            OnPropertyChanged(nameof(CountWhiteCheckers));
+            OnPropertyChanged(nameof(CountBlackCheckers));
+            OnPropertyChanged(nameof(IsFirstPlayer));
         }
 
         private bool CanAttack()
@@ -424,20 +430,20 @@ namespace Checkers.ViewModels
                 {
                     if (_isFirstPlayer)
                     {
-                        if (_board[i, j].Checker != null
-                            && _board[i, j].Checker.IsWhite
-                            && _board[i, j].Checker.CanAttack)
+                        if (Board[i, j].Checker != null
+                            && Board[i, j].Checker.IsWhite
+                            && Board[i, j].Checker.CanAttack(Board))
                         {
-                            _mustAtteck.Add(_board[i, j]);
+                            _mustAtteck.Add(Board[i, j]);
                         }
                     }
                     else
                     {
-                        if (_board[i, j].Checker != null
-                            && !_board[i, j].Checker.IsWhite
-                            && _board[i, j].Checker.CanAttack)
+                        if (Board[i, j].Checker != null
+                            && !Board[i, j].Checker.IsWhite
+                            && Board[i, j].Checker.CanAttack(Board))
                         {
-                            _mustAtteck.Add(_board[i, j]);
+                            _mustAtteck.Add(Board[i, j]);
                         }
                     }
                 }
@@ -455,23 +461,23 @@ namespace Checkers.ViewModels
 
         private bool CanCreateCheckerDependencyCell(ICell dependencyCell)
         {
-            if (_mainCell.Checker.CanAttack)
+            if (_mainCell.Checker.CanAttack(Board))
             {
-                if (_board[dependencyCell.Row, dependencyCell.Column].Checker == null
+                if (Board[dependencyCell.Row, dependencyCell.Column].Checker == null
                     && (((dependencyCell.Row - 2 == _mainCell.Row) && (dependencyCell.Column - 2 == _mainCell.Column)
-                        && _board[dependencyCell.Row - 1, dependencyCell.Column - 1].Checker != null
-                        && _board[dependencyCell.Row - 1, dependencyCell.Column - 1].Checker.IsWhite != _mainCell.Checker.IsWhite)
+                        && Board[dependencyCell.Row - 1, dependencyCell.Column - 1].Checker != null
+                        && Board[dependencyCell.Row - 1, dependencyCell.Column - 1].Checker.IsWhite != _mainCell.Checker.IsWhite)
                     || ((dependencyCell.Row + 2 == _mainCell.Row) && (dependencyCell.Column - 2 == _mainCell.Column)
-                        && _board[dependencyCell.Row + 1, dependencyCell.Column - 1].Checker != null
-                        && _board[dependencyCell.Row + 1, dependencyCell.Column - 1].Checker.IsWhite != _mainCell.Checker.IsWhite)
+                        && Board[dependencyCell.Row + 1, dependencyCell.Column - 1].Checker != null
+                        && Board[dependencyCell.Row + 1, dependencyCell.Column - 1].Checker.IsWhite != _mainCell.Checker.IsWhite)
                     || ((dependencyCell.Row + 2 == _mainCell.Row) && (dependencyCell.Column + 2 == _mainCell.Column)
-                        && _board[dependencyCell.Row + 1, dependencyCell.Column + 1].Checker != null
-                        && _board[dependencyCell.Row + 1, dependencyCell.Column + 1].Checker.IsWhite != _mainCell.Checker.IsWhite)
+                        && Board[dependencyCell.Row + 1, dependencyCell.Column + 1].Checker != null
+                        && Board[dependencyCell.Row + 1, dependencyCell.Column + 1].Checker.IsWhite != _mainCell.Checker.IsWhite)
                     || ((dependencyCell.Row - 2 == _mainCell.Row) && (dependencyCell.Column + 2 == _mainCell.Column)
-                        && _board[dependencyCell.Row - 1, dependencyCell.Column + 1].Checker != null
-                        && _board[dependencyCell.Row - 1, dependencyCell.Column + 1].Checker.IsWhite != _mainCell.Checker.IsWhite)))
+                        && Board[dependencyCell.Row - 1, dependencyCell.Column + 1].Checker != null
+                        && Board[dependencyCell.Row - 1, dependencyCell.Column + 1].Checker.IsWhite != _mainCell.Checker.IsWhite)))
                 {
-                    _dependentCell = _board[dependencyCell.Row, dependencyCell.Column];
+                    _dependentCell = Board[dependencyCell.Row, dependencyCell.Column];
 
                     return true;
                 }
@@ -479,20 +485,20 @@ namespace Checkers.ViewModels
                 return false;
             }
             else if (_mainCell.Checker.IsWhite
-                    && _board[dependencyCell.Row, dependencyCell.Column].Checker == null
+                    && Board[dependencyCell.Row, dependencyCell.Column].Checker == null
                     && dependencyCell.Row - 1 == _mainCell.Row
                     && (dependencyCell.Column - 1 == _mainCell.Column || dependencyCell.Column + 1 == _mainCell.Column))
             {
-                _dependentCell = _board[dependencyCell.Row, dependencyCell.Column];
+                _dependentCell = Board[dependencyCell.Row, dependencyCell.Column];
 
                 return true;
             }
             else if (!_mainCell.Checker.IsWhite
-                    && _board[dependencyCell.Row, dependencyCell.Column].Checker == null
+                    && Board[dependencyCell.Row, dependencyCell.Column].Checker == null
                     && dependencyCell.Row + 1 == _mainCell.Row
                     && (dependencyCell.Column - 1 == _mainCell.Column || dependencyCell.Column + 1 == _mainCell.Column))
             {
-                _dependentCell = _board[dependencyCell.Row, dependencyCell.Column];
+                _dependentCell = Board[dependencyCell.Row, dependencyCell.Column];
 
                 return true;
             }
@@ -502,23 +508,23 @@ namespace Checkers.ViewModels
 
         private bool CanCreateKingDependencyCell(ICell dependencyCell)
         {
-            if (_board[dependencyCell.Row, dependencyCell.Column].Checker != null)
+            if (Board[dependencyCell.Row, dependencyCell.Column].Checker != null)
             {
                 return false;
             }
 
             List<ICell> diagonal = GetDiagonal(dependencyCell);
 
-            if (_mainCell.Checker.CanAttack)
+            if (_mainCell.Checker.CanAttack(Board))
             {
-                if (!diagonal.Contains(_board[dependencyCell.Row, dependencyCell.Column]))
+                if (!diagonal.Contains(Board[dependencyCell.Row, dependencyCell.Column]))
                 {
                     return false;
                 }
 
                 bool haveCellToAttack = false;
 
-                for (int i = 0; i < diagonal.IndexOf(_board[dependencyCell.Row, dependencyCell.Column]); i++)
+                for (int i = 0; i < diagonal.IndexOf(Board[dependencyCell.Row, dependencyCell.Column]); i++)
                 {
                     if (diagonal[i].Checker != null)
                     {
@@ -540,14 +546,14 @@ namespace Checkers.ViewModels
 
                 if (haveCellToAttack)
                 {
-                    _dependentCell = _board[dependencyCell.Row, dependencyCell.Column];
+                    _dependentCell = Board[dependencyCell.Row, dependencyCell.Column];
 
                     return true;
                 }
             }
             else
             {
-                for (int i = 0; i < diagonal.IndexOf(_board[dependencyCell.Row, dependencyCell.Column]); i++)
+                for (int i = 0; i < diagonal.IndexOf(Board[dependencyCell.Row, dependencyCell.Column]); i++)
                 {
                     if (diagonal[i].Checker != null)
                     {
@@ -555,7 +561,7 @@ namespace Checkers.ViewModels
                     }
                 }
 
-                _dependentCell = _board[dependencyCell.Row, dependencyCell.Column];
+                _dependentCell = Board[dependencyCell.Row, dependencyCell.Column];
 
                 return true;
             }
@@ -584,7 +590,7 @@ namespace Checkers.ViewModels
                 && (_mainMustAttack == _mainCell || _mainMustAttack == null)
                 && CanCreateDependencyCell(dependencyCell))
             {
-                if (_mainCell.Checker.CanAttack)
+                if (_mainCell.Checker.CanAttack(Board))
                 {
                     GetCellToAttack(dependencyCell.Row, dependencyCell.Column, _mainCell).Checker = null;
          
@@ -593,13 +599,13 @@ namespace Checkers.ViewModels
 
                 Move();
 
-                _board[_mainCell.Row, _mainCell.Column].Checker = null;
+                Board[_mainCell.Row, _mainCell.Column].Checker = null;
 
-                PaintCell(_board[_mainCell.Row, _mainCell.Column]);
+                PaintCell(Board[_mainCell.Row, _mainCell.Column]);
 
-                _mainCell = _board[_dependentCell.Row, _dependentCell.Column];
+                _mainCell = Board[_dependentCell.Row, _dependentCell.Column];
 
-                if (_mainCell.Checker.CanAttack && _isHappened)
+                if (_mainCell.Checker.CanAttack(Board) && _isHappened)
                 {
                     PaintCell(_mainCell);
                     PrepareAttackAfterAttack();
@@ -626,7 +632,7 @@ namespace Checkers.ViewModels
             {
                 for (int i = 0; i < _mustAtteck.Count; i++)
                 {
-                    if (_board[dependencyCell.Row, dependencyCell.Column] == _mustAtteck[i])
+                    if (Board[dependencyCell.Row, dependencyCell.Column] == _mustAtteck[i])
                     {
                         _mainCell = _mustAtteck[i];
 
@@ -641,21 +647,21 @@ namespace Checkers.ViewModels
             }
 
             if (_mainMustAttack == null && _mainCell == null
-                    && _board[dependencyCell.Row, dependencyCell.Column].Checker != null
-                    && _board[dependencyCell.Row, dependencyCell.Column].Checker.CanMove)
+                    && Board[dependencyCell.Row, dependencyCell.Column].Checker != null
+                    && Board[dependencyCell.Row, dependencyCell.Column].Checker.CanMove(Board))
             {
-                if (_isFirstPlayer && _board[dependencyCell.Row, dependencyCell.Column].Checker.IsWhite)
+                if (_isFirstPlayer && Board[dependencyCell.Row, dependencyCell.Column].Checker.IsWhite)
                 {
-                    _mainCell = _board[dependencyCell.Row, dependencyCell.Column];
+                    _mainCell = Board[dependencyCell.Row, dependencyCell.Column];
 
                     PaintCell(_mainCell);
                     OnBoardChanged();
 
                     return true;
                 }
-                else if(!_isFirstPlayer && !_board[dependencyCell.Row, dependencyCell.Column].Checker.IsWhite) 
+                else if(!_isFirstPlayer && !Board[dependencyCell.Row, dependencyCell.Column].Checker.IsWhite) 
                 {
-                    _mainCell = _board[dependencyCell.Row, dependencyCell.Column];
+                    _mainCell = Board[dependencyCell.Row, dependencyCell.Column];
 
                     PaintCell(_mainCell);
                     OnBoardChanged();
@@ -667,43 +673,43 @@ namespace Checkers.ViewModels
             return false;
         }
 
-        private bool CanBeAttackedByMainCell(int rowDirection, int columnDirection) 
+        private bool CanBeAttackedByMainCell(int rowDirection, int columnDirection) //ToDo: add to new services
         {
             return _mainCell.Row + rowDirection * 2 < Size && _mainCell.Row + rowDirection * 2 > -1
                     && _mainCell.Column + columnDirection * 2 < Size && _mainCell.Column + columnDirection * 2 > -1
-                    && _board[_mainCell.Row + rowDirection * 2, _mainCell.Column + columnDirection * 2].Checker == null
-                    && _board[_mainCell.Row + rowDirection, _mainCell.Column + columnDirection].Checker != null
-                    && _board[_mainCell.Row + rowDirection, _mainCell.Column + columnDirection].Checker.IsWhite != _mainCell.Checker.IsWhite;
+                    && Board[_mainCell.Row + rowDirection * 2, _mainCell.Column + columnDirection * 2].Checker == null
+                    && Board[_mainCell.Row + rowDirection, _mainCell.Column + columnDirection].Checker != null
+                    && Board[_mainCell.Row + rowDirection, _mainCell.Column + columnDirection].Checker.IsWhite != _mainCell.Checker.IsWhite;
         }
 
         private bool HaveWinner() 
         {
-            if (_countWhiteChecker < _countBlackChecker)
+            if (_countWhiteCheckers < _countBlackCheckers)
             {
-                if (_countWhiteChecker == 0)
+                if (_countWhiteCheckers == 0)
                 {
                     WinnerMessage = "Black checker is winner";
 
                     return true;
                 }
 
-                if (GetLoserCells().Count == _countWhiteChecker)
+                if (GetLoserCells().Count == _countWhiteCheckers)
                 {
                     WinnerMessage = "Black checker is winner";
 
                     return true;
                 }
             }
-            else if (_countBlackChecker < _countWhiteChecker)
+            else if (_countBlackCheckers < _countWhiteCheckers)
             {
-                if (_countBlackChecker == 0)
+                if (_countBlackCheckers == 0)
                 {
                     WinnerMessage = "White checker is winner";
 
                     return true;
                 }
 
-                if (GetLoserCells().Count == _countBlackChecker)
+                if (GetLoserCells().Count == _countBlackCheckers)
                 {
                     WinnerMessage = "White checker is winner";
 
@@ -718,8 +724,8 @@ namespace Checkers.ViewModels
         {
             return cell.Checker != null
                         && IsWhite
-                        && !cell.Checker.CanAttack
-                        && !cell.Checker.CanMove;
+                        && !cell.Checker.CanAttack(Board)
+                        && !cell.Checker.CanMove(Board);
         }
 
         private ICell GetCellToAttack(int rowDependenceCell, int columnDependenceCell, ICell mainCell) 
@@ -757,7 +763,7 @@ namespace Checkers.ViewModels
                 column = _dependentCell.Column + 1;
             }
 
-            return _board[row, column];
+            return Board[row, column];
         }
 
         private ICell GetCellToKingAttack(int rowDependenceCell, int columnDependenceCell, ICell mainCell) 
@@ -772,15 +778,15 @@ namespace Checkers.ViewModels
             for (int i = mainCell.Row + rowDirection, j = mainCell.Column + columnDirection; 
                     (i < 8 && i > -1) && (j < 8 && j > -1); i += rowDirection, j += columnDirection)
             {
-                if (_board[i, j].Checker != null)
+                if (Board[i, j].Checker != null)
                 {
-                    if (_board[i, j].Checker.IsWhite == mainCell.Checker.IsWhite)
+                    if (Board[i, j].Checker.IsWhite == mainCell.Checker.IsWhite)
                     {
                         return null;
                     }
                     else 
                     {
-                        return _board[i, j];
+                        return Board[i, j];
                     }
                 }
             }
@@ -788,7 +794,7 @@ namespace Checkers.ViewModels
             return null;
         }
 
-        private List<ICell> GetDiagonal(ICell cellToGetDirection) 
+        private List<ICell> GetDiagonal(ICell cellToGetDirection) //ToDo: add to new services
         {
             List<ICell> diagonal = new List<ICell>();
 
@@ -802,36 +808,36 @@ namespace Checkers.ViewModels
             for (int i = _mainCell.Row + rowDirection, j = _mainCell.Column + columnDirection; 
                     (i < 8 && i > -1) && (j < 8 && j > -1); i += rowDirection, j += columnDirection)
             {
-                diagonal.Add(_board[i, j]);
+                diagonal.Add(Board[i, j]);
             }
 
             return diagonal;
         }
 
-        private List<ICell> GetCellsToMainCheckerCellAttackOrMove(ICell mainCell) 
+        private List<ICell> GetCellsToMainCheckerCellAttackOrMove(ICell mainCell) //ToDo: add to new services
         {
             List<ICell> cellsToAttack = new List<ICell>();
 
-            if (mainCell.Checker.CanAttack)
+            if (mainCell.Checker.CanAttack(Board))
             {
                 if (CanBeAttackedByMainCell(1, 1))
                 {
-                    cellsToAttack.Add(_board[mainCell.Row + 2, mainCell.Column + 2]);
+                    cellsToAttack.Add(Board[mainCell.Row + 2, mainCell.Column + 2]);
                 }
 
                 if (CanBeAttackedByMainCell(1, -1))
                 {
-                    cellsToAttack.Add(_board[mainCell.Row + 2, mainCell.Column - 2]);
+                    cellsToAttack.Add(Board[mainCell.Row + 2, mainCell.Column - 2]);
                 }
 
                 if (CanBeAttackedByMainCell(-1, -1))
                 {
-                    cellsToAttack.Add(_board[mainCell.Row - 2, mainCell.Column - 2]);
+                    cellsToAttack.Add(Board[mainCell.Row - 2, mainCell.Column - 2]);
                 }
 
                 if (CanBeAttackedByMainCell(-1, 1))
                 {
-                    cellsToAttack.Add(_board[mainCell.Row - 2, mainCell.Column + 2]);
+                    cellsToAttack.Add(Board[mainCell.Row - 2, mainCell.Column + 2]);
                 }
             }
             else 
@@ -840,16 +846,16 @@ namespace Checkers.ViewModels
                 {
                     if (mainCell.Checker.IsWhite 
                         && mainCell.Row + 1 < Size 
-                        && _board[mainCell.Row + 1, mainCell.Column - 1].Checker == null)
+                        && Board[mainCell.Row + 1, mainCell.Column - 1].Checker == null)
                     {
-                        cellsToAttack.Add(_board[mainCell.Row + 1, mainCell.Column - 1]);
+                        cellsToAttack.Add(Board[mainCell.Row + 1, mainCell.Column - 1]);
                     }
 
                     if (!mainCell.Checker.IsWhite 
                         && mainCell.Row - 1 > -1
-                        && _board[mainCell.Row - 1, mainCell.Column - 1].Checker == null)
+                        && Board[mainCell.Row - 1, mainCell.Column - 1].Checker == null)
                     {
-                        cellsToAttack.Add(_board[mainCell.Row - 1, mainCell.Column - 1]);
+                        cellsToAttack.Add(Board[mainCell.Row - 1, mainCell.Column - 1]);
                     }
                 }
 
@@ -857,16 +863,16 @@ namespace Checkers.ViewModels
                 {
                     if (mainCell.Checker.IsWhite 
                         && mainCell.Row + 1 < Size
-                        && _board[mainCell.Row + 1, mainCell.Column + 1].Checker == null)
+                        && Board[mainCell.Row + 1, mainCell.Column + 1].Checker == null)
                     {
-                        cellsToAttack.Add(_board[mainCell.Row + 1, mainCell.Column + 1]);
+                        cellsToAttack.Add(Board[mainCell.Row + 1, mainCell.Column + 1]);
                     }
 
                     if (!mainCell.Checker.IsWhite 
                         && mainCell.Row - 1 > -1
-                        && _board[mainCell.Row - 1, mainCell.Column + 1].Checker == null)
+                        && Board[mainCell.Row - 1, mainCell.Column + 1].Checker == null)
                     {
-                        cellsToAttack.Add(_board[mainCell.Row - 1, mainCell.Column + 1]);
+                        cellsToAttack.Add(Board[mainCell.Row - 1, mainCell.Column + 1]);
                     }
                 }
             }
@@ -874,11 +880,11 @@ namespace Checkers.ViewModels
             return cellsToAttack;
         }
 
-        private List<ICell> GetCellsToMainKingCellAttackOrMove(ICell mainCell) 
+        private List<ICell> GetCellsToMainKingCellAttackOrMove(ICell mainCell) //ToDo: add to new services
         {
             List<ICell> cellsToAttackOrMove = new List<ICell>();
 
-            if (mainCell.Checker.CanAttack)
+            if (mainCell.Checker.CanAttack(Board))
             {
                 SetCellsToMainKingCellAttack(cellsToAttackOrMove, mainCell);
             }
@@ -890,32 +896,32 @@ namespace Checkers.ViewModels
             return cellsToAttackOrMove;
         }
 
-        private List<ICell> GetOneFromFourDiagonal(ICell cellToGetDiagonal, int numberOfDiagonal) 
+        private List<ICell> GetOneFromFourDiagonal(ICell cellToGetDiagonal, int numberOfDiagonal) //ToDo: add to new services
         {
             switch (numberOfDiagonal) 
             {
                 case 0:
                     if (cellToGetDiagonal.Row - 1 > -1 && cellToGetDiagonal.Column - 1 > -1)
                     {
-                        return GetDiagonal(_board[cellToGetDiagonal.Row - 1, cellToGetDiagonal.Column - 1]);
+                        return GetDiagonal(Board[cellToGetDiagonal.Row - 1, cellToGetDiagonal.Column - 1]);
                     }
                     break;
                 case 1:
                     if (cellToGetDiagonal.Row - 1 > -1 && cellToGetDiagonal.Column + 1 < Size)
                     {
-                        return GetDiagonal(_board[cellToGetDiagonal.Row - 1, cellToGetDiagonal.Column + 1]);
+                        return GetDiagonal(Board[cellToGetDiagonal.Row - 1, cellToGetDiagonal.Column + 1]);
                     }
                     break;
                 case 2:
                     if (cellToGetDiagonal.Row + 1 < Size && cellToGetDiagonal.Column + 1 < Size)
                     {
-                        return GetDiagonal(_board[cellToGetDiagonal.Row + 1, cellToGetDiagonal.Column + 1]);
+                        return GetDiagonal(Board[cellToGetDiagonal.Row + 1, cellToGetDiagonal.Column + 1]);
                     }                    
                     break;
                 case 3:
                     if (cellToGetDiagonal.Row + 1 < Size && cellToGetDiagonal.Column - 1 > -1)
                     {
-                        return GetDiagonal(_board[cellToGetDiagonal.Row + 1, cellToGetDiagonal.Column - 1]);
+                        return GetDiagonal(Board[cellToGetDiagonal.Row + 1, cellToGetDiagonal.Column - 1]);
                     }                    
                     break;
             }
@@ -927,9 +933,9 @@ namespace Checkers.ViewModels
         {
             List<ICell> loserCells = new List<ICell>();
 
-            if (_countWhiteChecker < _countBlackChecker)
+            if (_countWhiteCheckers < _countBlackCheckers)
             {
-                foreach (ICell cell in _board)
+                foreach (ICell cell in Board)
                 {
                     if (cell.Checker != null && IsLoserCell(cell, cell.Checker.IsWhite))
                     {
@@ -937,9 +943,9 @@ namespace Checkers.ViewModels
                     }
                 }
             }
-            else if (_countBlackChecker < _countWhiteChecker)
+            else if (_countBlackCheckers < _countWhiteCheckers)
             {
-                foreach (ICell cell in _board)
+                foreach (ICell cell in Board)
                 {
                     if (cell.Checker != null && IsLoserCell(cell, !cell.Checker.IsWhite))
                     {

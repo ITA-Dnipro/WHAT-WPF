@@ -10,7 +10,7 @@ namespace Checkers.Models
 
         public int Column { get; set; }
 
-        public IChecker Checker { get; set; }
+        public IFigure Checker { get; set; }
 
         public Color Background { get; set; }
     }

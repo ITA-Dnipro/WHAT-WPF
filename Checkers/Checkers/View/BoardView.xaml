@@ -18,10 +18,22 @@
       Name="myPage"
       DataContext="{StaticResource boardModel}">
 
+    <Page.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </Page.Resources>
+
     <Grid>
         <Grid.Resources>
             <convert:ColorToSolidBrushConverter x:Key="colorToBrush"/>
             <convert:CellsToObservableCellsConverter x:Key="cellsToObservableCells"/>
+            <convert:BoolPlayerToStirngPlayerConverter x:Key="stringPlayer"/>
         </Grid.Resources>
 
         <Grid.ColumnDefinitions>
@@ -37,6 +49,25 @@
                             ColumnCount="{Binding Size}"
                             Cells="{Binding Board, Converter={StaticResource cellsToObservableCells}}"
                             Panel.ZIndex="{Binding ZIndexToWinner}"/>
+
+        <Grid Grid.Column="1"
+              Background="#FF545148"
+              Panel.ZIndex="{Binding ZIndexToWinner}">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="{Binding StringFormat=White Checkers - {0}, Source={StaticResource boardModel}, Path=CountWhiteCheckers}"
+                       Grid.Row="0"/>
+
+            <TextBlock Text="{Binding StringFormat=Turn - {0}, Source={StaticResource boardModel}, Path=IsFirstPlayer, Converter={StaticResource stringPlayer}}"
+                       Grid.Row="1"/>
+
+            <TextBlock Text="{Binding StringFormat=Black Checkers - {0}, Source={StaticResource boardModel}, Path=CountBlackCheckers}"
+                       Grid.Row="2"/>
+        </Grid>
     </Grid>
     
 </Page>

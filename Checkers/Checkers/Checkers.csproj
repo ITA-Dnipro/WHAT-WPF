@@ -101,8 +101,11 @@
     <Compile Include="Controls\CheckerBoard.xaml.cs">
       <DependentUpon>CheckerBoard.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\BoolPlayerToStirngPlayerConverter.cs" />
     <Compile Include="Converters\CellsToObservableCellsConverter.cs" />
     <Compile Include="Converters\ColorToSolidBrushConverter.cs" />
+    <Compile Include="Models\Abstracts\Checker.cs" />
+    <Compile Include="Models\Abstracts\CheckerKing.cs" />
     <Compile Include="Models\BlackKing.cs" />
     <Compile Include="Models\Commands\RelayCommand.cs" />
     <Compile Include="Models\Notifier.cs" />
@@ -151,7 +154,7 @@
     <Compile Include="Models\BlackChecker.cs" />
     <Compile Include="Models\CheckerCell.cs" />
     <Compile Include="Models\Interfaces\ICell.cs" />
-    <Compile Include="Models\Interfaces\IChecker.cs" />
+    <Compile Include="Models\Interfaces\IFigure.cs" />
     <Compile Include="Models\WhiteChecker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
