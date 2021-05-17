@@ -38,9 +38,9 @@ namespace Battleship_WPF
             DataContext = this;
         }
 
-        public ObservableCollection<CellModel> PlayerCells { get; set; }
+        public ObservableCollection<CellViewModel> PlayerCells { get; set; }
 
-        public ObservableCollection<CellModel> EnemyCells { get; set; }
+        public ObservableCollection<CellViewModel> EnemyCells { get; set; }
 
         private void CellButton_Click(object sender, RoutedEventArgs e)
         {

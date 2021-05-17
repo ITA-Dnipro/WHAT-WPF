@@ -45,9 +45,9 @@ namespace Battleship_WPF
             _currentLevel = currentLevel;
         }
 
-        public ObservableCollection<CellModel> PlayerCells { get; set; }
+        public ObservableCollection<CellViewModel> PlayerCells { get; set; }
 
-        public ObservableCollection<CellModel> EnemyCells { get; set; }
+        public ObservableCollection<CellViewModel> EnemyCells { get; set; }
 
         public void StartUp()
         {
@@ -55,8 +55,8 @@ namespace Battleship_WPF
             _enemyMap = new Sea(10);
             _playerMap.BuildAllTypeOfShips();
             _enemyMap.BuildAllTypeOfShips();
-            PlayerCells = new ObservableCollection<CellModel>();
-            EnemyCells = new ObservableCollection<CellModel>();
+            PlayerCells = new ObservableCollection<CellViewModel>();
+            EnemyCells = new ObservableCollection<CellViewModel>();
             AddCells(PlayerCells, _playerMap, false);
             AddCells(EnemyCells, _enemyMap, true);
             SetLevel();
@@ -70,7 +70,7 @@ namespace Battleship_WPF
             _enemyMap.MissedCell += ChangePastCellOfEnemy;
         }
 
-        private void AddCells(ObservableCollection<CellModel> cells, Sea map, bool isEnemyMap)
+        private void AddCells(ObservableCollection<CellViewModel> cells, Sea map, bool isEnemyMap)
         {
             for (int Y = 0; Y < HEIGTH; Y++)
             {
@@ -78,7 +78,7 @@ namespace Battleship_WPF
                 {
                     MapCondition condition = map[Y, X];
                     string imagePath = GetImagePath(condition, isEnemyMap);
-                    cells.Add(new CellModel(new Position(Y, X), imagePath));
+                    cells.Add(new CellViewModel(new Position(Y, X), imagePath));
                 }
             }
         }

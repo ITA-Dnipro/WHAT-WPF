@@ -10,12 +10,12 @@ using System.Windows.Controls;
 
 namespace Battleship_WPF
 {
-    public class CellModel : INotifyPropertyChanged
+    public class CellViewModel : INotifyPropertyChanged
     {
         private Position _coord;
-        private string _imagePath;
+        private string _styleKey;
 
-        public Position Coord 
+        public Position Coord
         {
             get
             {
@@ -25,35 +25,33 @@ namespace Battleship_WPF
             {
                 _coord = value;
                 OnPropertyChanged("Coord");
-            } 
+            }
         }
 
-        public string ImagePath
+        public string StyleKey
         {
             get
             {
-                return _imagePath;
+                return _styleKey;
             }
             set
             {
-                _imagePath = value;
-                OnPropertyChanged("ImagePath");
+                _styleKey = value;
+                OnPropertyChanged("StyleKey");
             }
         }
 
-        
-        public CellModel(Position coord, string imagePath)
+        public CellViewModel(Position coord, string styleKey)
         {
             _coord = coord;
-            _imagePath = imagePath;
+            _styleKey = styleKey;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
     }
 }
