@@ -27,7 +27,14 @@ namespace Minesweeper.Models
             }
         }
 
-        public bool IsMined { get => isMined; }
+        public bool IsMined 
+        { 
+            get => isMined; 
+            set 
+            {
+                isMined = value; OnPropertyChanged(); 
+            }
+        }
 
         public bool IsFlaged
         {
@@ -54,9 +61,8 @@ namespace Minesweeper.Models
         public int X => x;
         public int Y => y;
 
-        public Cell(bool isMined, HiddenCellColor color, int x, int y)
+        public Cell(HiddenCellColor color, int x, int y)
         {
-            this.isMined = isMined;
             this.color = color;
             isHidden = true;
             this.x = x;

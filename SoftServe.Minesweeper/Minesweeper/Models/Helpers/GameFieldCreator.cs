@@ -8,16 +8,13 @@ namespace Minesweeper.Models.Helpers
     public class GameFieldCreator : IGameFieldCreator
     {
         int gameFieldSize = 0;
+        int numOfBombs = 0;
+
+        List<List<Cell>> gameField = new List<List<Cell>>();
 
         public List<List<Cell>> CreateGameField(int gameFieldSize)
         {
             this.gameFieldSize = gameFieldSize;
-
-            List<List<Cell>> gameField = new List<List<Cell>>();
-
-            Random rand = new Random();
-
-            int numOfBombs = 0;
 
             int x = 0;
 
@@ -31,10 +28,7 @@ namespace Minesweeper.Models.Helpers
                 {
                     for (int j = 0; j < gameFieldSize; j++)
                     {
-                        Cell cell = new Cell(rand.Next(0, gameFieldSize) % 11 == 1 
-                            && numOfBombs < gameFieldSize ? true : false,
-                            j % 2 == 0 ? HiddenCellColor.Color1 : HiddenCellColor.Color2,
-                            x, y);
+                        Cell cell = new Cell(j % 2 == 0 ? HiddenCellColor.Color1 : HiddenCellColor.Color2, x, y);
                         row.Add(cell);
 
                         if (cell.IsMined == true)
@@ -49,10 +43,7 @@ namespace Minesweeper.Models.Helpers
                 {
                     for (int j = 0; j < gameFieldSize; j++)
                     {
-                        Cell cell = new Cell(rand.Next(0, gameFieldSize) % 11 == 1 
-                            && numOfBombs < gameFieldSize ? true : false, 
-                            j % 2 == 0 ? HiddenCellColor.Color2 : HiddenCellColor.Color1,
-                            x, y);
+                        Cell cell = new Cell(j % 2 == 0 ? HiddenCellColor.Color2 : HiddenCellColor.Color1, x, y);
                         row.Add(cell);
 
                         if (cell.IsMined == true)
@@ -68,18 +59,20 @@ namespace Minesweeper.Models.Helpers
                 x++;
             }
 
-            FillGameField(gameField);
+            MinedField();
+
+            FillGameField();
 
             return gameField;
         }
 
-        public void FillGameField(List<List<Cell>> gamefiled)
+        public void FillGameField()
         {
-            for (int i = 0; i < gamefiled.Count; i++)
+            for (int i = 0; i < gameField.Count; i++)
             {
-                List<Cell> row = gamefiled[i];
+                List<Cell> row = gameField[i];
 
-                for (int j = 0; j < gamefiled.Count; j++)
+                for (int j = 0; j < gameField.Count; j++)
                 {
                     if (row[j].IsMined)
                     {
@@ -87,11 +80,46 @@ namespace Minesweeper.Models.Helpers
                     }
                     else
                     {
-                        row[j].OpenContent = HowMuchBombsNear(gamefiled, i, j);
+                        row[j].OpenContent = HowMuchBombsNear(gameField, i, j);
                     }
                 }
             }
         }
+
+        public void MinedField()
+        {
+            Random rand = new Random();
+
+            for (int i = 0; i < gameFieldSize; i++)
+            {
+                List<Cell> row = gameField[i];
+
+                for (int j = 0; j < gameFieldSize; j++)
+                {
+                    if (row[j].IsMined)
+                    {
+                        continue;
+                    }
+
+                    row[j].IsMined = rand.Next(0, gameFieldSize) % 11 == 1 && numOfBombs < gameFieldSize ? true : false;
+                    if (row[j].IsMined)
+                    {
+                        numOfBombs++;
+
+                    }
+                }
+            }
+
+            if (numOfBombs == gameFieldSize)
+            {
+                return;
+            }
+            else
+            {
+                MinedField();
+            }
+        }
+
 
         public ContentInCell HowMuchBombsNear(List<List<Cell>> gameField, int cellRow, int cellCol)
         {
@@ -124,5 +152,6 @@ namespace Minesweeper.Models.Helpers
 
             return (ContentInCell)bombsNear;
         }
+
     }
 }

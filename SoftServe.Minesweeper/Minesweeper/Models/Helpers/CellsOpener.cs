@@ -31,8 +31,6 @@ namespace Minesweeper.Models.Helpers
                     flagsOnField--;
                 }
 
-                int numOfEmptyTemp;
-
                 numOfEmpty += OpenCells(gameField, x + 1, y, ref flagsOnField);
 
                 numOfEmpty += OpenCells(gameField, x, y + 1, ref flagsOnField);

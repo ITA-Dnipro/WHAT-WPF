@@ -8,7 +8,9 @@ namespace Minesweeper.Interfaces
     {
         List<List<Cell>> CreateGameField(int gameFieldSize);
 
-        void FillGameField(List<List<Cell>> gamefiled);
+        void MinedField();
+
+        void FillGameField();
 
         ContentInCell HowMuchBombsNear(List<List<Cell>> gameField, int cellRow, int cellCol);
     }
