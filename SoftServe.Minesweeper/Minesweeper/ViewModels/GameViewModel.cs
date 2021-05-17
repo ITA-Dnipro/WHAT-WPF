@@ -95,7 +95,7 @@ namespace Minesweeper.ViewModels
 
                     int numOpenCell;
 
-                    cellsOpener.OpenCells(GameField, cell.X, cell.Y, ref flagsOnFieldTemp, out numOpenCell);
+                    numOpenCell = cellsOpener.OpenCells(GameField, cell.X, cell.Y, ref flagsOnFieldTemp);
 
                     NumOfOpenEmptyCells = numOpenCell;
 

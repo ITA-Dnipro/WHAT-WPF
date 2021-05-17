@@ -6,24 +6,25 @@ namespace Minesweeper.Models.Helpers
 {
     public class CellsOpener
     {
-        public void OpenCells(List<List<Cell>> gameField, int x, int y, ref int flagsOnField, out int numOfEmpty)
+        public int OpenCells(List<List<Cell>> gameField, int x, int y, ref int flagsOnField)
         {
-            numOfEmpty = 0;
+            int numOfEmpty = 0;
 
             if (x < 0 || y < 0 || x > gameField.Count - 1 || y > gameField.Count - 1)
             {
-                return;
+                return 0;
             }
 
             List<Cell> row = gameField[x];
             if (!row[y].IsHidden)
             {
-                return;
+                return 0;
             }
             else if (row[y].OpenContent == ContentInCell.Empty)
             {
                 row[y].IsHidden = false;
                 numOfEmpty++;
+
                 if (row[y].IsFlaged)
                 {
                     row[y].IsFlaged = false;
@@ -32,17 +33,13 @@ namespace Minesweeper.Models.Helpers
 
                 int numOfEmptyTemp;
 
-                OpenCells(gameField, x + 1, y, ref flagsOnField, out numOfEmptyTemp);
-                numOfEmpty += numOfEmptyTemp;
+                numOfEmpty += OpenCells(gameField, x + 1, y, ref flagsOnField);
 
-                OpenCells(gameField, x, y + 1, ref flagsOnField, out numOfEmptyTemp);
-                numOfEmpty += numOfEmptyTemp;
+                numOfEmpty += OpenCells(gameField, x, y + 1, ref flagsOnField);
 
-                OpenCells(gameField, x - 1, y, ref flagsOnField, out numOfEmptyTemp);
-                numOfEmpty += numOfEmptyTemp;
+                numOfEmpty += OpenCells(gameField, x - 1, y, ref flagsOnField);
 
-                OpenCells(gameField, x, y - 1, ref flagsOnField, out numOfEmptyTemp);
-                numOfEmpty += numOfEmptyTemp;
+                numOfEmpty += OpenCells(gameField, x, y - 1, ref flagsOnField);
             }
             else if (row[y].OpenContent != ContentInCell.Empty)
             {
@@ -59,8 +56,10 @@ namespace Minesweeper.Models.Helpers
                     flagsOnField--;
                 }
 
-                return;
+                return numOfEmpty;
             }
+
+            return numOfEmpty;
         }
     }
 }
