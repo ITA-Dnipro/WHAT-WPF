@@ -48,11 +48,31 @@ namespace Tetris.Views
             Style nextRectangleStyle = this.FindResource("nextRectangleBlock") as Style;
 
             _listOfRectangles = CreateGrid(GameManager.ROWS, GameManager.COLUMNS, _listOfRectangles, rectangleStyle, mainGrid);
-            _listOfNextRectangles = CreateGrid(2, 4, _listOfNextRectangles, nextRectangleStyle, sideGrid);
+            _listOfNextRectangles = CreateGrid(GameManager.SIDE_ROWS, GameManager.SIDE_COLUMNS, _listOfNextRectangles, nextRectangleStyle, sideGrid);
         }
 
         public List<List<Rectangle>> CreateGrid(int rows, int cols, List<List<Rectangle>> _listOfRectangles, Style style, Grid gridName)
         {
+            for (int i = 0; i < rows; i++)
+            {
+                RowDefinition row = new RowDefinition
+                {
+                    Height = new GridLength(1, GridUnitType.Star)
+                };
+
+                gridName.RowDefinitions.Add(row);
+            }
+
+            for (int i = 0; i < cols; i++)
+            {
+                ColumnDefinition column = new ColumnDefinition
+                {
+                    Width = new GridLength(1, GridUnitType.Star)
+                };
+
+                gridName.ColumnDefinitions.Add(column);
+            }
+
             for (int j = 0; j < rows; j++)
             {
                 _listOfRectangles.Add(new List<Rectangle>());
@@ -263,6 +283,7 @@ namespace Tetris.Views
                         RemoveLines(delRows, firstFoundedLine);
                         _gameManager.UpdateScore(delRows);
                         _gameManager.LevelUp();
+                        timer.Interval = _gameManager.TimeOut;
                     }
 
                     score.Text = _gameManager.Score.ToString();
@@ -333,6 +354,7 @@ namespace Tetris.Views
             {
                 Interval = _gameManager.TimeOut,
             };
+
             timer.Elapsed += MoveDownByThread;
         }
 

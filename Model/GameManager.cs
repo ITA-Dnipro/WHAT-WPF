@@ -14,6 +14,8 @@ namespace Tetris.Model
     {
         public const int COLUMNS = 10;
         public const int ROWS = 20;
+        public const int SIDE_COLUMNS = 4;
+        public const int SIDE_ROWS = 2;
         public static readonly int[] scorePointsArray = { 40, 100, 300, 1200 };
 
         public int Score { get; set; }
@@ -38,7 +40,7 @@ namespace Tetris.Model
 
             _previousShapeCoordinate = CreateShape(_listOfRectangles, _previousShapeCoordinate);
 
-            NextMovingShape = FigureCreator.CreateNewShape(4);
+            NextMovingShape = FigureCreator.CreateNewShape(GameManager.SIDE_COLUMNS);
             _listOfNextRectangles = Filler.DrawShape(NextMovingShape, _listOfNextRectangles);
 
         }
