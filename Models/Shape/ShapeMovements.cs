@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Tetris.ViewModels;
 
-namespace Tetris.Model.Shape
+namespace Tetris.Models.Shape
 {
     class ShapeMovements : IMovements
     {
@@ -16,7 +17,7 @@ namespace Tetris.Model.Shape
             switch (side)
             {
                 case Key.Down:
-                    if (!points.Exists(p => (p.X + 1) == GameManager.ROWS))
+                    if (!points.Exists(p => (p.X + 1) == TetrisStartViewModel.ROWS))
                     {
                         if (!listOfAllShapesCoordinate.Exists(shapeCoordinate => points.Exists(p => (p.X + 1) == shapeCoordinate.X && p.Y == shapeCoordinate.Y)))
                         {
@@ -34,7 +35,7 @@ namespace Tetris.Model.Shape
                     }
                     break;
                 case Key.Right:
-                    if (!points.Exists(p => (p.Y + 1) == GameManager.COLUMNS))
+                    if (!points.Exists(p => (p.Y + 1) == TetrisStartViewModel.COLUMNS))
                     {
                         if (!listOfAllShapesCoordinate.Exists(shapeCoordinate => points.Exists(p => (p.Y + 1) == shapeCoordinate.Y && p.X == shapeCoordinate.X)))
                         {
@@ -74,7 +75,7 @@ namespace Tetris.Model.Shape
             Swap(testPoints);
 
 
-            if (!testPoints.Exists(p => p.X >= GameManager.ROWS || p.X < 0 || p.Y < 0 || p.Y >= GameManager.COLUMNS))
+            if (!testPoints.Exists(p => p.X >= TetrisStartViewModel.ROWS || p.X < 0 || p.Y < 0 || p.Y >= TetrisStartViewModel.COLUMNS))
             {
                 if (!listOfAllShapesCoordinate.Exists(coord => testPoints.Exists(p => p.X == coord.X && p.Y == coord.Y)))
                 {

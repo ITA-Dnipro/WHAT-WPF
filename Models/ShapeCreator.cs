@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Tetris.Model.Shape;
+using Tetris.Models.Shape;
 
-namespace Tetris.Model
+namespace Tetris.Models
 {
     class ShapeCreator 
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace Tetris.Model.Shape
+namespace Tetris.Models.Shape
 {
     abstract class BaseShape
     {

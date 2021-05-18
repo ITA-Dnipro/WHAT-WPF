@@ -58,17 +58,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Model\FieldFiller.cs" />
-    <Compile Include="Model\ShapeCreator.cs" />
-    <Compile Include="Model\Shape\IMovements.cs" />
-    <Compile Include="Model\Shape\ShapeI.cs" />
-    <Compile Include="Model\Shape\ShapeJ.cs" />
-    <Compile Include="Model\Shape\ShapeL.cs" />
-    <Compile Include="Model\Shape\ShapeMovements.cs" />
-    <Compile Include="Model\Shape\ShapeO.cs" />
-    <Compile Include="Model\Shape\ShapeS.cs" />
-    <Compile Include="Model\Shape\ShapeT.cs" />
-    <Compile Include="Model\Shape\ShapeZ.cs" />
+    <Compile Include="Models\Commands\RelayCommand.cs" />
+    <Compile Include="Models\FieldFiller.cs" />
+    <Compile Include="Models\ShapeCreator.cs" />
+    <Compile Include="Models\Shape\IMovements.cs" />
+    <Compile Include="Models\Shape\ShapeI.cs" />
+    <Compile Include="Models\Shape\ShapeJ.cs" />
+    <Compile Include="Models\Shape\ShapeL.cs" />
+    <Compile Include="Models\Shape\ShapeMovements.cs" />
+    <Compile Include="Models\Shape\ShapeO.cs" />
+    <Compile Include="Models\Shape\ShapeS.cs" />
+    <Compile Include="Models\Shape\ShapeT.cs" />
+    <Compile Include="Models\Shape\ShapeZ.cs" />
     <Compile Include="Views\MenuView.xaml.cs">
       <DependentUpon>MenuView.xaml</DependentUpon>
     </Compile>
@@ -109,9 +110,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Coordinate.cs" />
-    <Compile Include="Model\GameManager.cs" />
-    <Compile Include="Model\Shape\BaseShape.cs" />
+    <Compile Include="Models\Coordinate.cs" />
+    <Compile Include="ViewModels\TetrisStartViewModel.cs" />
+    <Compile Include="Models\Shape\BaseShape.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -129,6 +130,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

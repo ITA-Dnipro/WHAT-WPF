@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Media;
 
-namespace Tetris.Model
+namespace Tetris.Models
 {
     class Coordinate : ICloneable
     {

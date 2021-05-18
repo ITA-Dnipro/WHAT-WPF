@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Media;
 
-namespace Tetris.Model.Shape
+namespace Tetris.Models.Shape
 {
     class ShapeT : BaseShape
     {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Tetris.Model.Shape
+namespace Tetris.Models.Shape
 {
     interface IMovements
     {

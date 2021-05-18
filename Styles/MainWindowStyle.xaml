@@ -76,4 +76,12 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style x:Key="disabledStartButton" TargetType="{x:Type Button}" BasedOn="{StaticResource startButton}">
+        <Setter Property="FontSize" Value="22"/>
+        <Setter Property="Margin" Value="2"/>
+        <Setter Property="IsEnabled" Value="False"/>
+        <Setter Property="Background" Value="#626362"/>
+        <Setter Property="Opacity" Value="0.6"/>
+    </Style>
 </ResourceDictionary>

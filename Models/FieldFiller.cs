@@ -3,9 +3,9 @@ using System.Linq;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-using Tetris.Model.Shape;
+using Tetris.Models.Shape;
 
-namespace Tetris.Model
+namespace Tetris.Models
 {
     class FieldFiller
     {

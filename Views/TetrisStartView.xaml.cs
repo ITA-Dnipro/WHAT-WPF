@@ -9,7 +9,8 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 
 using MsgBoxEx;
-using Tetris.Model;
+using Tetris.Models;
+using Tetris.ViewModels;
 
 namespace Tetris.Views
 {
@@ -18,10 +19,34 @@ namespace Tetris.Views
         public TetrisStartView()
         {
             InitializeComponent();
-            InitMessageBox();
+            InitializeFields();
+            InitializeDataContext();
+            InitializeMessageBox();
         }
 
-        private void InitMessageBox()
+        private TetrisStartViewModel _startViewModel;
+        private List<Coordinate> _previousShapeCoordinate;
+        private Rectangle _oneRectangle;
+        private List<List<Rectangle>> _listOfRectangles;
+        private List<List<Rectangle>> _listOfNextRectangles;
+        private bool firstCheck = true;
+        private Timer timer;
+
+        private void InitializeFields()
+        {
+            _startViewModel = new TetrisStartViewModel();
+            _previousShapeCoordinate = new List<Coordinate>();
+            _oneRectangle = new Rectangle();
+            _listOfRectangles = new List<List<Rectangle>>(TetrisStartViewModel.COLUMNS);
+            _listOfNextRectangles = new List<List<Rectangle>>(TetrisStartViewModel.SIDE_COLUMNS);
+        }
+
+        private void InitializeDataContext()
+        {
+            DataContext = _startViewModel;
+        }
+
+        private void InitializeMessageBox()
         {
             // font family name is validate against fonts installed in windows.
             MessageBoxEx.SetFont("Verdana", 14);
@@ -34,24 +59,16 @@ namespace Tetris.Views
             MessageBoxEx.SetMaxFormWidth(1000);
         }
 
-        private GameManager _gameManager = new GameManager();
-        private List<Coordinate> _previousShapeCoordinate = new List<Coordinate>();
-        private Rectangle _oneRectangle = new Rectangle();
-        private List<List<Rectangle>> _listOfRectangles = new List<List<Rectangle>>(GameManager.COLUMNS);
-        private List<List<Rectangle>> _listOfNextRectangles = new List<List<Rectangle>>(4);
-        private bool firstCheck = true;
-        private Timer timer;
-
-        public void CreateMainGrid()
+        private void CreateMainGrid()
         {
             Style rectangleStyle = this.FindResource("rectangleBlock") as Style;
             Style nextRectangleStyle = this.FindResource("nextRectangleBlock") as Style;
 
-            _listOfRectangles = CreateGrid(GameManager.ROWS, GameManager.COLUMNS, _listOfRectangles, rectangleStyle, mainGrid);
-            _listOfNextRectangles = CreateGrid(GameManager.SIDE_ROWS, GameManager.SIDE_COLUMNS, _listOfNextRectangles, nextRectangleStyle, sideGrid);
+            _listOfRectangles = CreateGrid(TetrisStartViewModel.ROWS, TetrisStartViewModel.COLUMNS, _listOfRectangles, rectangleStyle, mainGrid);
+            _listOfNextRectangles = CreateGrid(TetrisStartViewModel.SIDE_ROWS, TetrisStartViewModel.SIDE_COLUMNS, _listOfNextRectangles, nextRectangleStyle, sideGrid);
         }
 
-        public List<List<Rectangle>> CreateGrid(int rows, int cols, List<List<Rectangle>> _listOfRectangles, Style style, Grid gridName)
+        private Grid CreateRowsDefinition(int rows, Grid gridName)
         {
             for (int i = 0; i < rows; i++)
             {
@@ -63,6 +80,11 @@ namespace Tetris.Views
                 gridName.RowDefinitions.Add(row);
             }
 
+            return gridName;
+        }
+
+        private Grid CreateColumnsDefinition(int cols, Grid gridName)
+        {
             for (int i = 0; i < cols; i++)
             {
                 ColumnDefinition column = new ColumnDefinition
@@ -73,6 +95,11 @@ namespace Tetris.Views
                 gridName.ColumnDefinitions.Add(column);
             }
 
+            return gridName;
+        }
+
+        private Grid FillGrid(int rows, int cols, List<List<Rectangle>> _listOfRectangles, Style style, Grid gridName)
+        {
             for (int j = 0; j < rows; j++)
             {
                 _listOfRectangles.Add(new List<Rectangle>());
@@ -92,28 +119,31 @@ namespace Tetris.Views
                 }
             }
 
+            return gridName;
+        }
+
+        private List<List<Rectangle>> CreateGrid(int rows, int cols, List<List<Rectangle>> _listOfRectangles, Style style, Grid gridName)
+        {
+            gridName = CreateRowsDefinition(rows, gridName);
+            gridName = CreateColumnsDefinition(cols, gridName);
+            FillGrid(rows, cols, _listOfRectangles, style, gridName);
+
             return _listOfRectangles;
         }
 
         private void Button_Start_Click(object sender, RoutedEventArgs e)
         {
-            score.Text = "0";
-            level.Text = "1";
-            deletedRows.Text = "0";
+            _startViewModel = new TetrisStartViewModel();
+            DataContext = _startViewModel;
+
             textBoxNext.Visibility = Visibility.Visible;
 
-            GradientBrush buttonPauseBackground = this.FindResource("GrayGradientBrush") as GradientBrush;
-            buttonPause.Opacity = 1;
-            buttonPause.IsEnabled = true;
-            buttonPause.Background = buttonPauseBackground;
+            ButtonPauseActivate();
 
-            bool isPaused = _gameManager.IsPaused;
 
-            _gameManager = new GameManager();
-
-            if (isPaused)
+            if (_startViewModel.IsPaused)
             {
-                _gameManager.IsPaused = true;
+                _startViewModel.IsPaused = true;
             }
 
             if (!timer.Enabled)
@@ -121,40 +151,15 @@ namespace Tetris.Views
                 timer.Start();
             }
 
-            _gameManager.Start(_listOfRectangles, _listOfNextRectangles, ref _previousShapeCoordinate);
+            _startViewModel.Start(_listOfRectangles, _listOfNextRectangles, ref _previousShapeCoordinate);
         }
 
-        private void Button_Pause_Click(object sender, RoutedEventArgs e)
+        private void ButtonPauseActivate()
         {
-            SetGameOnPause();
-        }
-         
-        private void SetGameOnPause()
-        {
-            if (_gameManager.MovingShape == null)
-            {
-                return;
-            }
-
-            if (_gameManager.IsPaused)
-            {
-                buttonPause.Content = "Pause";
-                _gameManager.IsPaused = false;
-            }
-            else
-            {
-                buttonPause.Content = "Resume";
-                _gameManager.IsPaused = true;
-            }
-        }
-
-        private void Button_Info_Click(object sender, RoutedEventArgs e)
-        {
-            if (_gameManager.IsPaused == false && _gameManager.MovingShape != null)
-            {
-                SetGameOnPause();
-            }
-            MessageBoxEx.Show("← Move left \n→ Move right \n↓ Move down \n↑ Rotate\n\n F11 - Fullscreen\n Esc - Exit to main menu", "Info", this);
+            GradientBrush buttonPauseBackground = this.FindResource("GrayGradientBrush") as GradientBrush;
+            buttonPause.Opacity = 1;
+            buttonPause.IsEnabled = true;
+            buttonPause.Background = buttonPauseBackground;
         }
 
         private void Page_KeyDown(object sender, KeyEventArgs e)
@@ -173,9 +178,9 @@ namespace Tetris.Views
                     break;
                 case Key.Escape:
 
-                    if (_gameManager.IsPaused == false && _gameManager.MovingShape != null)
+                    if (_startViewModel.IsPaused == false && _startViewModel.MovingShape != null)
                     {
-                        SetGameOnPause();
+                        _startViewModel.SetGameOnPause();
                     }
 
                     MessageBoxResult exitResult = MessageBoxEx.Show("Do you really want exit to main menu?", "Exit", MessageBoxButton.YesNo, this);
@@ -199,7 +204,7 @@ namespace Tetris.Views
 
         void MoveDownByThread(Object source, ElapsedEventArgs e)
         {
-            if (_gameManager.IsEndOfGame)
+            if (_startViewModel.IsEndOfGame)
             {
                 timer.Stop();
             }
@@ -214,25 +219,25 @@ namespace Tetris.Views
 
         private void KeyDownMethod(Key key)
         {
-            if (_gameManager.MovingShape == null || _gameManager.IsEndOfGame || _gameManager.IsPaused)
+            if (_startViewModel.MovingShape == null || _startViewModel.IsEndOfGame || _startViewModel.IsPaused)
             {
                 return;
             }
 
-            _listOfRectangles = _gameManager.Filler.ClearPreviousShape(_previousShapeCoordinate, _listOfRectangles);
+            _listOfRectangles = _startViewModel.Filler.ClearPreviousShape(_previousShapeCoordinate, _listOfRectangles);
 
             MoveShape(key);
 
             bool isCollision = false;
 
-            if (_gameManager.MovingShape.Points.Exists(p => _gameManager.Filler.ListOfAllPoints.Exists(point => point.X == p.X + 1 && p.Y == point.Y)))
+            if (_startViewModel.MovingShape.Points.Exists(p => _startViewModel.Filler.ListOfAllPoints.Exists(point => point.X == p.X + 1 && p.Y == point.Y)))
             {
                 isCollision = true;
             }
 
-            _gameManager.Filler.ListOfAllPoints.AddRange(_gameManager.MovingShape.Points);
-            _listOfRectangles = _gameManager.Filler.DrawShape(_gameManager.MovingShape, _listOfRectangles);
-            _previousShapeCoordinate = _gameManager.MovingShape.Points.ConvertAll(p => (Coordinate)p.Clone());
+            _startViewModel.Filler.ListOfAllPoints.AddRange(_startViewModel.MovingShape.Points);
+            _listOfRectangles = _startViewModel.Filler.DrawShape(_startViewModel.MovingShape, _listOfRectangles);
+            _previousShapeCoordinate = _startViewModel.MovingShape.Points.ConvertAll(p => (Coordinate)p.Clone());
 
             CheckCollisionLastRow(isCollision);
         }
@@ -242,29 +247,29 @@ namespace Tetris.Views
             switch (key)
             {
                 case Key.Left:
-                    if (_gameManager.MovingShape.movements.CanMove(Key.Left, _gameManager.Filler.ListOfAllPoints, _gameManager.MovingShape.Points))
+                    if (_startViewModel.MovingShape.movements.CanMove(Key.Left, _startViewModel.Filler.ListOfAllPoints, _startViewModel.MovingShape.Points))
                     {
-                        _gameManager.MovingShape.movements.Move(Key.Left, _gameManager.MovingShape.Points);
+                        _startViewModel.MovingShape.movements.Move(Key.Left, _startViewModel.MovingShape.Points);
                     }
                     break;
                 case Key.Right:
-                    if (_gameManager.MovingShape.movements.CanMove(Key.Right, _gameManager.Filler.ListOfAllPoints, _gameManager.MovingShape.Points))
+                    if (_startViewModel.MovingShape.movements.CanMove(Key.Right, _startViewModel.Filler.ListOfAllPoints, _startViewModel.MovingShape.Points))
                     {
-                        _gameManager.MovingShape.movements.Move(Key.Right, _gameManager.MovingShape.Points);
+                        _startViewModel.MovingShape.movements.Move(Key.Right, _startViewModel.MovingShape.Points);
                     }
                     break;
                 case Key.Down:
-                    if (_gameManager.MovingShape.movements.CanMove(Key.Down, _gameManager.Filler.ListOfAllPoints, _gameManager.MovingShape.Points))
+                    if (_startViewModel.MovingShape.movements.CanMove(Key.Down, _startViewModel.Filler.ListOfAllPoints, _startViewModel.MovingShape.Points))
                     {
                         timer.Stop();
-                        _gameManager.MovingShape.movements.Move(Key.Down, _gameManager.MovingShape.Points);
+                        _startViewModel.MovingShape.movements.Move(Key.Down, _startViewModel.MovingShape.Points);
                         timer.Start();
                     }
                     break;
                 case Key.Up:
-                    if (_gameManager.MovingShape.movements.CanRotate(_gameManager.Filler.ListOfAllPoints, _gameManager.MovingShape.Points) && !_gameManager.IsPaused)
+                    if (_startViewModel.MovingShape.movements.CanRotate(_startViewModel.Filler.ListOfAllPoints, _startViewModel.MovingShape.Points) && !_startViewModel.IsPaused)
                     {
-                        _gameManager.MovingShape.movements.Rotate(_gameManager.MovingShape.Points);
+                        _startViewModel.MovingShape.movements.Rotate(_startViewModel.MovingShape.Points);
                     }
                     break;
             }
@@ -272,29 +277,24 @@ namespace Tetris.Views
 
         public void CheckCollisionLastRow( bool isCollision)
         {
-            if (_gameManager.MovingShape.Points.Exists(p => _gameManager.Filler.ListOfAllPoints.Exists(point => (p.X + 1) == GameManager.ROWS || isCollision == true)))
+            if (_startViewModel.MovingShape.Points.Exists(p => _startViewModel.Filler.ListOfAllPoints.Exists(point => (p.X + 1) == TetrisStartViewModel.ROWS || isCollision == true)))
             {
                 if (!firstCheck)
                 {
                     int lastFoundedLine = 0;
-                    int delRows = _gameManager.CheckRowsForDeleting(ref lastFoundedLine);
+                    int delRows = _startViewModel.CheckRowsForDeleting(ref lastFoundedLine);
 
                     if  (delRows > 0)
                     {
-
                         int firstFoundedLine = lastFoundedLine - delRows + 1;
 
-                        RemoveLines(delRows, firstFoundedLine);
-                        _gameManager.UpdateScore(delRows);
-                        _gameManager.LevelUp();
-                        timer.Interval = _gameManager.TimeOut;
+                        _startViewModel.RemoveLines(delRows, firstFoundedLine, _listOfRectangles);
+                        _startViewModel.UpdateScore(delRows);
+                        _startViewModel.LevelUp();
+                        timer.Interval = _startViewModel.TimeOut;
                     }
 
-                    score.Text = _gameManager.Score.ToString();
-                    level.Text = (_gameManager.Level).ToString();
-                    deletedRows.Text = _gameManager.AmountOfDeletedRows.ToString();
-
-                    if (_gameManager.CreateNextShape(_listOfRectangles, _listOfNextRectangles, ref _previousShapeCoordinate))
+                    if (_startViewModel.CreateNextShape(_listOfRectangles, _listOfNextRectangles, ref _previousShapeCoordinate))
                     {
                         _listOfRectangles.ForEach(l => l.ForEach(r => { r.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#507387")); }));
                         _listOfNextRectangles.ForEach(l => l.ForEach(r => { r.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#364c5c")); }));
@@ -313,38 +313,6 @@ namespace Tetris.Views
             }
         }
 
-        private void RemoveLines(int delRows,int firstFoundedLine)
-        {
-            for (int i = 0; i < delRows; i++)
-            {
-                _listOfRectangles[firstFoundedLine + i].ForEach(p =>
-                {
-                    p.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#507387"));
-                });
-
-                _gameManager.Filler.ListOfAllPoints.Where(p => p.X == i);
-
-                _gameManager.Filler.ListOfAllPoints.RemoveAll(point => point.X == firstFoundedLine + i);
-
-                ShiftToDown(firstFoundedLine + i);
-            }
-        }
-
-        public void ShiftToDown(int firstBottomLine)
-        {
-            for (int j = firstBottomLine; j > 0; j--)
-            {
-                for (int k = 0; k < GameManager.COLUMNS; k++)
-                {
-                    _listOfRectangles[j][k].Fill = _listOfRectangles[j - 1][k].Fill;
-                    if (_gameManager.Filler.ListOfAllPoints.Exists(p => p.X == j && p.Y == k))
-                    {
-                        _gameManager.Filler.ListOfAllPoints.ForEach(p => { if (p.X == j && p.Y == k) p.X++; });
-                    }
-                }
-            }
-        }
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             CreateMainGrid();
@@ -356,7 +324,7 @@ namespace Tetris.Views
         {
             timer = new Timer
             {
-                Interval = _gameManager.TimeOut,
+                Interval = _startViewModel.TimeOut,
             };
 
             timer.Elapsed += MoveDownByThread;
@@ -365,9 +333,6 @@ namespace Tetris.Views
         private void Button__EndGame_Click(object sender, RoutedEventArgs e)
         {
             overlay.Visibility = Visibility.Collapsed;
-            score.Text = "0";
-            level.Text = "1";
-            deletedRows.Text = "0";
 
             buttonPause.Opacity = 0.65;
             buttonPause.IsEnabled = false;
