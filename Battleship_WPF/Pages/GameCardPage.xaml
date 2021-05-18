@@ -221,12 +221,12 @@
                 </ItemsControl.ItemContainerStyle>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button>
+                        <Button Style="{StaticResource EnemyCellButton}">
                             <Button.InputBindings>
-                                <MouseBinding Gesture="LeftClick" 
-                                                      Command="{Binding DataContext.ClickButton, 
-                                                      RelativeSource={RelativeSource AncestorType=Page}}"
-                                                      CommandParameter="{Binding}"/>
+                                <MouseBinding Gesture="LeftClick"
+                                              Command="{Binding DataContext.ClickButton, 
+                                              RelativeSource={RelativeSource AncestorType=Page}}"
+                                              CommandParameter="{Binding}"/>
                             </Button.InputBindings>
                         </Button>
                     </DataTemplate>
@@ -296,8 +296,8 @@
                     </Style>
                 </ItemsControl.ItemContainerStyle>
                 <ItemsControl.ItemTemplate>
-                    <DataTemplate >
-                        <Button/>
+                    <DataTemplate>
+                        <Button Style="{StaticResource PlayerCellButton}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -306,6 +306,7 @@
         <TextBlock x:Name="InfoNextBlock"
                    Grid.Row="2"
                    Grid.ColumnSpan="2"
+                   FontSize="50"
                    Text="{Binding Path=TargetCoords}">
         </TextBlock>
 
@@ -370,10 +371,9 @@
                                />
                 <TextBlock Text="{Binding Path=FourDeckEnemyShipsCount}"/>
             </WrapPanel>
-
         </StackPanel>
 
-        <Border x:Name="WinMenu" Background="#8000" 
+        <!--<Border x:Name="WinMenu" Background="#8000" 
                 Grid.RowSpan="3" 
                 Grid.ColumnSpan="3"
                 Visibility="{Binding IsVisible, Converter={StaticResource VisibilityStatus}}">
@@ -401,6 +401,6 @@
                             Click="ExitButton_Click"/>
                 </StackPanel>
             </Grid>
-        </Border>
+        </Border>-->
     </Grid>
 </Page>

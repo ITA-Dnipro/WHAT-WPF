@@ -9,19 +9,15 @@
       Title="StartPage"
       Style="{DynamicResource PageStyle}">
 
-    <!--<Page.Resources>
-        <ResourceDictionary Source="BattleshipDictionary.xaml" />
-    </Page.Resources>-->
-
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="1.7*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0"
                    Text="Battleship"
-                   FontSize="50">
+                   FontSize="100">
         </TextBlock>
 
         <Grid Grid.Row="1">
@@ -45,8 +41,6 @@
                     Click="ExitGameButton_Click"
                     Foreground="White">
             </Button>
-            
         </Grid>
-
     </Grid>
 </Page>
