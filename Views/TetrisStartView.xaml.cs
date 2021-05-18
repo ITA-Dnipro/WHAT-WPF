@@ -100,8 +100,12 @@ namespace Tetris.Views
             score.Text = "0";
             level.Text = "1";
             deletedRows.Text = "0";
-            buttonStart.Focusable = false;
             textBoxNext.Visibility = Visibility.Visible;
+
+            GradientBrush buttonPauseBackground = this.FindResource("GrayGradientBrush") as GradientBrush;
+            buttonPause.Opacity = 1;
+            buttonPause.IsEnabled = true;
+            buttonPause.Background = buttonPauseBackground;
 
             bool isPaused = _gameManager.IsPaused;
 
@@ -146,7 +150,7 @@ namespace Tetris.Views
 
         private void Button_Info_Click(object sender, RoutedEventArgs e)
         {
-            if (_gameManager.IsPaused == false)
+            if (_gameManager.IsPaused == false && _gameManager.MovingShape != null)
             {
                 SetGameOnPause();
             }
@@ -169,7 +173,7 @@ namespace Tetris.Views
                     break;
                 case Key.Escape:
 
-                    if (_gameManager.IsPaused == false)
+                    if (_gameManager.IsPaused == false && _gameManager.MovingShape != null)
                     {
                         SetGameOnPause();
                     }
@@ -364,6 +368,10 @@ namespace Tetris.Views
             score.Text = "0";
             level.Text = "1";
             deletedRows.Text = "0";
+
+            buttonPause.Opacity = 0.65;
+            buttonPause.IsEnabled = false;
+            buttonPause.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#626362"));
         }
     }
 }

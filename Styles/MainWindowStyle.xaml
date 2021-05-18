@@ -19,6 +19,7 @@
         <Setter Property="FontSize" Value="24"/>
         <Setter Property="FontFamily" Value="Arial"/>
         <Setter Property="Margin" Value="10"/>
+        <Setter Property="Focusable" Value="False"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Background" Value="{StaticResource BlueGradientBrush}"/>

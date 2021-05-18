@@ -189,7 +189,9 @@
                 <Button Style="{StaticResource startButton}"
                         FontSize="22"
                         Margin="2"
-                        Background="{StaticResource GrayGradientBrush}"
+                        IsEnabled="False"
+                        Background="#626362"
+                        Opacity="0.6"
                     Click="Button_Pause_Click"
                         Name="buttonPause">Pause</Button>
                 <Button Style="{StaticResource startButton}"
