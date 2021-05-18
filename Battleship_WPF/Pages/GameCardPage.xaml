@@ -156,13 +156,15 @@
         </TextBlock>
 
         <TextBlock Text="Enemy's map"
-                   FontSize="22"
+                   FontSize="50"
+                   Margin="30,0,0,0"
                    Foreground="#1b9f8e"
                    />
 
         <TextBlock Grid.Column="1"
                    Text="Player's map"
-                   FontSize="22"
+                   FontSize="50"
+                   Margin="30,0,0,0"
                    Foreground="#1b9f8e"
                    />
 
