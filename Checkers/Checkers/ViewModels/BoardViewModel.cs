@@ -21,7 +21,7 @@ namespace Checkers.ViewModels
         private Color _colorOfSelectedCell;
         private Color _colorOfUnselectedCell;
         private Color _colorOfCellsToDoTurn;
-
+        
         private ICommand _pressing;
         private ICommand _setNewGame;
         private ICommand _exit;

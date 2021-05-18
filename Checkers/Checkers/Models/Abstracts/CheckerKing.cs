@@ -2,22 +2,15 @@
 
 namespace Checkers.Models.Abstracts
 {
-    internal class CheckerKing : IFigure
+    internal class CheckerKing : Figure
     {
-        protected int _row;
-        protected int _column;
-
-        public virtual string TypeChecker { get; protected set; }
-
-        public virtual bool IsWhite { get; protected set; }
-
         public CheckerKing(int row, int column) 
         {
             _row = row;
             _column = column;
         }
 
-        public virtual bool CanMove(ICell[,] board)
+        public override bool CanMove(ICell[,] board)
         {
             if ((_row - 1 > -1 && _column - 1 > -1 && board[_row - 1, _column - 1].Checker == null)
                 || (_row + 1 < 7 && _column - 1 > -1 && board[_row + 1, _column - 1].Checker == null)
@@ -30,7 +23,7 @@ namespace Checkers.Models.Abstracts
             return false;
         }
 
-        public virtual bool CanAttack(ICell[,] board)
+        public override bool CanAttack(ICell[,] board)
         {
             if (_row - 1 > -1 && _column - 1 > -1)
             {

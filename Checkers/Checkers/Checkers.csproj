@@ -106,6 +106,7 @@
     <Compile Include="Converters\ColorToSolidBrushConverter.cs" />
     <Compile Include="Models\Abstracts\Checker.cs" />
     <Compile Include="Models\Abstracts\CheckerKing.cs" />
+    <Compile Include="Models\Abstracts\Figure.cs" />
     <Compile Include="Models\BlackKing.cs" />
     <Compile Include="Models\Commands\RelayCommand.cs" />
     <Compile Include="Models\Notifier.cs" />
@@ -173,6 +174,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

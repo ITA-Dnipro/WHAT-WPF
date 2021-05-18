@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="Checkers.MainWindow" BaseTypeListCollapsed="true">
+    <Position X="21.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Checkers.Controls.CheckerBoard" BaseTypeListCollapsed="true">
+    <Position X="19.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAIAAAAAQAAAAAAACAAAAAAAQgA=</HashCode>
+      <FileName>Controls\CheckerBoard.xaml.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Cells" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Checkers.Converters.BoolPlayerToStirngPlayerConverter" BaseTypeListCollapsed="true">
+    <Position X="19.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\BoolPlayerToStirngPlayerConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Checkers.Converters.CellsToObservableCellsConverter" BaseTypeListCollapsed="true">
+    <Position X="17.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\CellsToObservableCellsConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Checkers.Converters.ColorToSolidBrushConverter" BaseTypeListCollapsed="true">
+    <Position X="21.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\ColorToSolidBrushConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Checkers.Models.Abstracts.Checker">
+    <Position X="8.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAgAAAAAAAIIAAAAAAAAIAAAQAAAAAAACAABA=</HashCode>
+      <FileName>Models\Abstracts\Checker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Models.Abstracts.CheckerKing">
+    <Position X="2.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAACAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Abstracts\CheckerKing.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Models.BlackChecker">
+    <Position X="10.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\BlackChecker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Models.BlackKing">
+    <Position X="4.25" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\BlackKing.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Models.CheckerCell" BaseTypeListCollapsed="true">
+    <Position X="3.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABgAAAAAAAAAgAAAAAgAAAAAAA=</HashCode>
+      <FileName>Models\CheckerCell.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Checker" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Checkers.Models.Notifier">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Notifier.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Checkers.Models.WhiteChecker">
+    <Position X="7" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\WhiteChecker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Models.WhiteKing">
+    <Position X="1.25" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\WhiteKing.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Checkers.Models.Commands.RelayCommand" BaseTypeListCollapsed="true">
+    <Position X="0.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEACAAQAAECAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Commands\RelayCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Checkers.View.BoardView" BaseTypeListCollapsed="true">
+    <Position X="17" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\BoardView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Checkers.View.WinnerView" BaseTypeListCollapsed="true">
+    <Position X="19.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\WinnerView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Checkers.ViewModels.BoardViewModel">
+    <Position X="14.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAg1oFhQRIEIhSPYJAABIIAEoAAFJgEQqMgAACAABSA=</HashCode>
+      <FileName>ViewModels\BoardViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_mainMustAttack" />
+      <Field Name="_dependentCell" />
+      <Field Name="_mainCell" />
+      <Property Name="Board" />
+      <Property Name="Pressing" />
+      <Property Name="SetNewGame" />
+      <Property Name="Exit" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="_mustAtteck" />
+      <Field Name="_paintedCells" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Checkers.Models.Abstracts.Figure">
+    <Position X="5.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACEAAAAAAIAAIAAAEAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Models\Abstracts\Figure.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Checkers.Models.Interfaces.ICell">
+    <Position X="7.75" Y="3.25" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABgAAAAAAAAAgAAAAAgAAAAAAA=</HashCode>
+      <FileName>Models\Interfaces\ICell.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Checker" />
+    </ShowAsAssociation>
+  </Interface>
+  <Interface Name="Checkers.Models.Interfaces.IFigure">
+    <Position X="5.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAIAAAEAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Models\Interfaces\IFigure.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="System.Windows.Input.ICommand">
+    <Position X="0.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

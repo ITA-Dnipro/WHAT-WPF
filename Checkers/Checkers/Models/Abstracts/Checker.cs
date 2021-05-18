@@ -2,22 +2,15 @@
 
 namespace Checkers.Models.Abstracts
 {
-    internal abstract class Checker : IFigure
+    internal abstract class Checker : Figure
     {
-        protected int _row;
-        protected int _column;
-
-        public virtual bool IsWhite { get; protected set; }
-
-        public virtual string TypeChecker { get; protected set; }
-
         public Checker(int row, int column) 
         {
             _row = row;
             _column = column;
         }
 
-        public virtual bool CanAttack(ICell[,] board)
+        public override bool CanAttack(ICell[,] board)
         {
             if (_row < 2 && CanAttackIfRowLessTwo(board))
             {
@@ -36,8 +29,6 @@ namespace Checkers.Models.Abstracts
 
             return false;
         }
-
-        public abstract bool CanMove(ICell[,] board);
 
         private bool CanAttackAtRightBottom(ICell[,] board) 
         {
