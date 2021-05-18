@@ -5,15 +5,14 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Battleship_WPF"
       mc:Ignorable="d" 
-      d:DesignHeight="500" d:DesignWidth="800"
+      d:DesignHeight="750" d:DesignWidth="1100"
       Title="GameCardPage"
       Style="{DynamicResource GameCardPageStyle}">
 
     <Page.Resources>
         <ResourceDictionary Source="../GameCardDictionary.xaml"/>
     </Page.Resources>
-    
-    
+
     <Grid x:Name="GameCardGrid">
 
         <Grid.RowDefinitions>
@@ -23,23 +22,142 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
+
+        <Grid x:Name="InfoGrid"
+                    Grid.Row="1" 
+                    Grid.Column="2">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel x:Name="PlayerShipsCounter"
+                        Margin="10"
+                        Grid.Row="1">
+                <TextBlock Text="Player's ships:"/>
+
+                <WrapPanel x:Name="OneDeck">
+                    <Rectangle Height="15"
+                               Width="15"
+                               Fill="BlueViolet"
+                               />
+                    <TextBlock Text="{Binding Path=OneDeckPlayerShipsCount}"/>
+                </WrapPanel>
+
+                <WrapPanel x:Name="TwoDeck">
+                    <Rectangle Height="15"
+                               Width="15"
+                               Fill="BlueViolet"
+                               />
+                    <Rectangle Height="15"
+                               Width="15"
+                               Fill="BlueViolet"
+                               />
+                    <TextBlock Text="{Binding Path=TwoDeckPlayerShipsCount}"/>
+                </WrapPanel>
+
+                <WrapPanel x:Name="ThreeDeck">
+                    <Rectangle Height="15"
+                               Width="15"
+                               Fill="BlueViolet"
+                               />
+                    <Rectangle Height="15"
+                               Width="15"
+                               Fill="BlueViolet"
+                               />
+                    <Rectangle Height="15"
+                               Width="15"
+                               Fill="BlueViolet"
+                               />
+                    <TextBlock Text="{Binding Path=ThreeDeckPlayerShipsCount}"/>
+                </WrapPanel>
+
+                <WrapPanel x:Name="FourDeck">
+                    <Rectangle Height="15"
+                               Width="15"
+                               Fill="BlueViolet"
+                               />
+                    <Rectangle Height="15"
+                               Width="15"
+                               Fill="BlueViolet"
+                               />
+                    <Rectangle Height="15"
+                               Width="15"
+                               Fill="BlueViolet"
+                               />
+                    <Rectangle Height="15"
+                               Width="15"
+                               Fill="BlueViolet"
+                               />
+                    <TextBlock Text="{Binding Path=FourDeckPlayerShipsCount}"/>
+                </WrapPanel>
+
+            </StackPanel>
+
+            <StackPanel x:Name="CellInfoGrid"
+                        Grid.Row="0"
+                        VerticalAlignment="Top"
+                        Margin="15">
+                <WrapPanel>
+                    <Rectangle Style="{StaticResource WaveCell}"
+                               Height="30"
+                               Width="30"
+                               Margin="3"/>
+                    <TextBlock Text=" - None shot"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <Rectangle Style="{StaticResource PastCell}"
+                               Height="30"
+                               Width="30"
+                               Margin="3"/>
+                    <TextBlock Text=" - Past shot"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <Rectangle Style="{StaticResource ShipCell}"
+                               Height="30"
+                               Width="30"
+                               Margin="3"/>
+                    <TextBlock Text=" - Ship"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <Rectangle Style="{StaticResource BombCell}"
+                               Height="30"
+                               Width="30"
+                               Margin="3"/>
+                    <TextBlock Text=" - Injured"/>
+                </WrapPanel>
+                <WrapPanel>
+                    <Rectangle Style="{StaticResource DestructionCell}"
+                               Height="30"
+                               Width="30"
+                               Margin="3"/>
+                    <TextBlock Text=" - Destroyed"/>
+                </WrapPanel>
+            </StackPanel>
+        </Grid>
+
+        <TextBlock x:Name="GameStatus"
+                   Grid.Row="2"
+                   Grid.ColumnSpan="3">
+        </TextBlock>
 
         <TextBlock Text="Enemy's map"
                    FontSize="22"
-                   Foreground="Orange"
+                   Foreground="#1b9f8e"
                    />
 
         <TextBlock Grid.Column="1"
                    Text="Player's map"
                    FontSize="22"
-                   Foreground="Orange"
+                   Foreground="#1b9f8e"
                    />
 
         <Grid Grid.Row="1">
-            
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="10*"/>
@@ -50,22 +168,10 @@
                 <RowDefinition Height="10*"/>
             </Grid.RowDefinitions>
 
-            <Grid x:Name="CellNumber"
+            <UniformGrid x:Name="EnemyCellNumbers"
                   Grid.Row="1"
-                  Grid.Column="0">
-                
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
+                  Grid.Column="0"
+                  Rows="10">
 
                 <TextBlock Grid.Row="0" Text="1"/>
                 <TextBlock Grid.Row="1" Text="2"/>
@@ -77,61 +183,55 @@
                 <TextBlock Grid.Row="7" Text="8"/>
                 <TextBlock Grid.Row="8" Text="9"/>
                 <TextBlock Grid.Row="9" Text="10"/>
-            </Grid>
+            </UniformGrid>
 
-            <Grid x:Name="CellLetter"
-                  Grid.Row="0"
-                  Grid.Column="1">
+            <UniformGrid x:Name="EnemyCellLetters"
+                         Grid.Row="0"
+                         Grid.Column="1"
+                         Columns="10">
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="A" />
+                <TextBlock Grid.Column="1" Text="B" />
+                <TextBlock Grid.Column="2" Text="C" />
+                <TextBlock Grid.Column="3" Text="D" />
+                <TextBlock Grid.Column="4" Text="E" />
+                <TextBlock Grid.Column="5" Text="F" />
+                <TextBlock Grid.Column="6" Text="G" />
+                <TextBlock Grid.Column="7" Text="H" />
+                <TextBlock Grid.Column="8" Text="I" />
+                <TextBlock Grid.Column="9" Text="J" />
+            </UniformGrid>
 
-                <TextBlock Grid.Column="0" Text="A"/>
-                <TextBlock Grid.Column="1" Text="B"/>
-                <TextBlock Grid.Column="2" Text="C"/>
-                <TextBlock Grid.Column="3" Text="D"/>
-                <TextBlock Grid.Column="4" Text="E"/>
-                <TextBlock Grid.Column="5" Text="F"/>
-                <TextBlock Grid.Column="6" Text="G"/>
-                <TextBlock Grid.Column="7" Text="H"/>
-                <TextBlock Grid.Column="8" Text="I"/>
-                <TextBlock Grid.Column="9" Text="J"/>
+            <ItemsControl x:Name="EnemySea" 
+                          Grid.Column="1" 
+                          Grid.Row="1">
 
-            </Grid>
-            
-            <Grid x:Name="EnemySeaGrid" 
-                  Grid.Row="1" 
-                  Grid.Column="1">
-
-                <ItemsControl ItemsSource="{Binding Path=EnemyCells}" 
-                      ItemsPanel="{StaticResource GridPanelTemplate}"
-                      ItemContainerStyle="{StaticResource GridStyle}">
-
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate >
-                            <Button Click="CellButton_Click"
-                                    Content="{Binding Path=Coord}"
-                                    />
-                            
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-
-                </ItemsControl>
-                
-            </Grid>
-
-           
-
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="10"
+                                     Rows="10"
+                                     />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemContainerStyle>
+                    <Style>
+                        <Setter Property="Grid.Row" Value="{Binding Path=Coord.OY}"/>
+                        <Setter Property="Grid.Column" Value="{Binding Path=Coord.OX}"/>
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button>
+                            <Button.InputBindings>
+                                <MouseBinding Gesture="LeftClick" 
+                                                      Command="{Binding DataContext.ClickButton, 
+                                                      RelativeSource={RelativeSource AncestorType=Page}}"
+                                                      CommandParameter="{Binding}"/>
+                            </Button.InputBindings>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </Grid>
 
         <Grid Grid.Row="1" Grid.Column="1">
@@ -145,22 +245,10 @@
                 <RowDefinition Height="10*"/>
             </Grid.RowDefinitions>
 
-            <Grid x:Name="CellNumber2"
-                  Grid.Row="1"
-                  Grid.Column="0">
-
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
+            <UniformGrid x:Name="PlayerCellNumbers"
+                         Grid.Row="1"
+                         Grid.Column="0"
+                         Rows="10">
 
                 <TextBlock Grid.Row="0" Text="1"/>
                 <TextBlock Grid.Row="1" Text="2"/>
@@ -172,24 +260,12 @@
                 <TextBlock Grid.Row="7" Text="8"/>
                 <TextBlock Grid.Row="8" Text="9"/>
                 <TextBlock Grid.Row="9" Text="10"/>
-            </Grid>
+            </UniformGrid>
 
-            <Grid x:Name="CellLetter2"
-                  Grid.Row="0"
-                  Grid.Column="1">
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
+            <UniformGrid x:Name="PlayerCellLetters"
+                         Grid.Row="0"
+                         Grid.Column="1"
+                         Columns="10">
 
                 <TextBlock Grid.Column="0" Text="A"/>
                 <TextBlock Grid.Column="1" Text="B"/>
@@ -201,35 +277,130 @@
                 <TextBlock Grid.Column="7" Text="H"/>
                 <TextBlock Grid.Column="8" Text="I"/>
                 <TextBlock Grid.Column="9" Text="J"/>
+            </UniformGrid>
 
-            </Grid>
-
-            <Grid x:Name="PlayerSeaGrid" 
-                  Grid.Row="1" 
-                  Grid.Column="1">
-
-                <ItemsControl ItemsSource="{Binding Path=PlayerCells}" 
-                      ItemsPanel="{StaticResource GridPanelTemplate}"
-                      ItemContainerStyle="{StaticResource GridStyle}">
-
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate >
-                            <Button Content="{Binding Content}"
-                                    />
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-
-                </ItemsControl>
-
-            </Grid>
-            
+            <ItemsControl x:Name="PlayerSea" 
+                          Grid.Column="1" 
+                          Grid.Row="1">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="10"
+                                     Rows="10">
+                        </UniformGrid>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemContainerStyle>
+                    <Style>
+                        <Setter Property="Grid.Row" Value="{Binding Path=Coord.OY}"/>
+                        <Setter Property="Grid.Column" Value="{Binding Path=Coord.OX}"/>
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate >
+                        <Button/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </Grid>
 
         <TextBlock x:Name="InfoNextBlock"
                    Grid.Row="2"
-                   Grid.ColumnSpan="2">
-            
+                   Grid.ColumnSpan="2"
+                   Text="{Binding Path=TargetCoords}">
         </TextBlock>
 
+        <StackPanel x:Name="EnemyShipsCounter"
+                    Margin="10"
+                    Grid.Row="2"
+                    Grid.Column="2">
+            <TextBlock Text="Enemy's ships:"/>
+
+            <WrapPanel x:Name="OneDeckEnemy">
+                <Rectangle Height="15"
+                               Width="15"
+                               Fill="BlueViolet"
+                               />
+                <TextBlock Text="{Binding Path=OneDeckEnemyShipsCount}"/>
+            </WrapPanel>
+
+            <WrapPanel x:Name="TwoDeckEnemy">
+                <Rectangle Height="15"
+                               Width="15"
+                               Fill="BlueViolet"
+                               />
+                <Rectangle Height="15"
+                               Width="15"
+                               Fill="BlueViolet"
+                               />
+                <TextBlock Text="{Binding Path=TwoDeckEnemyShipsCount}"/>
+            </WrapPanel>
+
+            <WrapPanel x:Name="ThreeDeckEnemy">
+                <Rectangle Height="15"
+                               Width="15"
+                               Fill="BlueViolet"
+                               />
+                <Rectangle Height="15"
+                               Width="15"
+                               Fill="BlueViolet"
+                               />
+                <Rectangle Height="15"
+                               Width="15"
+                               Fill="BlueViolet"
+                               />
+                <TextBlock Text="{Binding Path=ThreeDeckEnemyShipsCount}"/>
+            </WrapPanel>
+
+            <WrapPanel x:Name="FourDeckEnemy">
+                <Rectangle Height="15"
+                               Width="15"
+                               Fill="BlueViolet"
+                               />
+                <Rectangle Height="15"
+                               Width="15"
+                               Fill="BlueViolet"
+                               />
+                <Rectangle Height="15"
+                               Width="15"
+                               Fill="BlueViolet"
+                               />
+                <Rectangle Height="15"
+                               Width="15"
+                               Fill="BlueViolet"
+                               />
+                <TextBlock Text="{Binding Path=FourDeckEnemyShipsCount}"/>
+            </WrapPanel>
+
+        </StackPanel>
+
+        <Border x:Name="WinMenu" Background="#8000" 
+                Grid.RowSpan="3" 
+                Grid.ColumnSpan="3"
+                Visibility="{Binding IsVisible, Converter={StaticResource VisibilityStatus}}">
+            <Grid>
+                <TextBlock Text="{Binding Path=WinnerStatus}"
+                       Foreground="BlueViolet"
+                       FontSize="50"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Bottom">
+                    <Button Content="Again"
+                            FontSize="30"
+                            Margin="20"
+                            Style="{StaticResource ExitStyle}" 
+                            Click="RestartButton_Click"
+                            >
+                    </Button>
+                    <Button Content="Exit"
+                            FontSize="30"
+                            Margin="20"
+                            Style="{StaticResource ExitStyle}" 
+                            Click="ExitButton_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
     </Grid>
 </Page>

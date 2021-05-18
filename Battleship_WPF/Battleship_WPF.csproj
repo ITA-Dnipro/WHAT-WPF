@@ -61,6 +61,7 @@
     <Compile Include="CellCommand.cs" />
     <Compile Include="Classes\CellViewModel.cs" />
     <Compile Include="Classes\GameViewModel.cs" />
+    <Compile Include="LevelContainer.cs" />
     <Compile Include="Pages\GameCardPage.xaml.cs">
       <DependentUpon>GameCardPage.xaml</DependentUpon>
     </Compile>

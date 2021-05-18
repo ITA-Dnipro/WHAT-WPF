@@ -2,17 +2,47 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Battleship_WPF">
 
+    <local:StyleConverter x:Key="CellStyle"/>
+    <local:VisibilityConverter x:Key="VisibilityStatus"/>
+
+    <Style TargetType="Rectangle" x:Key="WaveCell">
+        <Setter Property="Fill" Value="#FF2956B6"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+    </Style>
+    
+    <Style TargetType="Rectangle" x:Key="ShipCell">
+        <Setter Property="Fill" Value="#FF1CADB4"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+    </Style>
+
+    <Style TargetType="Rectangle" x:Key="BombCell">
+        <Setter Property="Fill" Value="#FF9B1D1D"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+    </Style>
+
+    <Style TargetType="Rectangle" x:Key="DestructionCell">
+        <Setter Property="Fill" Value="#FF784F4F"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+    </Style>
+
+    <Style TargetType="Rectangle" x:Key="PastCell">
+        <Setter Property="Fill" Value="#FF3D4237"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+    </Style>
+
     <Style TargetType="Button">
-        <Setter Property="Background" Value="Orange"/>
-        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="White"/>
         <Setter Property="BorderThickness" Value="3"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="FontSize" Value="18"/>
-        <Setter Property="Width" Value="30"/>
-        <Setter Property="Height" Value="30"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -22,114 +52,59 @@
                             Background="{TemplateBinding Background}"
                             >
                         <Grid>
-                            <Image Source="{Binding ImagePath}"/>
+                            <Rectangle>
+                                <Rectangle.Style>
+                                    <MultiBinding Converter="{StaticResource CellStyle}">
+                                        <MultiBinding.Bindings>
+                                            <Binding RelativeSource="{RelativeSource Self}"/>
+                                            <Binding Path="StyleKey"/>
+                                        </MultiBinding.Bindings>
+                                    </MultiBinding>
+                                </Rectangle.Style>
+                            </Rectangle>
                         </Grid>
                     </Border>
-
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="ContentPresenter.BitmapEffect">
+                                <Setter.Value>
+                                    <BlurBitmapEffect Radius="1"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="BorderBrush" Value="DeepSkyBlue"/>
+                            <Setter Property="BorderThickness" Value="2"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="BorderBrush" Value="Black"/>
+                            <Setter Property="BorderThickness" Value="2"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
 
+    <Style x:Key="ExitStyle" TargetType="Button">
+        <Setter Property="Background" Value="Blue"/>
+        <Setter Property="Foreground" Value="BlueViolet"/>
+        <Setter Property="BorderThickness" Value="3"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="Margin" Value="5"/>
+    </Style>
+
     <Style x:Key="GameCardPageStyle" TargetType="Page">
-        <Setter Property="Background" Value="Black"/>
+        <Setter Property="Background" Value="#0e1d2b"/>
     </Style>
 
     <Style TargetType="TextBlock">
-        <Setter Property="Foreground" Value="Orange"/>
+        <Setter Property="Foreground" Value="#1b9f8e"/>
         <Setter Property="FontSize" Value="18"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
-
-    <Style x:Key="GridStyle">
-        <Setter Property="Grid.Row" Value="{Binding Path=Coord.OY}"/>
-        <Setter Property="Grid.Column" Value="{Binding Path=Coord.OX}"/>
-    </Style>
-
-    <ItemsPanelTemplate x:Key="GridPanelTemplate">
-        <Grid >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-        </Grid>
-    </ItemsPanelTemplate>
-
-    <ItemsPanelTemplate x:Key="NumbersTemplate">
-        <Grid >
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-
-            <TextBlock Grid.Row="0" Text="1"/>
-            <TextBlock Grid.Row="1" Text="2"/>
-            <TextBlock Grid.Row="2" Text="3"/>
-            <TextBlock Grid.Row="3" Text="4"/>
-            <TextBlock Grid.Row="4" Text="5"/>
-            <TextBlock Grid.Row="5" Text="6"/>
-            <TextBlock Grid.Row="6" Text="7"/>
-            <TextBlock Grid.Row="7" Text="8"/>
-            <TextBlock Grid.Row="8" Text="9"/>
-            <TextBlock Grid.Row="9" Text="10"/>
-        </Grid>
-    </ItemsPanelTemplate>
-
-    <Grid x:Key="LettersTemplate">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-
-        <TextBlock Grid.Column="0" Text="A"/>
-        <TextBlock Grid.Column="1" Text="B"/>
-        <TextBlock Grid.Column="2" Text="C"/>
-        <TextBlock Grid.Column="3" Text="D"/>
-        <TextBlock Grid.Column="4" Text="E"/>
-        <TextBlock Grid.Column="5" Text="F"/>
-        <TextBlock Grid.Column="6" Text="G"/>
-        <TextBlock Grid.Column="7" Text="H"/>
-        <TextBlock Grid.Column="8" Text="I"/>
-        <TextBlock Grid.Column="9" Text="J"/>
-    </Grid>
-
 </ResourceDictionary>

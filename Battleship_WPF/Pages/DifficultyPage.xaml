@@ -9,10 +9,6 @@
       Title="DifficultyPage"
       Style="{DynamicResource PageStyle}">
 
-    <!--<Page.Resources>
-        <ResourceDictionary Source="BattleshipDictionary.xaml" />
-    </Page.Resources>-->
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -27,11 +23,11 @@
         <StackPanel Grid.Row="1"
                     VerticalAlignment="Top"
                     HorizontalAlignment="Center">
-            
+
             <RadioButton GroupName="Difficulty" Content="Easy" Checked="RadioButton_Checked" DataContext="1"/>
             <RadioButton GroupName="Difficulty" Content="Medium" Checked="RadioButton_Checked" DataContext="2"/>
             <RadioButton GroupName="Difficulty" Content="Hard" Checked="RadioButton_Checked" DataContext="3"/>
-            
+
         </StackPanel>
 
         <Button x:Name="DifficultyButton" 

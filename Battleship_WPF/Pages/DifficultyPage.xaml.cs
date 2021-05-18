@@ -28,25 +28,28 @@ namespace Battleship_WPF
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            ///проверяем сложность и в свойство GameField.Difficulty передаем Enum Diffuculty
-            ///
             RadioButton current = (RadioButton)sender;
 
-            string dif = (string)current.DataContext;
+            string difficulty = (string)current.DataContext;
+            int level = int.Parse(difficulty);
+            Level currentLevel = Level.None;
 
-            int level = int.Parse(dif);
-
-            switch ((Difficulty)level)
+            switch ((Level)level)
             {
-                case Difficulty.Easy:
+                case Level.Easy:
+                    currentLevel = Level.Easy;
                     break;
-                case Difficulty.Medium:
+                case Level.Meduim:
+                    currentLevel = Level.Meduim;
                     break;
-                case Difficulty.Hard:
+                case Level.Hard:
+                    currentLevel = Level.Hard;
                     break;
                 default:
                     break;
             }
+
+            LevelContainer.Difficulty = currentLevel;
         }
 
         private void DifficultyButton_Click(object sender, RoutedEventArgs e)
