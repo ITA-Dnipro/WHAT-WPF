@@ -346,7 +346,7 @@ namespace Battleship_WPF
         {
             do
             {
-                System.Threading.Thread.Sleep(2000);
+                System.Threading.Thread.Sleep(1000);
                 _enemysMind.MakeTheShot(ref _isAlivePlayerAfterRigthShoot, _playerMap);
                 _isTargetPlayer = _enemysMind.IsTargetPlayer;
                 _playerMap.CheckShipCondition(_isTargetPlayer, _isAlivePlayerAfterRigthShoot,
