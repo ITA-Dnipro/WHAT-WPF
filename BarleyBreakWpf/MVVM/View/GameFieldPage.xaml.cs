@@ -21,24 +21,14 @@ namespace BarleyBreakWpf.Pages
     public partial class GameFieldPage : Page
     {
         private IGameField _gameField;
-
         public GameFieldPage()
         {
             InitializeComponent();
 
-            _gameField = new GameField();
+            _gameField = new GameFieldViewModel();
             _gameField.InitializeGameField();
-            _gameField.Winned += Win;
 
             DataContext = _gameField;
-        }
-
-        private void Win(object sender, bool isWin)
-        {
-            if (isWin)
-            {
-                _winMenu.Visibility = Visibility.Visible;
-            }
         }
 
         private void MouseDownClick(object sender, MouseButtonEventArgs e)

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarleyBreakWpf", "BarleyBreakWpf.csproj", "{4B00CF58-87B8-48BF-A37B-14A045C73A28}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarleyBreakWpf", "BarleyBreakWpf\BarleyBreakWpf.csproj", "{4B00CF58-87B8-48BF-A37B-14A045C73A28}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

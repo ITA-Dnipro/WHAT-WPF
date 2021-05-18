@@ -5,74 +5,85 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace BarleyBreakWpf
 {
-    class GameField : ViewModel, IGameField
+    class GameFieldViewModel : ViewModel, IGameField
     {
-        private ObservableCollection<Knuckle> _gameField;
+        private ObservableCollection<Knuckle> _knuckls;
         private int _step = -1;
         private Random _rand;
         private bool _isWin = false;
-        private Command _restartGame;
-
-
-        public GameField()
+        
+        public GameFieldViewModel()
         {
-             _gameField = new ObservableCollection<Knuckle>();
+             _knuckls = new ObservableCollection<Knuckle>();
             _rand = new Random();
 
+            InitializeGameField();
+
+            RestartGame = new Command(o =>
+            {
+                InitializeNewGame();
+            });
+
+            Exit = new Command(o =>
+            {
+                Environment.Exit(0);
+            });
         }
 
         public ObservableCollection<Knuckle> Knuckles
         {
             get
             {
-                return _gameField;
+                return _knuckls;
             }
             private set
             {
-                _gameField = value;
+                _knuckls = value;
+                OnPropertyChanged();
             }
         }
 
-        public bool IsVisible
+        public bool IsWin
         {
             get
             {
                 return _isWin;
             }
-            private set
+            set
             {
                 _isWin = value;
 
-                OnPropertyChanged(nameof(IsVisible));
+                OnPropertyChanged();
             }
         }
 
         public int Step 
         {
             get => _step;
-            private set
+            set
             {
                 _step = value;
 
-                OnPropertyChanged(nameof(Step));
+                OnPropertyChanged();
             }
         }
 
-        public Command RestartGame
-        {
-            get
-            {
-                return _restartGame;
-            }
-        }
+        public ICommand Press { get; set; }
 
-        public EventHandler<bool> Winned { get; set; }
+        public ICommand RestartGame { get; set; }
+
+        public ICommand Exit { get; set; }
+
 
         public void InitializeGameField()
         {
+            _knuckls.Clear();
+
             for (int i = 0; i < DefaultSettings.DEFAULT_COLLECTION_SIZE; i++)
             {
                 var k = i / DefaultSettings.DEVIDER;
@@ -84,20 +95,20 @@ namespace BarleyBreakWpf
                     num = 0;
                 }
 
-                _gameField.Add(new Knuckle(j, k, num));
+                _knuckls.Add(new Knuckle(j, k, num));
             }
 
-            _isWin = false;
+            IsWin = false;
             MixKnuckles();
-            _step = 0;
+            Step = 0;
+           
+            OnPropertyChanged(nameof(Knuckles)); 
         }
 
 
         private void InitializeNewGame()
         {
             InitializeGameField();
-
-            Knuckles = _gameField;
         }
 
         private bool GetWinCombination()
@@ -107,23 +118,23 @@ namespace BarleyBreakWpf
                 var k = i / DefaultSettings.DEVIDER;
                 var j = i % DefaultSettings.DEVIDER;
                 
-                if ((_gameField[i].X != (j * DefaultSettings.SIZE_AND_MARGIN)) || 
-                    (_gameField[i].Y != (k * DefaultSettings.SIZE_AND_MARGIN)))
+                if ((_knuckls[i].X != (j * DefaultSettings.SIZE_AND_MARGIN)) || 
+                    (_knuckls[i].Y != (k * DefaultSettings.SIZE_AND_MARGIN)))
                 {
-                    return _isWin;
+                    return IsWin;
                 }
             }
 
-            return _isWin = true;
+            return IsWin = true;
         }
 
         private Knuckle FindEmtyKnuckle(int knuckle = DefaultSettings.EMPTY_KNUCKLE)
         {
-            for (int i = 0; i < 16; i++)
+            for (int i = 0; i < DefaultSettings.DEFAULT_COLLECTION_SIZE; i++)
             {
-                if(_gameField[i].Number == DefaultSettings.EMPTY_KNUCKLE)
+                if(_knuckls[i].Number == DefaultSettings.EMPTY_KNUCKLE)
                 {
-                    return _gameField[i];
+                    return _knuckls[i];
                 }
             }
 
@@ -144,8 +155,6 @@ namespace BarleyBreakWpf
             }
 
             GetWinCombination();
-
-            Winned(this, _isWin);
         }
 
         private void ToLeftOrRight(Knuckle currentKnuckleClik, Knuckle emptyKnuckle)
@@ -203,8 +212,8 @@ namespace BarleyBreakWpf
 
         private bool IsEmpty(Knuckle empty, Knuckle current)
         {
-            if ((current.X - 110 == empty.X) || (current.X + 110 == empty.X) ||
-                (current.Y - 110 == empty.Y) || (current.Y + 110 == empty.Y))
+            if ((current.X - DefaultSettings.COORDINATE_STEP == empty.X) || (current.X + DefaultSettings.COORDINATE_STEP == empty.X) ||
+                (current.Y - DefaultSettings.COORDINATE_STEP == empty.Y) || (current.Y + DefaultSettings.COORDINATE_STEP == empty.Y))
             {
                 return true;
             }
@@ -214,13 +223,14 @@ namespace BarleyBreakWpf
 
         private Knuckle GetCoordinate(int x, int y)
         {
-            for (int i = 0; i < 16; i++)
+            for (int i = 0; i < DefaultSettings.DEFAULT_COLLECTION_SIZE; i++)
             {
-                if (x >= 0 && x <= 330 && y >= 0 && y <= 330) 
+                if (x >= DefaultSettings.MIN_BORDER && x <= DefaultSettings.MAX_BORDER * DefaultSettings.SIZE_AND_MARGIN && 
+                    y >= DefaultSettings.MIN_BORDER && y <= DefaultSettings.MAX_BORDER * DefaultSettings.SIZE_AND_MARGIN) 
                 {
-                    if ((_gameField[i].X == x) && (_gameField[i].Y == y))
+                    if ((_knuckls[i].X == x) && (_knuckls[i].Y == y))
                     {
-                        return _gameField[i];
+                        return _knuckls[i];
                     }
                 }
                 else
@@ -240,7 +250,7 @@ namespace BarleyBreakWpf
 
             for (int i = 0; i < DefaultSettings.DEFAULT_MIX_STEP; i++)
             {
-                switch (_rand.Next(4))
+                switch (_rand.Next(DefaultSettings.RANDOM_STEP))
                 {
                     case 0:
                         current = GetCoordinate(((empty.X / DefaultSettings.SIZE_AND_MARGIN) - 1) * 
