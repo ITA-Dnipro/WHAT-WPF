@@ -23,7 +23,8 @@
 
         <StackPanel Grid.Row="1"
                     VerticalAlignment="Top"
-                    HorizontalAlignment="Center">
+                    HorizontalAlignment="Center"
+                    Margin="0,50,0,0">
 
             <RadioButton GroupName="Difficulty" 
                          Content="Easy" 

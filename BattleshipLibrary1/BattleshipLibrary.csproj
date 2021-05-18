@@ -70,5 +70,8 @@
     <Compile Include="Enums\ShotDirection.cs" />
     <Compile Include="Structs\Position.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

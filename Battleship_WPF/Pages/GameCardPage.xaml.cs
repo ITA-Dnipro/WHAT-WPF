@@ -51,7 +51,7 @@ namespace Battleship_WPF
 
         private void RestartButton_Click(object sender, RoutedEventArgs e)
         {
-            InitializeGameParameters();
+            this.NavigationService.Navigate(new Uri("Pages\\DifficultyPage.xaml", UriKind.Relative));
         }
     }
 }
