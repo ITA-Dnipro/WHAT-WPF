@@ -23,33 +23,35 @@ namespace Battleship_WPF
     /// </summary>
     public partial class GameCardPage : Page
     {
-        public GameViewModel currentGame;
+        private GameViewModel _currentGame;
+        private Level _difficulty;
 
         public GameCardPage()
         {
             InitializeComponent();
-
-            currentGame = new GameViewModel(Level.Meduim);
-            currentGame.StartUp();
-
-            PlayerCells = currentGame.PlayerCells;
-            EnemyCells = currentGame.EnemyCells;
-
-            DataContext = this;
+            _difficulty = LevelContainer.Difficulty;
+            InitializeGameParameters();
         }
 
-        public ObservableCollection<CellViewModel> PlayerCells { get; set; }
-
-        public ObservableCollection<CellViewModel> EnemyCells { get; set; }
-
-        private void CellButton_Click(object sender, RoutedEventArgs e)
+        private void InitializeGameParameters()
         {
-            Button cell = (Button)sender;
-            //Position coord = (Position)cell.DataContext;
-            //currentGame.GetPlayerShot(coord);
+            _currentGame = new GameViewModel(_difficulty);
+            _currentGame.StartUp();
 
-            Position coords = (Position)cell.Content;
-            currentGame.GetPlayerShot(coords);
+            PlayerSea.ItemsSource = _currentGame.PlayerCells;
+            EnemySea.ItemsSource = _currentGame.EnemyCells;
+
+            DataContext = _currentGame;
+        }
+
+        private void ExitButton_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void RestartButton_Click(object sender, RoutedEventArgs e)
+        {
+            InitializeGameParameters();
         }
     }
 }

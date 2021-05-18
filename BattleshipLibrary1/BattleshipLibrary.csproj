@@ -41,35 +41,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Delegate\BuildShip.cs" />
+    <Compile Include="Delegates\BuildShip.cs" />
     <Compile Include="Classes\Constants.cs" />
-    <Compile Include="Delegate\GetDestroyedShip.cs" />
+    <Compile Include="Delegates\GetDestroyedShip.cs" />
     <Compile Include="Classes\AdvancedIntelligence.cs" />
     <Compile Include="Classes\Intelligence.cs" />
     <Compile Include="Classes\RandomCoords.cs" />
     <Compile Include="Classes\Sea.cs" />
     <Compile Include="Classes\Ship.cs" />
-    <Compile Include="Difficulty.cs" />
-    <Compile Include="Enum\Borders.cs" />
-    <Compile Include="Enum\BitShipType.cs" />
-    <Compile Include="Enum\Direction.cs" />
-    <Compile Include="Enum\Letters.cs" />
-    <Compile Include="Enum\MapCondition.cs" />
-    <Compile Include="Enum\Symbol.cs" />
-    <Compile Include="Enum\TypeOfShips.cs" />
-    <Compile Include="Enum\UserActions.cs" />
-    <Compile Include="Enum\Level.cs" />
+    <Compile Include="Enums\Borders.cs" />
+    <Compile Include="Enums\BitShipType.cs" />
+    <Compile Include="Enums\Direction.cs" />
+    <Compile Include="Enums\Letters.cs" />
+    <Compile Include="Enums\MapCondition.cs" />
+    <Compile Include="Enums\Symbol.cs" />
+    <Compile Include="Enums\TypeOfShips.cs" />
+    <Compile Include="Enums\UserActions.cs" />
+    <Compile Include="Enums\Level.cs" />
     <Compile Include="Classes\InjuredShipEventArgs.cs" />
-    <Compile Include="Delegate\GetInjuredDeck.cs" />
+    <Compile Include="Delegates\GetInjuredDeck.cs" />
     <Compile Include="Classes\MissedShotEventArgs.cs" />
-    <Compile Include="Delegate\GetMissedCell.cs" />
+    <Compile Include="Delegates\GetMissedCell.cs" />
     <Compile Include="Classes\PlayerSea.cs" />
-    <Compile Include="Enum\MethodShipsBuild.cs" />
+    <Compile Include="Enums\MethodShipsBuild.cs" />
     <Compile Include="Classes\PlayerMapSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Classes\DestroyedShipEventArgs.cs" />
-    <Compile Include="Enum\ShotDirection.cs" />
-    <Compile Include="Struct\Position.cs" />
+    <Compile Include="Enums\ShotDirection.cs" />
+    <Compile Include="Structs\Position.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

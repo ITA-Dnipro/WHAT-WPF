@@ -6,8 +6,9 @@
         xmlns:local="clr-namespace:Battleship_WPF"
         mc:Ignorable="d"
         Title="Battleship" 
-        Height="550" 
-        Width="700"
+        Height="750" 
+        Width="1100"
+        WindowStartupLocation="CenterScreen"
         Style="{DynamicResource WindowStyle}">
 
     <Window.Resources>
@@ -15,7 +16,7 @@
     </Window.Resources>
 
     <Grid>
-       
+
         <Frame x:Name="MainFrame"
                NavigationUIVisibility="Hidden"
                />
