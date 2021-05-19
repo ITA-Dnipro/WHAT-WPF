@@ -24,7 +24,8 @@
                                         HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                         VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                         Content="{TemplateBinding Content}"
-                                        Foreground="{TemplateBinding Foreground}">
+                                        Foreground="{TemplateBinding Foreground}"
+                                        FontSize="{TemplateBinding FontSize}">
                         </ContentControl>
                     </Border>
                     <ControlTemplate.Triggers>

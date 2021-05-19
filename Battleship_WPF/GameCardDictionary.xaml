@@ -6,31 +6,31 @@
     <local:VisibilityConverter x:Key="VisibilityStatus"/>
 
     <Style TargetType="Rectangle" x:Key="WaveCell">
-        <Setter Property="Fill" Value="#FF2956B6"/>
+        <Setter Property="Fill" Value="#3279a8"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="VerticalAlignment" Value="Stretch"/>
     </Style>
     
     <Style TargetType="Rectangle" x:Key="ShipCell">
-        <Setter Property="Fill" Value="#FF1CADB4"/>
+        <Setter Property="Fill" Value="#05f225"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="VerticalAlignment" Value="Stretch"/>
     </Style>
 
     <Style TargetType="Rectangle" x:Key="BombCell">
-        <Setter Property="Fill" Value="#FF9B1D1D"/>
+        <Setter Property="Fill" Value="#f78707"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="VerticalAlignment" Value="Stretch"/>
     </Style>
 
     <Style TargetType="Rectangle" x:Key="DestructionCell">
-        <Setter Property="Fill" Value="#FF784F4F"/>
+        <Setter Property="Fill" Value="#f20505"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="VerticalAlignment" Value="Stretch"/>
     </Style>
 
     <Style TargetType="Rectangle" x:Key="PastCell">
-        <Setter Property="Fill" Value="#FF3D4237"/>
+        <Setter Property="Fill" Value="#918f8e"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="VerticalAlignment" Value="Stretch"/>
     </Style>
@@ -131,7 +131,8 @@
     </Style>
 
     <Style x:Key="GameCardPageStyle" TargetType="Page">
-        <Setter Property="Background" Value="#0e1d2b"/>
+        <Setter Property="Background" Value="Black"/>
+        <!--#0e1d2b-->
     </Style>
 
     <Style TargetType="TextBlock">
