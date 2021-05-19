@@ -1,0 +1,70 @@
+﻿<Page x:Class="Checkers.View.WinnerView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Checkers.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="WinerViewModel">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/ButtonResource.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid Background="#56FFFFFF"
+          DataContext="{StaticResource boardModel}">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        <TextBlock Grid.Row="0"
+                   Text="{Binding WinnerMessage}"
+                   VerticalAlignment="Bottom"
+                   HorizontalAlignment="Center"
+                   FontSize="45" 
+                   Foreground="#FFA8324A"/>
+
+        <Grid Grid.Row="1"
+              Margin="30"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Top"
+              MinWidth="500">
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+            <Button Grid.Column="0"
+                    Height="50"
+                    Width="100"
+                    Background="#FF3240A8"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Command="{Binding SetNewGame}">
+
+                <TextBlock Text="New game"
+                           FontSize="16"/>
+            </Button>
+
+            <Button Grid.Column="1"
+                    Height="50"
+                    Width="100"
+                    Background="#FF3240A8"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Command="{Binding Exit}">
+                
+                    <TextBlock Text="Exit" 
+                               FontSize="16"/>
+            </Button>
+        </Grid>
+        
+    </Grid>
+</Page>
