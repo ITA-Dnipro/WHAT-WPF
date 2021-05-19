@@ -12,7 +12,7 @@ using System.Windows.Threading;
 
 namespace Battleship_WPF
 {
-    public class GameViewModel : INotifyPropertyChanged
+    public class GameViewModel : BaseViewModel
     {
         #region Consts
 
@@ -474,13 +474,6 @@ namespace Battleship_WPF
                     break;
                 }
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged([CallerMemberName]string prop = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
     }
 }

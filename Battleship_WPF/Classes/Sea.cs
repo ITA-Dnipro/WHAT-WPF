@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Battleship_WPF
 {
-    public class Sea : BaseViewModel
+    public class Sea
     {
         protected MapCondition[,] _mapCells;
         protected Ship[] _allShips;

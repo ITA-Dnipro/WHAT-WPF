@@ -62,7 +62,7 @@
     <Compile Include="Classes\InjuredShipEventArgs.cs" />
     <Compile Include="Classes\Constants.cs" />
     <Compile Include="Classes\Intelligence.cs" />
-    <Compile Include="ViewModel\Sea.cs" />
+    <Compile Include="Classes\Sea.cs" />
     <Compile Include="Classes\MissedShotEventArgs.cs" />
     <Compile Include="Classes\RandomCoords.cs" />
     <Compile Include="Classes\Ship.cs" />
