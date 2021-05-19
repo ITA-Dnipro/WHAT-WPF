@@ -35,9 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BattleshipLibrary1">
-      <HintPath>..\BattleshipLibrary1\bin\Debug\BattleshipLibrary1.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -58,6 +55,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Enums\Direction.cs" />
+    <Compile Include="Enums\BitShipType.cs" />
+    <Compile Include="Classes\AdvancedIntelligence.cs" />
+    <Compile Include="Classes\DestroyedShipEventArgs.cs" />
+    <Compile Include="Classes\InjuredShipEventArgs.cs" />
+    <Compile Include="Classes\Constants.cs" />
+    <Compile Include="Classes\Intelligence.cs" />
+    <Compile Include="ViewModel\Sea.cs" />
+    <Compile Include="Classes\MissedShotEventArgs.cs" />
+    <Compile Include="Classes\RandomCoords.cs" />
+    <Compile Include="Classes\Ship.cs" />
+    <Compile Include="Delegates\GetDestroyedShip.cs" />
+    <Compile Include="Delegates\GetInjuredDeck.cs" />
+    <Compile Include="Delegates\GetMissedCell.cs" />
+    <Compile Include="Enums\Letters.cs" />
+    <Compile Include="Enums\Level.cs" />
+    <Compile Include="Enums\MapCondition.cs" />
+    <Compile Include="Structs\Position.cs" />
+    <Compile Include="Enums\ShotDirection.cs" />
+    <Compile Include="Enums\TypeOfShips.cs" />
+    <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="Commands\CellCommand.cs" />
     <Compile Include="ViewModel\CellViewModel.cs" />
     <Compile Include="ViewModel\GameViewModel.cs" />

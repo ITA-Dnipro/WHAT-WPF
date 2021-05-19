@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-using BattleshipLibrary;
+
 
 namespace Battleship_WPF
 {

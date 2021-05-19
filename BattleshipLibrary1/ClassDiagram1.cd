@@ -15,14 +15,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="BattleshipLibrary.DestroyedShipEventArgs">
-    <Position X="7.5" Y="1.75" Width="1.5" />
+    <Position X="7.5" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAEAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Classes\DestroyedShipEventArgs.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="BattleshipLibrary.InjuredShipEventArgs">
-    <Position X="9.5" Y="1.75" Width="1.5" />
+    <Position X="9.5" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Classes\InjuredShipEventArgs.cs</FileName>
