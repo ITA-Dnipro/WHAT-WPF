@@ -1,0 +1,45 @@
+﻿<UserControl x:Name="MyControl" x:Class="TestButtons.Control.TicTocControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TestButtons.Control"
+             
+             xmlns:converter ="clr-namespace:TestButtons.Converters"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             mc:Ignorable="d" 
+             d:DesignHeight="650" d:DesignWidth="650">
+
+    <UserControl.Resources>
+        <converter:Converter x:Key="MyNewConverter"/>
+    </UserControl.Resources>
+
+    <Grid x:Name="myGrid">
+
+        <ItemsControl ItemsSource="{Binding MyField, ElementName=MyControl}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    
+                    <UniformGrid Rows="{Binding Quantity, ElementName=MyControl}" 
+                                 Columns="{Binding Quantity, ElementName=MyControl}" 
+                                 IsEnabled="{Binding DataContext.EnableField, ElementName=MyControl}"/>
+                    
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                    <Button  Content="{Binding MarkTypes, UpdateSourceTrigger=PropertyChanged}">
+                        <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction  CommandParameter="{Binding Path=.}" 
+                             Command="{Binding DataContext.CheckWinning, ElementName=MyControl}"/>
+                        </i:EventTrigger>
+                        </i:Interaction.Triggers> 
+                    </Button>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+       </ItemsControl>
+        
+    </Grid>
+</UserControl>
