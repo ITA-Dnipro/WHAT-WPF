@@ -387,7 +387,7 @@
                 Visibility="{Binding IsVisible, Converter={StaticResource VisibilityStatus}}">
             <Grid>
                 <TextBlock Text="{Binding Path=WinnerStatus}"
-                       Foreground="BlueViolet"
+                       Foreground="Yellow"
                        FontSize="50"
                        FontWeight="Bold"
                        HorizontalAlignment="Center"

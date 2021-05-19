@@ -46,6 +46,7 @@ namespace Battleship_WPF
         private int _oneDeckPlayerShipsCount;
         private string _winnerSatus;
         private bool _isVisible;
+        private bool _isPlayerTurn;
         #endregion
 
         public GameViewModel(Level currentLevel)
@@ -98,7 +99,7 @@ namespace Battleship_WPF
 
                         GetPlayerShot(cell.Coord);
                     },
-                    obj => obj is CellViewModel cell));
+                    obj => obj is CellViewModel cell && _isPlayerTurn));
             }
         }
 
@@ -107,6 +108,7 @@ namespace Battleship_WPF
             _isAlivePlayerAfterRigthShoot = false;
             _isTargetEnemy = false;
             _isTargetPlayer = false;
+            _isPlayerTurn = true;
             _targetCoords = string.Empty;
             _playerMap = new Sea(HEIGTH);
             _enemyMap = new Sea(HEIGTH);
@@ -245,6 +247,7 @@ namespace Battleship_WPF
 
             if (!_isTargetEnemy)
             {
+                _isPlayerTurn = false;
                 GetEnemyShot();
             }
         }
@@ -368,6 +371,8 @@ namespace Battleship_WPF
                 }
 
             } while (_isTargetPlayer);
+
+            _isPlayerTurn = true;
         }
 
         private void ShotWithoutIntellegence()
@@ -396,6 +401,8 @@ namespace Battleship_WPF
                 }
 
             } while (_isTargetPlayer);
+
+            _isPlayerTurn = true;
         }
 
         private void ChangeInjuredCellOfPlayer(object sender, InjuredShipEventArgs e)
