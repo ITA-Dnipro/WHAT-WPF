@@ -12,7 +12,7 @@
         Style="{DynamicResource WindowStyle}">
 
     <Window.Resources>
-        <ResourceDictionary Source="BattleshipDictionary.xaml" />
+        <ResourceDictionary Source="Styles/BattleshipDictionary.xaml" />
     </Window.Resources>
 
     <Grid>

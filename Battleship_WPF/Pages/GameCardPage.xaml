@@ -10,7 +10,7 @@
       Style="{DynamicResource GameCardPageStyle}">
 
     <Page.Resources>
-        <ResourceDictionary Source="../GameCardDictionary.xaml"/>
+        <ResourceDictionary Source="../Styles/GameCardDictionary.xaml"/>
     </Page.Resources>
 
     <Grid x:Name="GameCardGrid">
