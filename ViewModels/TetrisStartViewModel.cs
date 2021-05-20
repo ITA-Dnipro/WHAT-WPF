@@ -47,7 +47,7 @@ namespace Tetris.ViewModels
             get => _score;
             set
             {
-                _score += value;
+                _score = value;
                 OnPropertyChanged();
             }
         }
