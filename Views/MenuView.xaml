@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Tetris.Views"
       mc:Ignorable="d" 
       Width="250" Height="250"
-      Title="MenuView"
+      Title="Menu"
       Background="{StaticResource windowBackground}"
         WindowStartupLocation="CenterScreen">
 

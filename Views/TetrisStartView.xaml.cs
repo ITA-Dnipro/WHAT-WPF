@@ -22,6 +22,7 @@ namespace Tetris.Views
             InitializeFields();
             InitializeDataContext();
             InitializeMessageBox();
+            InitializeTimer();
         }
 
         private TetrisStartViewModel _startViewModel;
@@ -57,6 +58,14 @@ namespace Tetris.Views
 
             // default max width is the width of the primary screen's work area minus 100 pixels
             MessageBoxEx.SetMaxFormWidth(1000);
+        }
+
+        private void InitializeTimer()
+        {
+            timer = new Timer
+            {
+                Interval = _startViewModel.TimeOut,
+            };
         }
 
         private void CreateMainGrid()
@@ -140,11 +149,8 @@ namespace Tetris.Views
 
             ButtonPauseActivate();
 
-
-            if (_startViewModel.IsPaused)
-            {
-                _startViewModel.IsPaused = true;
-            }
+            timer.Elapsed -= MoveDownByThread;
+            timer.Elapsed += MoveDownByThread;
 
             if (!timer.Enabled)
             {
@@ -167,31 +173,10 @@ namespace Tetris.Views
             switch (e.Key)
             {
                 case Key.F11:
-                    if (this.WindowState == WindowState.Normal)
-                    {
-                        this.WindowState = WindowState.Maximized;
-                    }
-                    else
-                    {
-                        this.WindowState = WindowState.Normal;
-                    }
+                    ChangeWindowState();
                     break;
                 case Key.Escape:
-
-                    if (_startViewModel.IsPaused == false && _startViewModel.MovingShape != null)
-                    {
-                        _startViewModel.SetGameOnPause();
-                    }
-
-                    MessageBoxResult exitResult = MessageBoxEx.Show("Do you really want exit to main menu?", "Exit", MessageBoxButton.YesNo, this);
-
-                    if (exitResult == MessageBoxResult.Yes)
-                    {
-                        MenuView menu = new MenuView();
-                        menu.Show();
-                        this.Close();
-                    }
-
+                    EscapeFromProgram();
                     break;
                 case Key.Up: 
                 case Key.Down: 
@@ -202,10 +187,40 @@ namespace Tetris.Views
             }
         }
 
+        private void ChangeWindowState()
+        {
+            if (this.WindowState == WindowState.Normal)
+            {
+                this.WindowState = WindowState.Maximized;
+            }
+            else
+            {
+                this.WindowState = WindowState.Normal;
+            }
+        }
+
+        private void EscapeFromProgram()
+        {
+            if (_startViewModel.IsPaused == false && _startViewModel.MovingShape != null)
+            {
+                _startViewModel.SetGameOnPause();
+            }
+
+            MessageBoxResult exitResult = MessageBoxEx.Show("Do you really want exit to main menu?", "Exit", MessageBoxButton.YesNo, this);
+
+            if (exitResult == MessageBoxResult.Yes)
+            {
+                MenuView menu = new MenuView();
+                menu.Show();
+                this.Close();
+            }
+        }
+
         void MoveDownByThread(Object source, ElapsedEventArgs e)
         {
             if (_startViewModel.IsEndOfGame)
             {
+                timer.Elapsed -= MoveDownByThread;
                 timer.Stop();
             }
             else
@@ -316,18 +331,6 @@ namespace Tetris.Views
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             CreateMainGrid();
-
-            InitializeTimer();
-        }
-
-       private void InitializeTimer()
-        {
-            timer = new Timer
-            {
-                Interval = _startViewModel.TimeOut,
-            };
-
-            timer.Elapsed += MoveDownByThread;
         }
 
         private void Button__EndGame_Click(object sender, RoutedEventArgs e)
