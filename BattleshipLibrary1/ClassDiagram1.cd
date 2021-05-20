@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BattleshipLibrary.AdvancedIntelligence">
+    <Position X="3.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RAAAAAAIAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\AdvancedIntelligence.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BattleshipLibrary.Constants" Collapsed="true">
+    <Position X="11.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABACAAAAAAAEAAEAAAQAAAAAAigAACAgEAAAAAgA=</HashCode>
+      <FileName>Classes\Constants.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BattleshipLibrary.DestroyedShipEventArgs">
+    <Position X="7.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\DestroyedShipEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BattleshipLibrary.InjuredShipEventArgs">
+    <Position X="9.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\InjuredShipEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BattleshipLibrary.Intelligence">
+    <Position X="3.5" Y="1.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>QAAAACAAAQAAAAAEAEAAAAAAAAACCAAAAGAAAAAAQAA=</HashCode>
+      <FileName>Classes\Intelligence.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BattleshipLibrary.MissedShotEventArgs">
+    <Position X="9.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Classes\MissedShotEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BattleshipLibrary.RandomCoords" Collapsed="true">
+    <Position X="11.75" Y="2.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAMACkIAAAAFICAAAAAECAgAAAEAQAwQQAAggAAAEA=</HashCode>
+      <FileName>Classes\RandomCoords.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BattleshipLibrary.Sea">
+    <Position X="5.5" Y="1.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>ACBMgAAEAUAgAAAACEDCgACBGgAQgCkBAgiAWkAAEAA=</HashCode>
+      <FileName>Classes\Sea.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BattleshipLibrary.Ship">
+    <Position X="1.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IQAAAAAIAAACAAAACAAAAAQAAIAAAQAAQAAAAAAAAAA=</HashCode>
+      <FileName>Classes\Ship.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="BattleshipLibrary.Position">
+    <Position X="7.5" Y="4.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAFAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Structs\Position.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Delegate Name="BattleshipLibrary.GetMissedCell" Collapsed="true">
+    <Position X="11.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Delegates\GetMissedCell.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="BattleshipLibrary.GetInjuredDeck" Collapsed="true">
+    <Position X="11.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAACQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Delegates\GetInjuredDeck.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="BattleshipLibrary.GetDestroyedShip" Collapsed="true">
+    <Position X="11.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Delegates\GetDestroyedShip.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Battleship_WPF.AdvancedIntelligence">
+    <Position X="1" Y="5.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>RAAAAAAIAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\AdvancedIntelligence.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Battleship_WPF.Constants" Collapsed="true">
+    <Position X="12.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABACAAAAAAAEAAEAAAQAAAAAAigAACAgEAAAAAgA=</HashCode>
+      <FileName>Classes\Constants.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Battleship_WPF.Intelligence">
+    <Position X="1" Y="1.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>QAAAACAAAQAAAAAEAEAAAAAAAAACCAAAAGAAAAAAQAA=</HashCode>
+      <FileName>Classes\Intelligence.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Battleship_WPF.RandomCoords" Collapsed="true">
+    <Position X="12.25" Y="3.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAMACkIAAAAFICAAAAAECAgAAAEAQAwQQAAggAAAEA=</HashCode>
+      <FileName>Classes\RandomCoords.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Battleship_WPF.Sea">
+    <Position X="7.5" Y="0.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>ACBMgAAEAUAgAAAACEDCgACBGgAQgCkBAgiAWkAAEAA=</HashCode>
+      <FileName>Classes\Sea.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Battleship_WPF.Ship">
+    <Position X="9.75" Y="4" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>IQAAAAAIAAACAAAACAAAAAQAAIAAAQAAQAAAAAAAAAA=</HashCode>
+      <FileName>Classes\Ship.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Battleship_WPF.BaseViewModel">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\BaseViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Battleship_WPF.CellViewModel">
+    <Position X="3" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAEAAAIAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\CellViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Battleship_WPF.GameViewModel">
+    <Position X="5.25" Y="3" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>hIJAACAQCDAEEICQAUASAACAAGYWMAIAoEkCIpkARY4=</HashCode>
+      <FileName>ViewModel\GameViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Battleship_WPF.StyleConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\StyleConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.179" />
+  </Class>
+  <Class Name="Battleship_WPF.VisibilityConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\VisibilityConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Struct Name="Battleship_WPF.Position">
+    <Position X="9.75" Y="1.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAFAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Structs\Position.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Delegate Name="Battleship_WPF.GetDestroyedShip" Collapsed="true">
+    <Position X="12.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Delegates\GetDestroyedShip.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="Battleship_WPF.GetInjuredDeck" Collapsed="true">
+    <Position X="12.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Delegates\GetInjuredDeck.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="Battleship_WPF.GetMissedCell" Collapsed="true">
+    <Position X="12.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Delegates\GetMissedCell.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
