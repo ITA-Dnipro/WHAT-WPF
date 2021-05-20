@@ -1,82 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using _2048.Enums;
-using _2048.Models;
+using _2048.View;
+
 
 namespace _2048.Services
 {
-	public class CellValueGenerator : INotifyPropertyChanged //TODO: Rename? Replace? OnPropertyChangedClass
+	public class CellValueGenerator
     {
-        private bool _isGameOver;
-        private int _freeCellsCounter;
-
-        public List<Cell> freeCells;
-        Random random;
-
-        public bool IsGameOver
+		public void Generate (List<Cell> freeCellsList, int freeCellsCounter)
         {
-            get 
-            { 
-                return _isGameOver; 
-            }
-            set
-            {
-                _isGameOver = value;
-                OnPropertyChanged();
-            }
-        }
+			Random _random = new Random();
+            int randomIndex = _random.Next(freeCellsCounter);
 
-        public int FreeCellsCounter
-        {
-            get
+            if (_random.NextDouble() > 0.1)
             {
-                return _freeCellsCounter;
-            }
-            set
-            {
-                _freeCellsCounter = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public CellValueGenerator(Board board)
-        {
-            _isGameOver = false;
-
-            random = new Random();
-            freeCells = new List<Cell>();
-
-            foreach (Cell cell in board.cells)
-            {
-                if (cell.Value == 0)
-                {
-                    freeCells.Add(cell);
-                }
-            }
-
-            if (freeCells.Count == 0)
-            {
-                IsGameOver = true;
+                freeCellsList[randomIndex].Value = CellValue.One;
             }
             else
             {
-                int randomIndex = random.Next(freeCells.Count());
-
-                if (random.NextDouble() > 0.1)
-                {
-                    freeCells[randomIndex].Value = CellValue.One;
-                }
-                else
-                {
-                    freeCells[randomIndex].Value = CellValue.Two;
-                }
-
-                freeCells.Remove(freeCells[randomIndex]);
-
-                FreeCellsCounter = freeCells.Count() - 1;
+                freeCellsList[randomIndex].Value = CellValue.Two;
             }
         }
 

@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using _2048.Enums;
+using _2048.Utils;
 
-namespace _2048.Models
+
+namespace _2048.View
 {
-	public class Cell : INotifyPropertyChanged //TODO: Rename, Replace, OnPropertyChangedClass
+	public class Cell : OnPropertyChangedClass
 	{
 		private CellValue _value = 0;
 		private bool _isSum = false;
@@ -28,7 +30,6 @@ namespace _2048.Models
 			set
 			{
 				_isSum = value;
-				OnPropertyChanged();
 			}
 		}
 
@@ -36,13 +37,6 @@ namespace _2048.Models
 		{
 			RowPosition = rowPosition;
 			ColumnPosition = columnPosition;
-		}
-
-		public event PropertyChangedEventHandler PropertyChanged;
-
-		public void OnPropertyChanged([CallerMemberName] string prop = "")
-		{
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
 		}
 	}
 }

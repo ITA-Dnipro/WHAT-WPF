@@ -1,15 +1,17 @@
 ﻿using System.Collections.Generic;
 using _2048.Services;
-using _2048.Models;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using _2048.Enums;
+using GalaSoft.MvvmLight.Command;
+using System.Windows.Input;
+using _2048.Utils;
 
 namespace _2048.View
 {
-	public class ViewModel : INotifyPropertyChanged //TODO: OnPropertyChangedClass
+	public class ViewModel : OnPropertyChangedClass 
 	{
-		private CellValueGenerator _generator;
+		private bool _isGameOver;
 		private CellValueMover _mover;
 		private List<Cell> _cells;
 
@@ -17,7 +19,7 @@ namespace _2048.View
 		{
 			get
 			{
-				return _cells;
+				return _mover.board.cellsList;
 			}
 			set
 			{
@@ -30,7 +32,12 @@ namespace _2048.View
 		{
 			get
 			{
-				return _generator.IsGameOver;
+				return _isGameOver;
+			}
+			private set
+			{
+				_isGameOver = value;
+				OnPropertyChanged();
 			}
 		}
 
@@ -40,26 +47,47 @@ namespace _2048.View
 			{
 				return _mover.calculator.Score;
 			}
+			private set
+			{
+				OnPropertyChanged();
+			}
 		}
 
 		List<string> Properties = new List<string>() 
 		{ 
-			nameof(CellValueCalculator.Score) 
+			nameof(CellValueCalculator.Score)
 		};
+
+		public ICommand NewGameCommand
+		{
+			get
+			{
+				return new RelayCommand(() => Initialize());
+			}
+		}
 
 		public ViewModel()
 		{
 			Initialize();
 		}
 
-		public void Initialize()
+		private void Initialize()
 		{
+			if (_mover != null)
+			{
+				_mover.calculator.PropertyChanged -= Model_PropertyChanged;
+			}
+
 			_mover = new CellValueMover();
-			_generator = new CellValueGenerator(_mover.board);
 			Cells = _mover.board.cellsList;
+			IsGameOver = false;
+			Score = 0;
+
 			_mover.calculator.PropertyChanged += Model_PropertyChanged;
 
-			new CellValueGenerator(_mover.board);
+			_mover.generator.Generate(_mover.board.GetFreeCells(), _mover.board.GetFreeCells().Count);
+			_mover.generator.Generate(_mover.board.GetFreeCells(), _mover.board.GetFreeCells().Count);
+
 		}
 
 		public void NextStep(string control)
@@ -83,6 +111,9 @@ namespace _2048.View
 				case "Right":
 					_mover.Step(MoveDirection.Right);
 					break;
+				case "Space":
+					TestMode();
+					break;
 			}
 		}
 
@@ -95,11 +126,11 @@ namespace _2048.View
 			}
 		}
 
-		public event PropertyChangedEventHandler PropertyChanged;
-
-		public void OnPropertyChanged([CallerMemberName] string prop = "")
+		private void TestMode()
 		{
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+			_mover.board.cellsList = new Test().GetTestCells();
+			IsGameOver = true;
+			OnPropertyChanged("Cells");
 		}
 	}
 }

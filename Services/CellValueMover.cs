@@ -1,13 +1,17 @@
-﻿using System;
-using _2048.Enums;
+﻿using _2048.Enums;
 using _2048.Models;
+using _2048.View;
+using _2048.Utils;
+
 
 namespace _2048.Services
 {
-	public class CellValueMover
-	{
+    public class CellValueMover
+    {
         public Board board = new Board();
+        public CellValueGenerator generator = new CellValueGenerator();
         public CellValueCalculator calculator = new CellValueCalculator();
+        public Validator validator = new Validator();
 
         public void Step(MoveDirection direction)
         {
@@ -36,8 +40,7 @@ namespace _2048.Services
 
             if (calculator.isMoved)
             {
-
-                new CellValueGenerator(board);
+                generator.Generate(board.GetFreeCells(), board.GetFreeCells().Count);
             }
         }
 
@@ -50,6 +53,8 @@ namespace _2048.Services
                     Move(rowPosition, columnPosition, MoveDirection.Up);
                 }
             }
+
+            return;
         }
 
         public void Down()
@@ -61,6 +66,8 @@ namespace _2048.Services
                     Move(rowPosition, columnPosition, MoveDirection.Down);
                 }
             }
+
+            return;
         }
 
         public void Left()
@@ -72,6 +79,8 @@ namespace _2048.Services
                     Move(rowPosition, columnPosition, MoveDirection.Left);
                 }
             }
+
+            return;
         }
 
         public void Right()
@@ -83,44 +92,34 @@ namespace _2048.Services
                     Move(rowPosition, columnPosition, MoveDirection.Right);
                 }
             }
+
+            return;
         }
 
         public void Move(int rowPosition, int columnPosition, MoveDirection direction)
         {
-            if (rowPosition < 0             //TODO: Method
-                    || rowPosition > 3 
-                    || columnPosition < 0 
-                    || columnPosition > 3)
-            {
-                throw new Exception("Exception in Move"); //TODO: Handle
-            }
-
             Cell currentCell = board.cells[rowPosition, columnPosition];
 
             int targetRow = 0;
             int targetCol = 0;
 
-			switch (direction)
+            switch (direction)
             {
-                case MoveDirection.Left: 
-                    targetCol = -1; 
+                case MoveDirection.Left:
+                    targetCol = -1;
                     break;
-                case MoveDirection.Right: 
-                    targetCol = +1; 
+                case MoveDirection.Right:
+                    targetCol = +1;
                     break;
-                case MoveDirection.Up: 
-                    targetRow = -1; 
+                case MoveDirection.Up:
+                    targetRow = -1;
                     break;
-                case MoveDirection.Down: 
-                    targetRow = +1; 
+                case MoveDirection.Down:
+                    targetRow = +1;
                     break;
             }
 
-            while (currentCell != null  //TODO: Method
-                    && currentCell.RowPosition + targetRow >= 0
-                    && currentCell.RowPosition + targetRow <= 3
-                    && currentCell.ColumnPosition + targetCol >= 0
-                    && currentCell.ColumnPosition + targetCol <= 3)
+            while (validator.IsCellInBoardRange(currentCell, targetRow, targetCol))
             {
                 currentCell = calculator.Calculate(currentCell,
                         board.cells[currentCell.RowPosition + targetRow, currentCell.ColumnPosition + targetCol]);

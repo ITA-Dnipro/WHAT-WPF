@@ -3,10 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:_2048"
 		xmlns:localView="clr-namespace:_2048.View"
-		xmlns:localModels="clr-namespace:_2048.Models"
 		xmlns:localEnums="clr-namespace:_2048.Enums"
+		xmlns:localUtils="clr-namespace:_2048.Utils"
+		xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+
 		mc:Ignorable="d"
         Title="MainWindow"
 		Height="500"
@@ -16,7 +17,7 @@
 	<Window.DataContext>
 		<localView:ViewModel/>
 	</Window.DataContext>
-	
+
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
@@ -25,13 +26,21 @@
 
 		<StackPanel Background="SandyBrown" 
 >
-			<Button Background="SaddleBrown"					
+			<Button Name="Button"
+					Background="SaddleBrown"					
 					BorderBrush="SandyBrown"
 					Cursor="Hand"
 					Margin="5"
-					Height ="70"
-					Click="Button_Click">
-				
+					Height ="70">
+				<i:Interaction.Triggers>
+					<i:EventTrigger EventName="Click">
+						<i:InvokeCommandAction
+							CommandParameter="{Binding Path=.}"
+							Command="{Binding ElementName=Button,
+										Path=DataContext.NewGameCommand}"/>
+					</i:EventTrigger>
+				</i:Interaction.Triggers>
+
 				<Label HorizontalContentAlignment="Center"
 					   VerticalContentAlignment="Center"
 					   Foreground="SandyBrown"
@@ -41,33 +50,50 @@
 					   BorderThickness="5">NEW GAME
 				</Label>
 			</Button>
-			
+
 			<TextBlock Height="50"
 					   TextAlignment="Center">
 				<Run Text="{Binding Score, Mode=OneWay}"					   
-					 FontSize="30" 					   
+					 FontSize="30" 
+					 Foreground="Black"
 					 FontWeight="Bold"/>
 			</TextBlock>
-			
 		</StackPanel>
 
 		<ItemsControl Grid.Row="1" 
 					  ItemsSource="{Binding Cells}">
 			<ItemsControl.Resources>
-				<local:IntConverter x:Key="IntConverter"/>
+				<localUtils:IntConverter x:Key="IntConverter"/>
+				<localUtils:ColorConverter x:Key="ColorConverter"/>
 			</ItemsControl.Resources>
+
 			<ItemsControl.ItemsPanel>
 				<ItemsPanelTemplate>
 					<UniformGrid Rows="4" 
 								 Columns="4"/>
 				</ItemsPanelTemplate>
 			</ItemsControl.ItemsPanel>
-			
+
 			<ItemsControl.ItemTemplate>
-				<DataTemplate DataType="{x:Type localModels:Cell}">
+				<DataTemplate DataType="{x:Type localView:Cell}">
 					<Border BorderBrush="SandyBrown"
-							BorderThickness="5"
-							Background="SaddleBrown">
+							BorderThickness="5">
+
+						<Border.Style>
+							<Style TargetType="Border">
+								<Setter Property="Background" 
+												Value="{Binding Value,
+														Converter={StaticResource ColorConverter}}"/>
+								<Style.Triggers>
+									<DataTrigger Binding="{Binding Value}" 
+														 Value="{x:Static localEnums:CellColor.SaddleBrown}">
+										<Setter Property="Background"
+														Value="{x:Null}"/>
+									</DataTrigger>
+								</Style.Triggers>
+							</Style>
+						</Border.Style>
+
 						<Viewbox>
 							<Label HorizontalContentAlignment="Center"
 								   VerticalContentAlignment="Center"
@@ -81,7 +107,7 @@
 												Value="{Binding Value,
 														Converter={StaticResource IntConverter}}"/>
 										<Setter Property="Foreground" 
-												Value="White"/>
+												Value="Black"/>
 										<Setter Property="BorderBrush" 
 												Value="Transparent"/>
 										<Style.Triggers>
@@ -98,7 +124,7 @@
 					</Border>
 				</DataTemplate>
 			</ItemsControl.ItemTemplate>
-			
+
 			<ItemsControl.ItemContainerStyle>
 				<Style>
 					<Setter Property="Control.HorizontalContentAlignment"
@@ -107,7 +133,6 @@
 							Value="Stretch"/>
 				</Style>
 			</ItemsControl.ItemContainerStyle>
-			
 		</ItemsControl>
 
 		<InkCanvas Name="inkCanvas" 
@@ -122,7 +147,31 @@
 				<DrawingAttributes Color = "Transparent"/>
 			</InkCanvas.DefaultDrawingAttributes>
 		</InkCanvas>
-		
+
+		<Viewbox Grid.Row="1"
+				 Panel.ZIndex="10">
+			<TextBlock TextAlignment="Center" 
+					   FontWeight="Bold"
+					   HorizontalAlignment="Center"
+					   Margin="1"
+					   Foreground="LightYellow"
+					   Opacity="0.70">
+				<TextBlock.Style>
+					<Style TargetType="TextBlock">
+						<Setter Property="Text"
+								Value="TRY&#10;AGAIN"/>
+						<Style.Triggers>
+							<DataTrigger Binding="{Binding IsGameOver}"
+										 Value="false">
+								<Setter Property="Text"
+										Value="{x:Null}"/>
+							</DataTrigger>
+						</Style.Triggers>
+					</Style>
+				</TextBlock.Style>
+			</TextBlock>
+		</Viewbox>
+
 	</Grid>
 </Window>
 

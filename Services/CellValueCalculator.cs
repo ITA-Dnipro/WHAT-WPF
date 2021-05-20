@@ -1,18 +1,19 @@
 ﻿using System;
-using _2048.Models;
 using _2048.Enums;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using _2048.View;
+using _2048.Utils;
+
+
 
 namespace _2048.Services
 {
-	public class CellValueCalculator : INotifyPropertyChanged
+	public class CellValueCalculator : OnPropertyChangedClass
 	{
 		private int _score;
 
 		public bool isMoved = true;
 
-		public int Score
+		public int Score 
 		{
 			get
 			{
@@ -27,12 +28,7 @@ namespace _2048.Services
 
 		public Cell Calculate(Cell currentCell, Cell targetCell)
 		{
-			if (currentCell == null				//TODO: Method
-					|| targetCell == null
-					|| currentCell.Value == 0
-					|| currentCell.IsSum == true
-					|| targetCell.IsSum == true
-					|| (targetCell.Value != 0 && targetCell.Value != currentCell.Value))
+			if (!IsCanCalculate(currentCell, targetCell))
 			{
 				return null;
 			}
@@ -53,11 +49,6 @@ namespace _2048.Services
 			{
 				int sumValue = (int)targetCell.Value + (int)currentCell.Value;
 
-				if (!Enum.IsDefined(typeof(CellValue), sumValue))
-				{
-					throw new Exception("Exception in sumValue"); //TODO: Handle
-				}
-
 				targetCell.Value = (CellValue)sumValue;
 				currentCell.Value = 0;
 
@@ -70,14 +61,24 @@ namespace _2048.Services
 				return targetCell;
 			}
 
-			throw new Exception("Exception in CellValueMover"); //TODO: Handle
+			throw new Exception("Exception in Calculate");
 		}
 
-		public event PropertyChangedEventHandler PropertyChanged;
-
-		public void OnPropertyChanged([CallerMemberName] string prop = "")
+		private bool IsCanCalculate(Cell currentCell, Cell targetCell)
 		{
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+			if (currentCell == null             
+					|| targetCell == null
+					|| currentCell.Value == 0
+					|| currentCell.IsSum == true
+					|| targetCell.IsSum == true
+					|| (targetCell.Value != 0 && targetCell.Value != currentCell.Value))
+			{
+				return false;
+			}
+			else
+			{
+				return true;
+			}
 		}
 	}
 }

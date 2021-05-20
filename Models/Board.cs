@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using _2048.View;
+using _2048.Enums;
+
 
 namespace _2048.Models
 {
@@ -6,6 +9,7 @@ namespace _2048.Models
 	{
 		public Cell[,] cells;
 		public List<Cell> cellsList = new List<Cell>();
+		public List<Cell> freeCellsList;
 
 		public Board()
 		{
@@ -19,6 +23,22 @@ namespace _2048.Models
 					cellsList.Add(cells[rowPosition, columnPosition]);
 				}
             }
+
+			//GetFreeCells();
+		}
+
+		public List<Cell> GetFreeCells()
+		{
+			freeCellsList = new List<Cell>();
+
+			foreach (Cell cell in cells)
+			{
+				if (cell.Value == CellValue.None)
+				{
+					freeCellsList.Add(cell);
+				}
+			}
+			return freeCellsList;
 		}
 	}
 }

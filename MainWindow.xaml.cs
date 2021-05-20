@@ -1,9 +1,7 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Ink;
 using System.Windows.Input;
-using _2048.Enums;
 using _2048.View;
 
 namespace _2048
@@ -36,10 +34,5 @@ namespace _2048
 
             viewModel.NextStep(gesture);
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e) //TODO: Command
-        {
-            viewModel.Initialize();
-		}
 	}
 }
