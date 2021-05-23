@@ -7,24 +7,26 @@ namespace _2048.Models
 {
 	public class Board
 	{
+		public int length = 4;
+		public int width = 4;
+
 		public Cell[,] cells;
-		public List<Cell> cellsList = new List<Cell>();
+		public List<Cell> cellsList;
 		public List<Cell> freeCellsList;
 
 		public Board()
 		{
-			cells = new Cell [4,4];
+			cells = new Cell [length, width];
+			cellsList = new List<Cell>();
 
-            for (int rowPosition = 0; rowPosition < 4; rowPosition++)
+			for (int rowPosition = 0; rowPosition < length; rowPosition++)
             {
-				for (int columnPosition = 0; columnPosition < 4; columnPosition++)
+				for (int columnPosition = 0; columnPosition < width; columnPosition++)
 				{
 					cells[rowPosition, columnPosition] = new Cell(rowPosition, columnPosition);
 					cellsList.Add(cells[rowPosition, columnPosition]);
 				}
             }
-
-			//GetFreeCells();
 		}
 
 		public List<Cell> GetFreeCells()

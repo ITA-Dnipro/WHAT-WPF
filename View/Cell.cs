@@ -16,7 +16,10 @@ namespace _2048.View
 
 		public CellValue Value
 		{
-			get { return _value; }
+			get
+			{ 
+				return _value; 
+			}
 			set
 			{
 				_value = value;
@@ -26,7 +29,10 @@ namespace _2048.View
 
 		public bool IsSum
 		{
-			get { return _isSum; }
+			get 
+			{ 
+				return _isSum; 
+			}
 			set
 			{
 				_isSum = value;

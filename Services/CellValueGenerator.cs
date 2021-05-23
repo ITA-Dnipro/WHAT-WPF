@@ -24,12 +24,5 @@ namespace _2048.Services
                 freeCellsList[randomIndex].Value = CellValue.Two;
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-        }
     }
 }

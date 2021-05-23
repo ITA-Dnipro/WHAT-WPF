@@ -69,8 +69,8 @@
 
 			<ItemsControl.ItemsPanel>
 				<ItemsPanelTemplate>
-					<UniformGrid Rows="4" 
-								 Columns="4"/>
+					<UniformGrid Rows="{Binding BoardLength}" 
+								 Columns="{Binding BoardWidth}"/>
 				</ItemsPanelTemplate>
 			</ItemsControl.ItemsPanel>
 
@@ -82,11 +82,11 @@
 						<Border.Style>
 							<Style TargetType="Border">
 								<Setter Property="Background" 
-												Value="{Binding Value,
-														Converter={StaticResource ColorConverter}}"/>
+										Value="{Binding Value,
+												Converter={StaticResource ColorConverter}}"/>
 								<Style.Triggers>
 									<DataTrigger Binding="{Binding Value}" 
-														 Value="{x:Static localEnums:CellColor.SaddleBrown}">
+												 Value="{x:Static localEnums:CellColor.SaddleBrown}">
 										<Setter Property="Background"
 														Value="{x:Null}"/>
 									</DataTrigger>

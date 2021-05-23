@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using _2048.View;
+﻿using _2048.View;
 
 namespace _2048.Utils
 {

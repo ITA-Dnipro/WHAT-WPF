@@ -1,19 +1,17 @@
 ﻿using System.Collections.Generic;
-using _2048.Services;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using _2048.Enums;
-using GalaSoft.MvvmLight.Command;
 using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
+using _2048.Services;
 using _2048.Utils;
+using _2048.Enums;
 
 namespace _2048.View
 {
 	public class ViewModel : OnPropertyChangedClass 
 	{
-		private bool _isGameOver;
 		private CellValueMover _mover;
-		private List<Cell> _cells;
 
 		public List<Cell> Cells
 		{
@@ -23,7 +21,6 @@ namespace _2048.View
 			}
 			set
 			{
-				_cells = value;
 				OnPropertyChanged();
 			}
 		}
@@ -32,12 +29,27 @@ namespace _2048.View
 		{
 			get
 			{
-				return _isGameOver;
+				return _mover.IsGameOver;
 			}
 			private set
 			{
-				_isGameOver = value;
 				OnPropertyChanged();
+			}
+		}
+
+		public int BoardLength
+		{
+			get
+			{
+				return _mover.board.length;
+			}
+		}
+
+		public int BoardWidth
+		{
+			get
+			{
+				return _mover.board.width;
 			}
 		}
 
@@ -55,7 +67,8 @@ namespace _2048.View
 
 		List<string> Properties = new List<string>() 
 		{ 
-			nameof(CellValueCalculator.Score)
+			nameof(CellValueCalculator.Score),
+			nameof(CellValueMover.IsGameOver),
 		};
 
 		public ICommand NewGameCommand
@@ -75,6 +88,7 @@ namespace _2048.View
 		{
 			if (_mover != null)
 			{
+				_mover.PropertyChanged -= Model_PropertyChanged;
 				_mover.calculator.PropertyChanged -= Model_PropertyChanged;
 			}
 
@@ -83,11 +97,11 @@ namespace _2048.View
 			IsGameOver = false;
 			Score = 0;
 
+			_mover.PropertyChanged += Model_PropertyChanged;
 			_mover.calculator.PropertyChanged += Model_PropertyChanged;
 
-			_mover.generator.Generate(_mover.board.GetFreeCells(), _mover.board.GetFreeCells().Count);
-			_mover.generator.Generate(_mover.board.GetFreeCells(), _mover.board.GetFreeCells().Count);
-
+			_mover.EndStep();
+			_mover.EndStep();
 		}
 
 		public void NextStep(string control)
@@ -99,19 +113,19 @@ namespace _2048.View
 
 			switch (control)
 			{
-				case "Up":
-					_mover.Step(MoveDirection.Up);
-					break;
-				case "Down":
-					_mover.Step(MoveDirection.Down);
-					break;
 				case "Left":
-					_mover.Step(MoveDirection.Left);
+					_mover.PrepareStep(MoveDirection.Left);
 					break;
 				case "Right":
-					_mover.Step(MoveDirection.Right);
+					_mover.PrepareStep(MoveDirection.Right);
 					break;
-				case "Space":
+				case "Up":
+					_mover.PrepareStep(MoveDirection.Up);
+					break;
+				case "Down":
+					_mover.PrepareStep(MoveDirection.Down);
+					break;
+				case "End":
 					TestMode();
 					break;
 			}
@@ -129,7 +143,7 @@ namespace _2048.View
 		private void TestMode()
 		{
 			_mover.board.cellsList = new Test().GetTestCells();
-			IsGameOver = true;
+			_mover.IsGameOver = true;
 			OnPropertyChanged("Cells");
 		}
 	}

@@ -1,32 +1,74 @@
-﻿using _2048.Enums;
+﻿using System.Collections.Generic;
+using _2048.Enums;
 using _2048.Models;
 using _2048.View;
 using _2048.Utils;
 
-
 namespace _2048.Services
 {
-    public class CellValueMover
+    public class CellValueMover : OnPropertyChangedClass
     {
+        bool _isStepCheckMode;
+        bool _isStepPossible;
+        bool _isGameOver;
+
         public Board board = new Board();
+        public int freeCellsCounter;
+
         public CellValueGenerator generator = new CellValueGenerator();
         public CellValueCalculator calculator = new CellValueCalculator();
         public Validator validator = new Validator();
+        public List<Cell> freeCellsList;
+
+		public bool IsGameOver
+        {
+            get
+            {
+                return _isGameOver;
+            }
+            set
+            {
+                _isGameOver = value;
+                OnPropertyChanged();
+            }
+        }
+        
+
+        public void PrepareStep(MoveDirection direction)
+        {
+            _isStepCheckMode = false;
+            _isStepPossible = true;
+
+			if (_isStepPossible == true)
+            {
+                calculator.isMoved = false;
+
+                foreach (Cell cell in board.cellsList)
+                {
+                    cell.IsSum = false;
+                }
+
+                Step(direction);
+            }
+        }
+
+        private void CheckStepPossibility()
+        {
+            _isStepPossible = false;
+
+            for (int direction = 1; direction <= 4 && _isStepCheckMode == true; direction++)
+            {
+                Step((MoveDirection)direction);
+            }
+
+            _isStepCheckMode = false;
+            IsGameOver = !_isStepPossible;
+        }
 
         public void Step(MoveDirection direction)
         {
-            calculator.isMoved = false;
-
-            foreach (Cell cell in board.cellsList)
-            {
-                cell.IsSum = false;
-            }
-
             switch (direction)
             {
-                case MoveDirection.Down:
-                    Down();
-                    break;
                 case MoveDirection.Left:
                     Left();
                     break;
@@ -36,13 +78,32 @@ namespace _2048.Services
                 case MoveDirection.Up:
                     Up();
                     break;
+                case MoveDirection.Down:
+                    Down();
+                    break;
             }
 
-            if (calculator.isMoved)
+            if (_isStepCheckMode == false && calculator.isMoved)
             {
-                generator.Generate(board.GetFreeCells(), board.GetFreeCells().Count);
+                EndStep();
             }
         }
+
+        public void EndStep()
+        {
+            freeCellsList = board.GetFreeCells();
+            freeCellsCounter = freeCellsList.Count;
+            if (freeCellsCounter > 0)
+            {
+                generator.Generate(freeCellsList, freeCellsCounter);
+                --freeCellsCounter;
+            }
+			if (freeCellsCounter <= 0)
+			{
+				_isStepCheckMode = true;
+				CheckStepPossibility();
+			}
+		}
 
         public void Up()
         {
@@ -119,10 +180,27 @@ namespace _2048.Services
                     break;
             }
 
-            while (validator.IsCellInBoardRange(currentCell, targetRow, targetCol))
+            if (_isStepCheckMode == true)
             {
-                currentCell = calculator.Calculate(currentCell,
-                        board.cells[currentCell.RowPosition + targetRow, currentCell.ColumnPosition + targetCol]);
+                while (validator.IsCellInBoardRange(currentCell, targetRow, targetCol) && _isStepPossible == false)
+                {
+                    if (currentCell.Value == board.cells[currentCell.RowPosition + targetRow, currentCell.ColumnPosition + targetCol].Value)
+                    {
+                        _isStepPossible = true;
+                        break;
+                    }
+
+                    currentCell = board.cells[currentCell.RowPosition + targetRow, currentCell.ColumnPosition + targetCol];
+                }
+            }
+
+            else
+            {
+                while (validator.IsCellInBoardRange(currentCell, targetRow, targetCol))
+                {
+                    currentCell = calculator.Calculate(currentCell,
+                            board.cells[currentCell.RowPosition + targetRow, currentCell.ColumnPosition + targetCol]);
+                }
             }
         }
     }
