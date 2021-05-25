@@ -1,1 +1,2 @@
-# WHAT-WPF
+# TetrisWPF
+Game Tetris

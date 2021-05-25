@@ -1,0 +1,14 @@
+﻿<Application x:Class="Tetris.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Tetris"
+             StartupUri="/Views/MenuView.xaml">
+    <Application.Resources>
+        
+        <LinearGradientBrush x:Key="windowBackground" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#622878" Offset="0" />
+            <GradientStop Color="#671b82" Offset="1.0"/>
+        </LinearGradientBrush>
+
+    </Application.Resources>
+</Application>

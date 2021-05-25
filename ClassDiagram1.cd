@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Tetris.App" Collapsed="true">
+    <Position X="22" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tetris.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="22" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tetris.Models.Coordinate" BaseTypeListCollapsed="true">
+    <Position X="7.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYBA=</HashCode>
+      <FileName>Models\Coordinate.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tetris.Models.FieldFiller">
+    <Position X="12.75" Y="4.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAABAAAAAIAAAAAAAAAE=</HashCode>
+      <FileName>Models\FieldFiller.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tetris.ViewModels.TetrisStartViewModel">
+    <Position X="10" Y="1.75" Width="2" />
+    <AssociationLine Name="MovingShape" Type="Tetris.Models.Shape.BaseShape" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="11" Y="1.75" />
+        <Point X="11" Y="0.848" />
+        <Point X="5" Y="0.848" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="NextMovingShape" Type="Tetris.Models.Shape.BaseShape" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10.464" Y="1.75" />
+        <Point X="10.464" Y="1.146" />
+        <Point X="5" Y="1.146" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>gBAgBAICgCCAJgogIAABQSAhhAAQAAADAAhgEAQAYgA=</HashCode>
+      <FileName>ViewModels\TetrisStartViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Filler" />
+      <Property Name="FigureCreator" />
+      <Property Name="MovingShape" />
+      <Property Name="NextMovingShape" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tetris.Models.ShapeCreator">
+    <Position X="12.75" Y="6.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAgAAAAAAAAAAAAAAABBAABAA=</HashCode>
+      <FileName>Models\ShapeCreator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tetris.Models.Shape.BaseShape">
+    <Position X="3.5" Y="0.5" Width="1.5" />
+    <AssociationLine Name="movements" Type="Tetris.Models.Shape.IMovements" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5" Y="1.891" />
+        <Point X="6" Y="1.891" />
+        <Point X="6" Y="3.25" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Points" Type="Tetris.Models.Coordinate" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5" Y="1.562" />
+        <Point X="8.688" Y="1.562" />
+        <Point X="8.688" Y="3.25" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAEgAAAAAAAAAAAAAAAAEAAAAgAAAAAAAA=</HashCode>
+      <FileName>Models\Shape\BaseShape.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="movements" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Points" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Tetris.Models.Shape.ShapeI" Collapsed="true">
+    <Position X="1.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Shape\ShapeI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tetris.Models.Shape.ShapeJ" Collapsed="true">
+    <Position X="1.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Shape\ShapeJ.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tetris.Models.Shape.ShapeL" Collapsed="true">
+    <Position X="1.25" Y="2" Width="1.5" />
+    <InheritanceLine Type="Tetris.Models.Shape.BaseShape" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="4.25" Y="2.247" />
+        <Point X="4.25" Y="3.074" />
+        <Point X="2" Y="3.074" />
+        <Point X="2" Y="2.691" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Shape\ShapeL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tetris.Models.Shape.ShapeMovements" BaseTypeListCollapsed="true">
+    <Position X="5.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAIAIAAAAEAAAAAAAAAEAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Shape\ShapeMovements.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Tetris.Models.Shape.ShapeO" Collapsed="true">
+    <Position X="1.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Shape\ShapeO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tetris.Models.Shape.ShapeS" Collapsed="true">
+    <Position X="1.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Shape\ShapeS.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tetris.Models.Shape.ShapeT" Collapsed="true">
+    <Position X="1.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Shape\ShapeT.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tetris.Models.Shape.ShapeZ" Collapsed="true">
+    <Position X="1.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Shape\ShapeZ.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tetris.Properties.Resources" Collapsed="true">
+    <Position X="23.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tetris.Properties.Settings" Collapsed="true">
+    <Position X="22" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tetris.Views.MenuView" BaseTypeListCollapsed="true">
+    <Position X="18.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Views\MenuView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Tetris.Views.TetrisStartView" BaseTypeListCollapsed="true">
+    <Position X="15.5" Y="2" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQEQgACAAAIEEoEAARABggAAEAAQAYAAAANBgAAQBA=</HashCode>
+      <FileName>Views\TetrisStartView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_startViewModel" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="Tetris.Models.Shape.IMovements" Collapsed="true">
+    <Position X="5.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAIAAAAEAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Shape\IMovements.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
