@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="_2048.View.ViewModel">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACgAAAAQgBAAIIAAAAAAAAAASAAAAAAACCAAA=</HashCode>
+      <FileName>View\ViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_2048.View.Cell">
+    <Position X="4.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAABAAAABACAAAAAAAAAAAAAAAAAAAAAAAgAAEAAAA=</HashCode>
+      <FileName>View\Cell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_2048.MainWindow">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAIE=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="_2048.Services.CellValueCalculator">
+    <Position X="9.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAggAAAAAAAAAAGAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Services\CellValueCalculator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_2048.Services.CellValueGenerator">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Services\CellValueGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_2048.Services.CellValueMover">
+    <Position X="11.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABIAAIAAAAIAAAAAAAAAAAAAAAAAKACAAIAAAAI=</HashCode>
+      <FileName>Services\CellValueMover.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_2048.Models.Board">
+    <Position X="6" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAAgAAAAAACAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Board.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_2048.Utils.ColorConverter" Collapsed="true">
+    <Position X="9.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Utils\ColorConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="_2048.Utils.IntConverter" Collapsed="true">
+    <Position X="7.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Utils\IntConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="_2048.Utils.OnPropertyChangedClass" Collapsed="true">
+    <Position X="0.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Utils\OnPropertyChangedClass.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="_2048.Utils.Test" Collapsed="true">
+    <Position X="4.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Utils\Test.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_2048.Utils.Validator" Collapsed="true">
+    <Position X="2.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Utils\Validator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="_2048.Enums.CellColor" Collapsed="true">
+    <Position X="9.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YgACAAAAQQCQAgAGgAgAAgAAAAAAAAAAAAAgBAAAAIE=</HashCode>
+      <FileName>Enums\CellColor.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="_2048.Enums.CellValue" Collapsed="true">
+    <Position X="7.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gIAAAABAABAAgAAEkAAEAIAAAAAFJAAAAAgAAAkAAIA=</HashCode>
+      <FileName>Enums\CellValue.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="_2048.Enums.MoveDirection" Collapsed="true">
+    <Position X="11.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAACACAAAEAAAI=</HashCode>
+      <FileName>Enums\MoveDirection.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
